@@ -27,22 +27,26 @@ import { SocketClass } from "../staticClassProperty/StaticClassProperty";
 import { INotificationRepository } from "../interface/repository/notificationRepository";
 import { ENotification } from "../../entities/notification";
 import { catchError } from "../middlewares/catchError";
+import { ICloudSession } from "../interface/services/cloudSession";
 
 export class AdminUseCase implements IAdminUseCase {
   private readonly userRepository: IUserRepository;
   private readonly instrctorAgreementRepository: IInstructorAgreementRepository;
   private readonly categoryRepository: ICategoryRepository;
   private readonly notificationRepository: INotificationRepository;
+  private readonly cloudSession: ICloudSession;
   constructor(
     userRepository: IUserRepository,
     instrctorAgreementRepository: IInstructorAgreementRepository,
     categoryRepository: ICategoryRepository,
-    notificationRepository: INotificationRepository
+    notificationRepository: INotificationRepository,
+    cloudSession: ICloudSession
   ) {
     this.userRepository = userRepository;
     this.instrctorAgreementRepository = instrctorAgreementRepository;
     this.categoryRepository = categoryRepository;
     this.notificationRepository = notificationRepository;
+    this.cloudSession = cloudSession;
   }
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async approveOrRejectInstructor(
@@ -63,7 +67,19 @@ export class AdminUseCase implements IAdminUseCase {
           userId as string,
           ENotification.instructorRequestApproval
         );
+
       if (notificationRepoUpdate) {
+        const userSession = (await this.cloudSession.getUser(
+          userId as string
+        )) as string;
+        let parsedUserSession = JSON.parse(userSession);
+        parsedUserSession.role = "instructor";
+        await this.cloudSession.createUserSession(
+          userId as string,
+          parsedUserSession
+        );
+        console.log(parsedUserSession, "parsedUserSession ____+++++");
+// -------------------------------------------------------------------------------
         SocketClass.SocketUsers[userId].emit(
           "fromServerInstrctorRequestApproval",
           "Your request for being instructor has been approved"
@@ -72,7 +88,7 @@ export class AdminUseCase implements IAdminUseCase {
 
       return result;
     } catch (error) {
-      catchError(error,next)
+      catchError(error, next);
     }
   }
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
@@ -80,7 +96,7 @@ export class AdminUseCase implements IAdminUseCase {
     try {
       return await instructorRequests(this.instrctorAgreementRepository, next);
     } catch (error) {
-        catchError(error, next);
+      catchError(error, next);
     }
   }
 

@@ -62,7 +62,8 @@ const adminUseCase = new AdminUseCase(
   userRepository,
   instrctorAgreementRepository,
   categoryRepository,
-  notificationRepository
+  notificationRepository,
+  cloudSession
 );
 
 const courseUseCase = new CourseUseCase(

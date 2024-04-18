@@ -12,8 +12,8 @@ interface ITokenOptions {
   maxAge: number;
   httpOnly: boolean;
   sameSite: "lax" | "strict" | "none" | undefined;
-  domain:string;
-  path:string;
+  domain?:string;
+  path?:string;
   secure?: boolean;
 }
 
@@ -43,8 +43,8 @@ export const accessTokenOptions: ITokenOptions = {
   maxAge: accessTokenExpire * 60 * 60 * 1000,
   httpOnly: true,
   sameSite: "strict",
-  domain: '.digi-world.online',
-  path: '/',
+  // domain: '.digi-world.online',
+  // path: '/',
   secure: accessTokenProductionMode,
 };
 export const refreshTokenOptions: ITokenOptions = {
@@ -52,7 +52,7 @@ export const refreshTokenOptions: ITokenOptions = {
   maxAge: refreshTokenExpire * 24 * 60 * 60 * 1000,
   httpOnly: true,
   sameSite: "strict",
-  domain: '.digi-world.online',
-  path: '/',
+  // domain: '.digi-world.online',
+  // path: '/',
   secure: accessTokenProductionMode,
 };
