@@ -196,13 +196,17 @@ export class CourseUseCase implements ICourseUseCase {
           ENotification.courseApprovalApprovance
         );
       if (notificationRepoUpdate) {
+        //sending notification to the instructor
         SocketClass.SocketUsers[req.body.instructorId].emit(
           "fromServerCourseApproved",
           `The ${req.body.courseName} has been approved `
         );
 
-        // sendin notification to all online users
-        const activeUsers = Object.values(SocketClass.SocketUsers);
+        // sendin notification to all online users except instructor
+        const usersExceptInstructor = SocketClass.SocketUsers;
+        delete usersExceptInstructor[req.body.instructorId];
+
+        const activeUsers = Object.values(usersExceptInstructor);
         activeUsers.forEach((user) =>
           user.emit(
             "fromServerCourseApprovedNotificationForAllUsers",
