@@ -1,5 +1,6 @@
 import { IPayment } from "../../../entities/payment";
 import { Next, Req } from "../../../frameworks/types/serverPackageTypes";
+import { ICategoryRepository } from "../../interface/repository/categoryRepository";
 import { ICourseRepository } from "../../interface/repository/courseRepository";
 import { IPaymentRepository } from "../../interface/repository/paymentRepository";
 import { IUserRepository } from "../../interface/repository/userRepository";
@@ -13,6 +14,7 @@ export const paymentStatus = async (
   userRepository: IUserRepository,
   courseRepository: ICourseRepository,
   cloudSession: ICloudSession,
+  categoryRepository:ICategoryRepository,
   req: Req,
   next: Next
 ): Promise<void | IUserResponse> => {
@@ -21,15 +23,16 @@ export const paymentStatus = async (
       req.user?._id as string
     )) as IPayment;
     if (courseData) {
-      const [newUserData, isPurchaseUpdated] = await Promise.all([
+      const [newUserData, isPurchaseUpdated,isCategoryUpdated] = await Promise.all([
         userRepository.addEnrolledCourse(
           courseData.courseId as string,
           req.user?._id as string
         ),
         courseRepository.updatePurchas(courseData.courseId as string),
+        categoryRepository.updateCategoryPurchasecount(courseData.courseId)
       ]);
 
-      if (newUserData && isPurchaseUpdated) {
+      if (newUserData && isPurchaseUpdated && isCategoryUpdated) {
         await cloudSession.createUserSession(
           req.user?._id as string,
           newUserData

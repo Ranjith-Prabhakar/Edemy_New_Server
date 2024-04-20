@@ -305,6 +305,7 @@ export class CourseUseCase implements ICourseUseCase {
         this.userRepository,
         this.courseRepository,
         this.cloudSesssion,
+        this.categoryRepository,
         req,
         next
       );

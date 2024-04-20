@@ -3,6 +3,7 @@ import { existCategory } from "./existCategory";
 import { getCategories } from "./getCategories";
 import { freezCategory } from "./freezCategory";
 import { unFreezCategory } from "./unFreezCategory";
+import { updateCategoryPurchasecount } from "./updateCategoryPurchasecount";
 
 export {
   addCategory,
@@ -10,4 +11,5 @@ export {
   getCategories,
   freezCategory,
   unFreezCategory,
+  updateCategoryPurchasecount,
 };

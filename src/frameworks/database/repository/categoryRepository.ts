@@ -8,6 +8,7 @@ import {
   getCategories,
   freezCategory,
   unFreezCategory,
+  updateCategoryPurchasecount,
 } from "./categoryRepository/index";
 
 export class CategoryRepository implements ICategoryRepository {
@@ -29,7 +30,7 @@ export class CategoryRepository implements ICategoryRepository {
   }
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
-  async getCategories(admin:boolean): Promise<void | ICategory[]> {
+  async getCategories(admin: boolean): Promise<void | ICategory[]> {
     try {
       return await getCategories(admin);
     } catch (error) {
@@ -52,4 +53,13 @@ export class CategoryRepository implements ICategoryRepository {
       throw error;
     }
   }
+  // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+async updateCategoryPurchasecount(id: string): Promise<boolean | void> {
+  try {
+    return await updateCategoryPurchasecount(id);
+  } catch (error) {
+    throw error 
+  }
+}
+
 }
