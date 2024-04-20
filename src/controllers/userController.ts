@@ -27,6 +27,9 @@ export class UserController {
       res.cookie("verificationToken", token, {
         httpOnly: true,
         sameSite: "strict",
+        // domain: '.digi-world.online',
+        // path: '/',
+        // secure: true,
         expires: new Date(Date.now() + 30 * 60 * 1000),
       });
 
@@ -122,6 +125,9 @@ export class UserController {
       res.cookie("verificationToken", result, {
         sameSite: "strict",
         httpOnly: true,
+        // domain: '.digi-world.online',
+        // path: '/',
+        // secure: true,
         maxAge: 5 * 60 * 1000,
       });
       res.status(200).json({
