@@ -54,9 +54,9 @@ export class CategoryRepository implements ICategoryRepository {
     }
   }
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-async updateCategoryPurchasecount(id: string): Promise<boolean | void> {
+async updateCategoryPurchasecount(name: string): Promise<boolean | void> {
   try {
-    return await updateCategoryPurchasecount(id);
+    return await updateCategoryPurchasecount(name);
   } catch (error) {
     throw error 
   }

@@ -7,5 +7,5 @@ export interface ICategoryRepository {
   getCategories(admin: boolean): Promise<ICategory[] | void>;
   freezCategory(id: string): Promise<ICategoryResponse | void>;
   unFreezCategory(id: string): Promise<ICategoryResponse | void>;
-  updateCategoryPurchasecount(id: string): Promise<boolean | void>;
+  updateCategoryPurchasecount(name: string): Promise<boolean | void>;
 }

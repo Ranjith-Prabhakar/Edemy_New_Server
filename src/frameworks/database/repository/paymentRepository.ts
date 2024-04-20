@@ -9,6 +9,7 @@ export class PaymentRepository implements IPaymentRepository {
     userId: string
   ): Promise<boolean | void> {
     try {
+      console.log("paymentData", paymentData);
       const result = await paymentModel.create({ ...paymentData, userId });
       if (result) return true;
       return false;
@@ -20,6 +21,7 @@ export class PaymentRepository implements IPaymentRepository {
   async findAndDelete(userId: string): Promise<void | IPayment> {
     try {
       const result = (await paymentModel.findOneAndDelete({ userId })) as IPayment;
+     console.log("result222", result);
       return result;
     } catch (error) {
       throw error;

@@ -23,14 +23,16 @@ export const paymentStatus = async (
       req.user?._id as string
     )) as IPayment;
     if (courseData) {
-      const [newUserData, isPurchaseUpdated,isCategoryUpdated] = await Promise.all([
-        userRepository.addEnrolledCourse(
-          courseData.courseId as string,
-          req.user?._id as string
-        ),
-        courseRepository.updatePurchas(courseData.courseId as string),
-        categoryRepository.updateCategoryPurchasecount(courseData.courseId)
-      ]);
+      console.log("courseData", courseData);
+      const [newUserData, isPurchaseUpdated, isCategoryUpdated] =
+        await Promise.all([
+          userRepository.addEnrolledCourse(
+            courseData.courseId as string,
+            req.user?._id as string
+          ),
+          courseRepository.updatePurchas(courseData.courseId as string),
+          categoryRepository.updateCategoryPurchasecount(courseData.category),
+        ]);
 
       if (newUserData && isPurchaseUpdated && isCategoryUpdated) {
         await cloudSession.createUserSession(

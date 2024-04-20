@@ -14,6 +14,11 @@ const paymentSchema = new Schema<IPayment>(
       required: [true, "User Id is missing"],
       trim: true,
     },
+    category:{
+      type: String,
+      required: [true, "category is missing"],
+      trim: true,
+    },
     expiresAt: {
       type: Date,
       required: true,

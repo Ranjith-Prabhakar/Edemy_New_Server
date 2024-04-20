@@ -8,5 +8,6 @@ export type TPaymentRequest = {
   courseId: string;
   courseName: string;
   price: string;
+  category:string;
 }[];
 

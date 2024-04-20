@@ -1,13 +1,15 @@
 import categoryModel from "../../models/categoryModel";
 
 export const updateCategoryPurchasecount = async (
-  id: string
+  name: string
 ): Promise<boolean | void> => {
   try {
+    console.log("name",name)
     const result = await categoryModel.updateOne(
-      { _id: id },
+      {name:name },
       { $inc: { noOfCourses: 1 } }
     );
+    console.log("result", result);
     if (result) {
       return true;
     } else {
