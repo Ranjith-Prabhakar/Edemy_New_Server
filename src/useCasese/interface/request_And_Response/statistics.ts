@@ -10,7 +10,7 @@ export type TMonthlySaleAndRevenue = [
   { month: string; sale: string; revenue: string }
 ];
 
-export type TTopSellingCategories = [{ name: string; count: string }];
+export type TTopSellingCategories = [{ name: string; noOfCourses: string }];
 export type TTopTenInstructorAndNoOfCourses =  [{ name: string; numberOfCourses: string }];
 
 interface IData {
