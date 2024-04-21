@@ -22,7 +22,6 @@ export class AdminController {
       res.status(result.status as number).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -32,7 +31,6 @@ export class AdminController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -48,7 +46,6 @@ export class AdminController {
       });
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -63,7 +60,6 @@ export class AdminController {
       });
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -73,7 +69,6 @@ export class AdminController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -83,7 +78,6 @@ export class AdminController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -98,7 +92,6 @@ export class AdminController {
       });
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -110,7 +103,6 @@ export class AdminController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -125,7 +117,6 @@ export class AdminController {
       console.log("reachig here inside of controller", result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -135,7 +126,6 @@ export class AdminController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -145,7 +135,15 @@ export class AdminController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+    }
+  }
+  // *****************************************************************************************************************************
+  async getStatistics(req: Req, res: Res, next: Next) {
+    try {
+      const result = await this.adminUseCase.getStatistics(next);
+      res.status(200).json(result);
+    } catch (error) {
+      catchError(error, next);
     }
   }
 }

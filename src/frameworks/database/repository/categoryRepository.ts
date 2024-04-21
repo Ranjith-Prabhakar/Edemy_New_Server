@@ -9,6 +9,7 @@ import {
   freezCategory,
   unFreezCategory,
   updateCategoryPurchasecount,
+  topSellingCategories_Statistics,
 } from "./categoryRepository/index";
 
 export class CategoryRepository implements ICategoryRepository {
@@ -54,12 +55,21 @@ export class CategoryRepository implements ICategoryRepository {
     }
   }
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-async updateCategoryPurchasecount(name: string): Promise<boolean | void> {
-  try {
-    return await updateCategoryPurchasecount(name);
-  } catch (error) {
-    throw error 
+  async updateCategoryPurchasecount(name: string): Promise<boolean | void> {
+    try {
+      return await updateCategoryPurchasecount(name);
+    } catch (error) {
+      throw error;
+    }
   }
-}
-
+  // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+  async topSellingCategories_Statistics(): Promise<
+    void | { name: string; noOfCourses: string }[]
+  > {
+    try {
+      return await topSellingCategories_Statistics();
+    } catch (error) {
+      throw error;
+    }
+  }
 }

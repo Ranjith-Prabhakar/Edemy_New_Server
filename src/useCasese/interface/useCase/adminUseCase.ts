@@ -3,6 +3,7 @@ import { IUser } from "../../../entities/user";
 import { Next, Req } from "../../../frameworks/types/serverPackageTypes";
 import { ICategoryResponse } from "../request_And_Response/category";
 import { IInstructorAgreementResponse } from "../request_And_Response/instructorAgreement";
+import { IStatistics } from "../request_And_Response/statistics";
 import { IUserResponse } from "../request_And_Response/user";
 
 export interface IAdminUseCase {
@@ -26,4 +27,5 @@ export interface IAdminUseCase {
   getCategories(next: Next): Promise<ICategory[] | void>;
   freezCategory(req: Req, next: Next): Promise<ICategoryResponse | void>;
   unFreezCategory(req: Req, next: Next): Promise<ICategoryResponse | void>;
+  getStatistics(next: Next): Promise<IStatistics|void>;
 }

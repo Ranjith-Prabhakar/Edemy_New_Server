@@ -11,6 +11,7 @@ import {
   addEnrolledCourse,
   updateCourses,
   getAdmin,
+  topTenInstructorAndNoOfCourses_Statistics,
 } from "./user/index";
 import { getUsers, getUser, freezUser, unFreezUser } from "./admin/index";
 import { IJsonResponse } from "../../../useCasese/interface/services/jsonResponse";
@@ -91,9 +92,19 @@ export class UserRepository implements IUserRepository {
   ///888888888888888888888888888888888888888888888888888888888888888888888
   async getAdmin(): Promise<void | IUser> {
     try {
-      return await getAdmin()
+      return await getAdmin();
     } catch (error) {
-      throw error
+      throw error;
+    }
+  }
+  ///888888888888888888888888888888888888888888888888888888888888888888888
+  async topTenInstructorAndNoOfCourses_Statistics(): Promise<
+    void | [{ name: string; numberOfCourses: string }]
+  > {
+    try {
+      return await topTenInstructorAndNoOfCourses_Statistics();
+    } catch (error) {
+      throw error;
     }
   }
 }

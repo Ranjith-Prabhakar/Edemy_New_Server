@@ -19,6 +19,7 @@ import {
   getCourseByCategory,
   getCourseForSearch,
   getInstructorTutorials,
+  monthlySaleAndRevenue_Statistics,
 } from "./courseRepository/index";
 
 export class CourseRepository implements ICourseRepository {
@@ -38,14 +39,6 @@ export class CourseRepository implements ICourseRepository {
       throw error;
     }
   }
-
-  // async addCourseData(courseData: ICourseRepository): Promise<ICourseResponse> {
-  //   try {
-  //     return await addCourseData(courseData);
-  //   } catch (error: any) {
-  //     throw error;
-  //   }
-  // }
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
   async updateCourse(
@@ -180,11 +173,21 @@ export class CourseRepository implements ICourseRepository {
     }
   }
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-  async getInstructorTutorials(courses: string[]): Promise<void | ICourseResponse> {
-     try {
-       return await getInstructorTutorials(courses);
-     } catch (error) {
-       throw error;
-     }
+  async getInstructorTutorials(
+    courses: string[]
+  ): Promise<void | ICourseResponse> {
+    try {
+      return await getInstructorTutorials(courses);
+    } catch (error) {
+      throw error;
+    }
+  }
+  // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+  async monthlySaleAndRevenue_Statistics(): Promise<void | { month: string; sale: string; revenue: string; }[]> {
+    try {
+      return await monthlySaleAndRevenue_Statistics();
+    } catch (error) {
+      throw error
+    }
   }
 }

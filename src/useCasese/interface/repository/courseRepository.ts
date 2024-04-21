@@ -1,6 +1,9 @@
 import { ICourse } from "../../../entities/course";
 import { IModuleVideoBody } from "../request/course";
-import { ICourseCategoryBaseResponse, ICourseResponse } from "../request_And_Response/course";
+import {
+  ICourseCategoryBaseResponse,
+  ICourseResponse,
+} from "../request_And_Response/course";
 
 export interface ICourseRepository {
   getCourseInProgress(instructor: string): Promise<ICourseResponse>;
@@ -43,4 +46,9 @@ export interface ICourseRepository {
     filter: string
   ): Promise<ICourseCategoryBaseResponse | void>;
   getInstructorTutorials(courses: string[]): Promise<ICourseResponse | void>;
+  monthlySaleAndRevenue_Statistics(): Promise<{
+    month: string;
+    sale: string;
+    revenue: string;
+  }[] | void>;
 }

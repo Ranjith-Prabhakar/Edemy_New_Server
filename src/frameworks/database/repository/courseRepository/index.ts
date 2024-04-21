@@ -13,6 +13,7 @@ import { getUserEnrolledCourses } from "./getUserEnrolledCourses";
 import { getCourseByCategory } from "./getCourseByCategory";
 import { getCourseForSearch } from "./getCourseForSearch";
 import { getInstructorTutorials } from "./getInstructorTutorials";
+import { monthlySaleAndRevenue_Statistics } from "./monthlySaleAndRevenue_Statistics";
 export {
   getCourseInProgress,
   addCourseData,
@@ -29,4 +30,5 @@ export {
   getCourseByCategory,
   getCourseForSearch,
   getInstructorTutorials,
+  monthlySaleAndRevenue_Statistics,
 };

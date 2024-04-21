@@ -5,6 +5,7 @@ import { findByIdAndUpdate } from "./findByIdAndUpdate";
 import { addEnrolledCourse } from "./addEnrolledCourse";
 import { updateCourses } from "./updateCourses";
 import { getAdmin } from "./getAdmin";
+import { topTenInstructorAndNoOfCourses_Statistics } from "./topTenInstructorAndNoOfCourses_Statistics";
 
 
 export {
@@ -15,4 +16,5 @@ export {
   addEnrolledCourse,
   updateCourses,
   getAdmin,
+  topTenInstructorAndNoOfCourses_Statistics,
 };

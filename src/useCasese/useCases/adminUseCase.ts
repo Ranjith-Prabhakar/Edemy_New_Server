@@ -15,10 +15,10 @@ import {
   freezCategory,
   unFreezCategory,
   instructorRequests,
+  getStatistics,
 } from "./admin/index";
 import { IUser } from "../../entities/user";
 import { IAdminUseCase } from "../interface/useCase/adminUseCase";
-import { NextFunction } from "express";
 import { ICategory } from "../../entities/category";
 import { ICategoryResponse } from "../interface/request_And_Response/category";
 import { IUserResponse } from "../interface/request_And_Response/user";
@@ -28,6 +28,9 @@ import { INotificationRepository } from "../interface/repository/notificationRep
 import { ENotification } from "../../entities/notification";
 import { catchError } from "../middlewares/catchError";
 import { ICloudSession } from "../interface/services/cloudSession";
+import { IStatistics } from "../interface/request_And_Response/statistics";
+import { ICourseRepository } from "../interface/repository/courseRepository";
+import { IReviewAndRatingRepository } from "../interface/repository/reviewAndRatingRepository";
 
 export class AdminUseCase implements IAdminUseCase {
   private readonly userRepository: IUserRepository;
@@ -35,18 +38,24 @@ export class AdminUseCase implements IAdminUseCase {
   private readonly categoryRepository: ICategoryRepository;
   private readonly notificationRepository: INotificationRepository;
   private readonly cloudSession: ICloudSession;
+  private readonly courseRepository: ICourseRepository;
+  private readonly reviewAndRatingRepository: IReviewAndRatingRepository;
   constructor(
     userRepository: IUserRepository,
     instrctorAgreementRepository: IInstructorAgreementRepository,
     categoryRepository: ICategoryRepository,
     notificationRepository: INotificationRepository,
-    cloudSession: ICloudSession
+    cloudSession: ICloudSession,
+    courseRepository: ICourseRepository,
+    reviewAndRatingRepository: IReviewAndRatingRepository
   ) {
     this.userRepository = userRepository;
     this.instrctorAgreementRepository = instrctorAgreementRepository;
     this.categoryRepository = categoryRepository;
     this.notificationRepository = notificationRepository;
     this.cloudSession = cloudSession;
+    this.courseRepository = courseRepository;
+    this.reviewAndRatingRepository = reviewAndRatingRepository;
   }
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async approveOrRejectInstructor(
@@ -79,7 +88,7 @@ export class AdminUseCase implements IAdminUseCase {
           parsedUserSession
         );
         console.log(parsedUserSession, "parsedUserSession ____+++++");
-// -------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------
         SocketClass.SocketUsers[userId].emit(
           "fromServerInstrctorRequestApproval",
           "Your request for being instructor has been approved"
@@ -92,7 +101,7 @@ export class AdminUseCase implements IAdminUseCase {
     }
   }
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
-  async instructorRequests(next: NextFunction): Promise<void | object> {
+  async instructorRequests(next: Next): Promise<void | object> {
     try {
       return await instructorRequests(this.instrctorAgreementRepository, next);
     } catch (error) {
@@ -155,7 +164,7 @@ export class AdminUseCase implements IAdminUseCase {
     }
   }
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
-  async getCategories(next: NextFunction): Promise<void | ICategory[]> {
+  async getCategories(next: Next): Promise<void | ICategory[]> {
     try {
       return await getCategories(this.categoryRepository, next);
     } catch (error) {
@@ -163,10 +172,7 @@ export class AdminUseCase implements IAdminUseCase {
     }
   }
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
-  async freezCategory(
-    req: Req,
-    next: NextFunction
-  ): Promise<ICategoryResponse | void> {
+  async freezCategory(req: Req, next: Next): Promise<ICategoryResponse | void> {
     try {
       return await freezCategory(req, next, this.categoryRepository);
     } catch (error) {
@@ -176,7 +182,7 @@ export class AdminUseCase implements IAdminUseCase {
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async unFreezCategory(
     req: Req,
-    next: NextFunction
+    next: Next
   ): Promise<ICategoryResponse | void> {
     try {
       return await unFreezCategory(req, next, this.categoryRepository);
@@ -184,4 +190,19 @@ export class AdminUseCase implements IAdminUseCase {
       catchError(error, next);
     }
   }
+  // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
+  async getStatistics(next: Next): Promise<void | IStatistics> {
+    try {
+      return await getStatistics(
+        this.courseRepository,
+        this.categoryRepository,
+        this.reviewAndRatingRepository,
+        this.userRepository,
+        next
+      );
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+  //
 }

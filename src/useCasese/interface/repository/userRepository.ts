@@ -24,4 +24,7 @@ export interface IUserRepository {
   addEnrolledCourse(courseId: string, userId: string): Promise<IUser | void>;
   updateCourses(courseId: string, useId: string): Promise<IUser | void>;
   getAdmin(): Promise<IUser | void>;
+  topTenInstructorAndNoOfCourses_Statistics(): Promise<
+    [{ name: string; numberOfCourses: string }] | void
+  >;
 }

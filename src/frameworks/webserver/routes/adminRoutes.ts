@@ -107,5 +107,14 @@ export const adminRoute = (router: Route) => {
     }
   );
 
+  router.get(
+    "/statistics",
+    isAuthenticated,
+    autheriseRoles("admin"),
+    catchAsyncErrors((req: Req, res: Res, next: Next) => {
+      adminController.getStatistics(req, res, next);
+    })
+  );
+
   return router;
 };

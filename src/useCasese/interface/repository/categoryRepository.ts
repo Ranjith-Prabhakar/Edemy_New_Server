@@ -8,4 +8,11 @@ export interface ICategoryRepository {
   freezCategory(id: string): Promise<ICategoryResponse | void>;
   unFreezCategory(id: string): Promise<ICategoryResponse | void>;
   updateCategoryPurchasecount(name: string): Promise<boolean | void>;
+  topSellingCategories_Statistics(): Promise<
+    | {
+        name: string;
+        noOfCourses: string;
+      }[]
+    | void
+  >;
 }
