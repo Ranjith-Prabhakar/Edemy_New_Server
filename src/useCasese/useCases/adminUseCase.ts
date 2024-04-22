@@ -110,9 +110,19 @@ export class AdminUseCase implements IAdminUseCase {
   }
 
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
-  async getUsers(next: Next): Promise<IUser[] | void> {
+  // async getUsers(next: Next): Promise<IUser[] | void> {
+  //   try {
+  //     return await getUsers(this.userRepository, next);
+  //   } catch (error) {
+  //     catchError(error, next);
+  //   }
+  // }
+  async getUsers(
+    req: Req,
+    next: Next
+  ): Promise<{ permitedNext: number; data: IUser[] } | void> {
     try {
-      return await getUsers(this.userRepository, next);
+      return await getUsers(this.userRepository,req, next);
     } catch (error) {
       catchError(error, next);
     }

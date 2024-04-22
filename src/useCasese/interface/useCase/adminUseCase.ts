@@ -12,7 +12,11 @@ export interface IAdminUseCase {
     next: Next
   ): Promise<IInstructorAgreementResponse | void>;
   instructorRequests(next: Next): Promise<void | object>;
-  getUsers(next: Next): Promise<IUser[] | void>;
+  // getUsers(next: Next): Promise<IUser[] | void>;
+  getUsers(
+    req: Req,
+    next: Next
+  ): Promise<{ permitedNext: number; data: IUser[] } | void>;
   getUser(req: Req, next: Next): Promise<void | IUser>;
   freezUser(req: Req, next: Next): Promise<IUserResponse | void>;
   unFreezUser(req: Req, next: Next): Promise<IUserResponse | void>;

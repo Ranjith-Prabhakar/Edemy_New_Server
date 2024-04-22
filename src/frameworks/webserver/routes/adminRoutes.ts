@@ -23,14 +23,22 @@ export const adminRoute = (router: Route) => {
     })
   );
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888
-  router.get(
-    "/get_users",
-    isAuthenticated,
-    autheriseRoles("admin"),
-    catchAsyncErrors((req: Req, res: Res, next: Next) => {
-      adminController.getUsers(req, res, next);
-    })
-  );
+  // router.get(
+  //   "/get_users",
+  //   isAuthenticated,
+  //   autheriseRoles("admin"),
+  //   catchAsyncErrors((req: Req, res: Res, next: Next) => {
+  //     adminController.getUsers(req, res, next);
+  //   })
+  // );
+   router.post(
+     "/get_users",
+     isAuthenticated,
+     autheriseRoles("admin"),
+     catchAsyncErrors((req: Req, res: Res, next: Next) => {
+       adminController.getUsers(req, res, next);
+     })
+   );
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888
   router.get(
     "/user/:id",

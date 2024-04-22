@@ -35,9 +35,22 @@ export class AdminController {
   }
 
   // *****************************************************************************************************************************
+  // async getUsers(req: Req, res: Res, next: Next) {
+  //   try {
+  //     const result = await this.adminUseCase.getUsers(next);
+  //     console.log("result", result);
+  //     res.status(200).json({
+  //       success: true,
+  //       message: "users have been fetched successfully ",
+  //       data: result,
+  //     });
+  //   } catch (error) {
+  //     catchError(error, next);
+  //   }
+  // }
   async getUsers(req: Req, res: Res, next: Next) {
     try {
-      const result = await this.adminUseCase.getUsers(next);
+      const result = await this.adminUseCase.getUsers(req,next);
       console.log("result", result);
       res.status(200).json({
         success: true,
@@ -96,7 +109,7 @@ export class AdminController {
   // }
   async getInstructors(req: Req, res: Res, next: Next) {
     try {
-      const result = await this.adminUseCase.getInstructors(req,next);
+      const result = await this.adminUseCase.getInstructors(req, next);
       console.log("admin controller getUser", result);
       res.status(200).json({
         success: true,
