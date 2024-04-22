@@ -16,7 +16,11 @@ export interface IAdminUseCase {
   getUser(req: Req, next: Next): Promise<void | IUser>;
   freezUser(req: Req, next: Next): Promise<IUserResponse | void>;
   unFreezUser(req: Req, next: Next): Promise<IUserResponse | void>;
-  getInstructors(next: Next): Promise<void | IUser[]>;
+  // getInstructors(next: Next): Promise<void | IUser[]>;
+  getInstructors(
+    req: Req,
+    next: Next
+  ): Promise<{ permitedNext: number; data: IUser[] } | void>;
   addCategory(
     req: Req,
     next: Next
@@ -27,5 +31,5 @@ export interface IAdminUseCase {
   getCategories(next: Next): Promise<ICategory[] | void>;
   freezCategory(req: Req, next: Next): Promise<ICategoryResponse | void>;
   unFreezCategory(req: Req, next: Next): Promise<ICategoryResponse | void>;
-  getStatistics(next: Next): Promise<IStatistics|void>;
+  getStatistics(next: Next): Promise<IStatistics | void>;
 }

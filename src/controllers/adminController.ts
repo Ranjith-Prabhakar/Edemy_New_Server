@@ -81,9 +81,22 @@ export class AdminController {
     }
   }
   // *****************************************************************************************************************************
+  // async getInstructors(req: Req, res: Res, next: Next) {
+  //   try {
+  //     const result = await this.adminUseCase.getInstructors(next);
+  //     console.log("admin controller getUser", result);
+  //     res.status(200).json({
+  //       success: true,
+  //       message: "instructors have been fetched successfully",
+  //       data: result,
+  //     });
+  //   } catch (error) {
+  //     catchError(error, next);
+  //   }
+  // }
   async getInstructors(req: Req, res: Res, next: Next) {
     try {
-      const result = await this.adminUseCase.getInstructors(next);
+      const result = await this.adminUseCase.getInstructors(req,next);
       console.log("admin controller getUser", result);
       res.status(200).json({
         success: true,

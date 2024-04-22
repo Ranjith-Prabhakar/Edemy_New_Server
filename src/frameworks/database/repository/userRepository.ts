@@ -43,8 +43,14 @@ export class UserRepository implements IUserRepository {
     return await findByIdAndUpdate(id, data);
   }
   ///888888888888888888888888888888888888888888888888888888888888888888888
-  async getUsers(role: string): Promise<IUser[]> {
-    return await getUsers(role);
+  // async getUsers(role: string): Promise<IUser[]> {
+  //   return await getUsers(role);
+  // }
+  async getUsers(
+    role: string,
+    pageNo: number
+  ): Promise<{ permitedNext: number; data: IUser[] }> {
+    return await getUsers(role, pageNo);
   }
   ///888888888888888888888888888888888888888888888888888888888888888888888
   async getUser(id: string): Promise<IUser> {
