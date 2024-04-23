@@ -260,7 +260,6 @@ export class CoursesController {
   async setVideoTrack(req: Req, res: Res, next: Next) {
     try {
       await inputValidation(req, "setVideoTrack", next);
-
       const result = await this.courseUseCase.setVideoTrack(req, next);
       if (result) res.status(200).json(result);
     } catch (error) {

@@ -40,6 +40,7 @@ export interface ICourse {
   courseName: string;
   instructor: string;
   instructorId:string;
+  instructorName:string;// newly added 
   discription: string;
   tags: string;
   thumbnail: string;

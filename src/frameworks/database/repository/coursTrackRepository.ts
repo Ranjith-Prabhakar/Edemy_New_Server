@@ -21,6 +21,8 @@ export class CourseTrackRepository implements ICourseTrackingRepository {
         position,
         complete,
       } = videoData;
+
+      console.log("videoData", videoData);
       const isCourseExist = await courseTrackingModel.findOne({
         courseId,
         userId,
