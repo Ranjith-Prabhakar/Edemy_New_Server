@@ -17,13 +17,13 @@ export const resetForgotPassword = async (
   next: Next
 ): Promise<IGeneralResponse | void> => {
   try {
-    let decode = (await jwtVerifier.verifyJwt(token)) as {
+    const decode = (await jwtVerifier.verifyJwt(token)) as {
       userId: string;
       email: string;
       iat: number;
       exp: number;
     };
-    let otpRepAction = await otpRepository.findByMailAndDelete(
+    const otpRepAction = await otpRepository.findByMailAndDelete(
       decode.email as string
     );
     if (!otpRepAction)
@@ -34,7 +34,7 @@ export const resetForgotPassword = async (
         )
       );
 
-    let password = await bcrypt.createHash(req.body.password);
+    const password = await bcrypt.createHash(req.body.password);
     const user = await userRepository.findByIdAndUpdate(
       decode.userId as string,
       { password: password as string }
