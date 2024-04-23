@@ -84,7 +84,7 @@ export class UserUsecase implements IUserUseCase {
     next: Next
   ): Promise<string | void> {
     try {
-      let result = await registerUser(
+      const result = await registerUser(
         this.otpRepository,
         this.userRepository,
         this.sendMail,

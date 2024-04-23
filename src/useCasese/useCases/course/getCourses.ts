@@ -1,4 +1,4 @@
-import { Next, Req } from "../../../frameworks/types/serverPackageTypes";
+import { Next } from "../../../frameworks/types/serverPackageTypes";
 import { ICourseRepository } from "../../interface/repository/courseRepository";
 import { ICourseResponse } from "../../interface/request_And_Response/course";
 import { catchError } from "../../middlewares/catchError";

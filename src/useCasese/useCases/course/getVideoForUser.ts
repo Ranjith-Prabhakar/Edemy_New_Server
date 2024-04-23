@@ -1,7 +1,6 @@
 import { Next, Req } from "../../../frameworks/types/serverPackageTypes";
 import { ICourseRepository } from "../../interface/repository/courseRepository";
 import { ICourseTrackingRepository } from "../../interface/repository/courseTrackingRepository";
-import { IUserRepository } from "../../interface/repository/userRepository";
 import {
   ICloudStorageResponse,
   IExtendedCloudStorageResponse,

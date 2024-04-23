@@ -29,8 +29,7 @@ export const approveOrRejectInstructor = async (
       );
       return result;
     }
-  } catch (error: any) {
+  } catch (error) {
     catchError(error,next)
-    // throw next(new ErrorHandler(500, error.message));
   }
 };

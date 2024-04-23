@@ -10,8 +10,7 @@ export const unFreezCategory = async (
 ): Promise<ICategoryResponse | void> => {
   try {
     return await categoryrepository.unFreezCategory(req.params.id as string);
-  } catch (error: any) {
+  } catch (error) {
     catchError(error,next)
-    // return next(new ErrorHandler(500, error.message));
   }
 };

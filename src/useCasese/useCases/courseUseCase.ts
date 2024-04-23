@@ -5,7 +5,6 @@ import {
 } from "../interface/request_And_Response/course";
 import { ICloudStorage } from "../interface/services/cloudStorage";
 import { ICourseUseCase } from "../interface/useCase/courseUseCase";
-import ErrorHandler from "../middlewares/errorHandler";
 
 import {
   getCourseInProgress,

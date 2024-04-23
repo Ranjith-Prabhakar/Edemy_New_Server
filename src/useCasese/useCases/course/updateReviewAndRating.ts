@@ -1,4 +1,3 @@
-import { IReviewAndRating } from "../../../entities/reviewAndRating";
 import { Next, Req } from "../../../frameworks/types/serverPackageTypes";
 import { IReviewAndRatingRepository } from "../../interface/repository/reviewAndRatingRepository";
 import {

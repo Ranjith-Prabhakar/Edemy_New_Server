@@ -1,6 +1,6 @@
 import { Next, Req } from "../../../frameworks/types/serverPackageTypes";
 import { ICourseRepository } from "../../interface/repository/courseRepository";
-import { ICourseCategoryBaseResponse, ICourseResponse } from "../../interface/request_And_Response/course";
+import { ICourseCategoryBaseResponse} from "../../interface/request_And_Response/course";
 import { catchError } from "../../middlewares/catchError";
 
 export const getCourseByCategory = async (
@@ -9,7 +9,8 @@ export const getCourseByCategory = async (
   next: Next
 ): Promise<void | ICourseCategoryBaseResponse> => {
   try {
-    let { category, pageNumber, frequency, sort, filter } = req.body;
+    const { category, sort, filter } = req.body;
+    let {pageNumber, frequency} = req.body;
     pageNumber = +pageNumber;
     frequency = +frequency;
 

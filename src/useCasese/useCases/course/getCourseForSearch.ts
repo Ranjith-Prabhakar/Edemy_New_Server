@@ -9,7 +9,8 @@ export const getCourseForSearch = async (
   next: Next
 ): Promise<void | ICourseCategoryBaseResponse> => {
   try {
-    let { key, pageNumber, frequency, sort, filter } = req.body;
+    const { key,sort, filter } = req.body;
+    let { pageNumber, frequency,} = req.body;
     pageNumber = +pageNumber;
     frequency = +frequency;
     return courseRepository.getCourseForSearch(

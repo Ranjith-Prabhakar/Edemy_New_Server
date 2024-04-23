@@ -1,5 +1,4 @@
-import { Next, Req, Res } from "../../frameworks/types/serverPackageTypes";
-import ErrorHandler from "../middlewares/errorHandler";
+import { Next, Req } from "../../frameworks/types/serverPackageTypes";
 import { ICategoryRepository } from "../interface/repository/categoryRepository";
 import { IInstructorAgreementRepository } from "../interface/repository/instructorAgreementRepository";
 import { IUserRepository } from "../interface/repository/userRepository";
@@ -81,7 +80,7 @@ export class AdminUseCase implements IAdminUseCase {
         const userSession = (await this.cloudSession.getUser(
           userId as string
         )) as string;
-        let parsedUserSession = JSON.parse(userSession);
+        const parsedUserSession = JSON.parse(userSession);
         parsedUserSession.role = "instructor";
         await this.cloudSession.createUserSession(
           userId as string,
