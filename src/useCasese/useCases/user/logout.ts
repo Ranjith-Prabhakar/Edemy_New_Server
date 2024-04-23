@@ -18,7 +18,7 @@ export const logout = async (
     );
     if (clearUserSession !== 1)
       return next(new ErrorHandler(500, "something went wrong"));
-  } catch (error: any) {
+  } catch (error) {
     catchError(error, next);
   }
 };
