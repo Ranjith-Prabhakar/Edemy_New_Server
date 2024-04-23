@@ -1,4 +1,3 @@
-import { Response } from "../../interface/services/response";
 import { IHashpassword } from "../../interface/services/hashPassword";
 import { IOtpRepository } from "../../interface/repository/otpRepository";
 import { ISendMail } from "../../interface/services/sendMail";
@@ -30,7 +29,7 @@ export const registerUser = async (
       );
 
     // checking wheter user already present in the otp repo
-    let isUserOnOtpRepo = await otpRepository.findUser(email);
+    const isUserOnOtpRepo = await otpRepository.findUser(email);
     if (isUserOnOtpRepo) {
       await sendMail.sendEmailVerification(
         name,
