@@ -5,7 +5,7 @@ export const getCoursesForUser = async (): Promise<void | ICourseResponse> => {
   try {
     const result = await courseModel.find({ status: "approved" }).limit(4);
     return { status: 200, message: "courses have been fetched", data: result };
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 };

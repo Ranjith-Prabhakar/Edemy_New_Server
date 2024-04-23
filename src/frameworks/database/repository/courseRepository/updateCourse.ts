@@ -28,7 +28,7 @@ export const updateCourse = async (
         message: "No document was updated",
       };
     }
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 };

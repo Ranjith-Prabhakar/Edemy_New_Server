@@ -7,7 +7,7 @@ export const findByName = async (
     const result = await courseModel.findOne({ courseName });
     if (result) return "a course already exist in this name";
     return;
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 };

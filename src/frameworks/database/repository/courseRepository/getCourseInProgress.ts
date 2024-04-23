@@ -19,7 +19,7 @@ export const getCourseInProgress = async (
       message: "course has been found successfully",
       data: result as ICourse,
     };
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 };

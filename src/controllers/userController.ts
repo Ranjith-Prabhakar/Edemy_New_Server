@@ -46,7 +46,7 @@ export class UserController {
   async createUser(req: Req, res: Res, next: Next) {
     try {
       await inputValidation(req, "verifyUser", next);
-      let token = req.cookies.verificationToken;
+      const token = req.cookies.verificationToken;
       const result = await this.userUseCase.createUser(
         req.body.verificationCode,
         token,
@@ -144,7 +144,7 @@ export class UserController {
     try {
       await inputValidation(req, "forgotPasswordOtpVerification", next);
       const token = req.cookies.verificationToken as string;
-      let result = await this.userUseCase.forgotPasswordOtpVerification(
+      const result = await this.userUseCase.forgotPasswordOtpVerification(
         req,
         next,
         token
@@ -159,7 +159,7 @@ export class UserController {
   async resetForgotPassword(req: Req, res: Res, next: Next) {
     try {
       await inputValidation(req, "resetForgotPassword", next);
-      let token = req.cookies.verificationToken;
+      const token = req.cookies.verificationToken;
       const result = await this.userUseCase.resetForgotPassword(
         req,
         token,

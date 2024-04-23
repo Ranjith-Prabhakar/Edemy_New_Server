@@ -1,4 +1,3 @@
-import { ICourseTracking } from "../../../entities/courseTracking";
 import { ICourseTrackingRepository } from "../../../useCasese/interface/repository/courseTrackingRepository";
 import {
   ICourseTrackRequest,

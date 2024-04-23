@@ -1,16 +1,14 @@
 import { Server } from "socket.io";
-
 import { app } from "./app";
 import { createServer } from "http";
-
+import dotenv from "dotenv";
+dotenv.config();
 import {
   ClientToServerEvents,
   ServerToClientEvents,
 } from "../../types/socketTypes";
-
 import { SocketClass } from "../../../useCasese/staticClassProperty/StaticClassProperty";
 
-require("dotenv").config();
 
 const httpServer = createServer(app);
 

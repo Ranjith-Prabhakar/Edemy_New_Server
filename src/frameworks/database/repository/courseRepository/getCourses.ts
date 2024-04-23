@@ -11,7 +11,7 @@ export const getCourses = async (): Promise<void | ICourseResponse> => {
       message: "existing courses have been fetched successfully",
       data: result,
     };
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 };

@@ -1,4 +1,4 @@
-import mongoose, { Schema, Model, ObjectId } from "mongoose";
+import mongoose, { Schema, Model } from "mongoose";
 import { IInstructorAgreement } from "../../../entities/instructorAgreement";
 
 const instrctorAgreementSchema: Schema<IInstructorAgreement> = new Schema({

@@ -3,8 +3,7 @@ import categoryModel from "../../models/categoryModel";
 
 export const addCategory = async (category: string): Promise<ICategory> => {
   try {
-    let result = await categoryModel.create({ name: category });
-    return result;
+    return await categoryModel.create({ name: category });
   } catch (error) {
     throw error;
   }

@@ -1,7 +1,6 @@
 import { Next, Req, Res } from "../frameworks/types/serverPackageTypes";
 import { ICourseUseCase } from "../useCasese/interface/useCase/courseUseCase";
 import { catchError } from "../useCasese/middlewares/catchError";
-import ErrorHandler from "../useCasese/middlewares/errorHandler";
 import { inputValidation } from "./middleware/inputValidation";
 
 export class CoursesController {

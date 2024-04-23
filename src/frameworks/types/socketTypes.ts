@@ -22,6 +22,7 @@ export type TSocket = Server<
   ServerToClientEvents,
   ClientToServerEvents,
   DefaultEventsMap,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any
 >;
 //socket client
@@ -29,5 +30,6 @@ export type TSocketMap = Socket<
   ClientToServerEvents,
   ServerToClientEvents,
   DefaultEventsMap,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any
 >;

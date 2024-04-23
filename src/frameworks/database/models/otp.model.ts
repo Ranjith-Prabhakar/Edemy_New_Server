@@ -1,4 +1,4 @@
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
 import { IOtp } from "../../../entities/otp";
 
 const otpSchema = new mongoose.Schema<IOtp>({

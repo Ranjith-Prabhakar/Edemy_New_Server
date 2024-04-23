@@ -32,7 +32,7 @@ export const addCourseData = async (
         message: "No matching document found or updated",
       };
     }
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 };

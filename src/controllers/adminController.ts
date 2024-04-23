@@ -1,5 +1,4 @@
 import { Req, Res, Next } from "../frameworks/types/serverPackageTypes";
-import ErrorHandler from "../useCasese/middlewares/errorHandler";
 import { inputValidation } from "./middleware/inputValidation";
 import { IAdminUseCase } from "../useCasese/interface/useCase/adminUseCase";
 import { catchError } from "../useCasese/middlewares/catchError";

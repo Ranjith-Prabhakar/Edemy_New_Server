@@ -8,7 +8,7 @@ export class OtpRepository implements IOtpRepository {
     try {
       const result = await otpModel.create(newUser);
       return result;
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }

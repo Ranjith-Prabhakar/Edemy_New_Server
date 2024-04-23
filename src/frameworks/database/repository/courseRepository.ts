@@ -27,7 +27,7 @@ export class CourseRepository implements ICourseRepository {
   async getCourseInProgress(instructor: string): Promise<ICourseResponse> {
     try {
       return await getCourseInProgress(instructor);
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }
@@ -35,7 +35,7 @@ export class CourseRepository implements ICourseRepository {
   async addCourseData(courseData: ICourse): Promise<ICourseResponse> {
     try {
       return await addCourseData(courseData);
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }
@@ -47,7 +47,7 @@ export class CourseRepository implements ICourseRepository {
   ): Promise<ICourseResponse> {
     try {
       return await updateCourse(instructor, datum);
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }
@@ -58,7 +58,7 @@ export class CourseRepository implements ICourseRepository {
   ): Promise<ICourseResponse> {
     try {
       return await addModuleVideos(data, instructor);
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }
@@ -66,7 +66,7 @@ export class CourseRepository implements ICourseRepository {
   async findByName(courseName: string): Promise<string | void> {
     try {
       return await findByName(courseName);
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }
@@ -74,7 +74,7 @@ export class CourseRepository implements ICourseRepository {
   async getCourses(): Promise<void | ICourseResponse> {
     try {
       return await getCourses();
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }
@@ -83,7 +83,7 @@ export class CourseRepository implements ICourseRepository {
   async getCoursesInRequest(): Promise<void | ICourseResponse> {
     try {
       return await getCoursesInRequest();
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }
@@ -94,7 +94,7 @@ export class CourseRepository implements ICourseRepository {
   ): Promise<void | ICourseResponse> {
     try {
       return await approveOrRejectVideo(courseId, action);
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }

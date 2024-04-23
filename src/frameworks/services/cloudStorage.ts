@@ -1,14 +1,17 @@
 import { ICloudStorageResponse } from "../../useCasese/interface/request_And_Response/cloudStorageResponse";
 import { ICloudStorage } from "../../useCasese/interface/services/cloudStorage";
+import dotenv from "dotenv";
+dotenv.config();
+
 const {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require("@aws-sdk/client-s3");
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
-
-require("dotenv").config();
 
 const s3Client = new S3Client({
   region: process.env.REGION,
@@ -33,7 +36,7 @@ export class CloudStorage implements ICloudStorage {
       });
       const url = await getSignedUrl(s3Client, command);
       return url;
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }
@@ -42,7 +45,7 @@ export class CloudStorage implements ICloudStorage {
     courseName: string
   ): Promise<void | ICloudStorageResponse> {
     try {
-          const command = new GetObjectCommand({
+      const command = new GetObjectCommand({
         Bucket: process.env.S3_BOCKET_NAME,
         Key: `${process.env.S3_COURSE_CONTENT_LOCATION}${courseName}`,
       });
@@ -53,7 +56,7 @@ export class CloudStorage implements ICloudStorage {
       } else {
         throw new Error("video not found");
       }
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   }

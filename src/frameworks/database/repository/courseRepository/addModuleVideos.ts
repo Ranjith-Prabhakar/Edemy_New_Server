@@ -8,7 +8,7 @@ export const addModuleVideos = async (
   instructor: string
 ): Promise<ICourseResponse> => {
   try {
-    let dbResult = await courseModel.findOne({
+    const dbResult = await courseModel.findOne({
       instructor,
       submissionStatus: "work-in-progress",
     });
@@ -87,7 +87,7 @@ export const addModuleVideos = async (
       }
     }
     return { status: 404, message: "course has been updated" };
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 };

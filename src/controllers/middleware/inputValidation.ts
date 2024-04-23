@@ -1,10 +1,10 @@
-import { Next, Req, Res } from "../../frameworks/types/serverPackageTypes";
+import { Next, Req } from "../../frameworks/types/serverPackageTypes";
 import { TInputValidation } from "../../useCasese/interface/inputValidation/inputValidation";
 import ErrorHandler from "../../useCasese/middlewares/errorHandler";
 
 // Mail format
 const mailValidation = (email: string): boolean => {
-  let emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
@@ -22,8 +22,9 @@ export const inputValidation: TInputValidation = async (
   next: Next
 ) => {
   // Trim and validate required fields
-  for (let prop in req.body) {
-    if (req.body.hasOwnProperty(prop)) {
+  for (const prop in req.body) {
+    // if (req.body.hasOwnProperty(prop)) { this was my code but eslint gave warning so that it is changed
+    if (Object.prototype.hasOwnProperty.call(req.body, prop)) {
       //by this it will avoid the trim application on any prototype chained props
       if (typeof req.body[prop] === "string") {
         req.body[prop] = req.body[prop].trim();
@@ -57,9 +58,10 @@ export const inputValidation: TInputValidation = async (
   }
 
   // Additional validations based on the route
+  let name, password, confirmPassword;
   switch (route) {
     case "registerUser":
-      let { name, password, confirmPassword } = req.body;
+      ({ name, password, confirmPassword } = req.body);
 
       // Validate name length
       if (name.length < 3) {

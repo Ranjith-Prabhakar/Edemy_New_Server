@@ -1,7 +1,8 @@
 import {IUser} from '../../entities/user';
 import { IJwt, IToken } from "../../useCasese/interface/services/jwt.types"; 
 import jwt from 'jsonwebtoken'
-require('dotenv').config();
+import dotenv from "dotenv";
+dotenv.config();
 
   
 export class JWTtoken implements IJwt {

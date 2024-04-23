@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'
-require("dotenv").config()
+import dotenv from "dotenv";
+dotenv.config();
 import { ISendMail } from '../../useCasese/interface/services/sendMail'
 
 

@@ -17,7 +17,7 @@ export const approveOrRejectVideo = async (
       message: "course status has been updated",
       data: result as ICourse,
     };
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 };

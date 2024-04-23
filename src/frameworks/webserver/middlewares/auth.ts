@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { ErrorHandler } from "../../../useCasese/middlewares/errorHandler";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import { redis } from "../../../index";
-require("dotenv").config();
+import dotenv from "dotenv"
+dotenv.config();
 
 //authenticated user
 export const isAuthenticated = async (

@@ -13,7 +13,7 @@ export const getCoursesInRequest =
         message: "existing courses have been fetched successfully",
         data: result,
       };
-    } catch (error: any) {
+    } catch (error) {
       throw error;
     }
   };

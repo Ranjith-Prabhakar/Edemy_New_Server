@@ -1,6 +1,7 @@
-import { Next, Req, Res } from "../../frameworks/types/serverPackageTypes";
+import { Req, Res } from "../../frameworks/types/serverPackageTypes";
 import ErrorResponse from "./errorHandler";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const errorMiddleware = (err: any, req: Req, res: Res) => {
   err.statusCode = err.statusCode || 500;
   err.message = err.message || "internal server error";

@@ -1,4 +1,5 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 import express, { NextFunction, Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -10,8 +11,6 @@ import { adminRoute } from "../routes/adminRoutes";
 import { courseRoute } from "../routes/courseRoute";
 
 export const app = express();
-
-
 
 app.use(
   cors({
@@ -28,11 +27,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/", userRoute(express.Router()));
 app.use("/api/v1/admin/", adminRoute(express.Router()));
-app.use("/api/v1/course/",courseRoute(express.Router()))
+app.use("/api/v1/course/", courseRoute(express.Router()));
 
 //unknown url
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const error = new Error(`route ${req.originalUrl} isn't found`) as any;
   error.statusCode = 404;
   next(error);

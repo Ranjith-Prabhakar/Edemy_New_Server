@@ -17,7 +17,7 @@ interface ITokenOptions {
   secure?: boolean;
 }
 
-let accessTokenProductionMode =
+const accessTokenProductionMode =
   process.env.NODE_ENV === "production" ? true : false;
 
 
