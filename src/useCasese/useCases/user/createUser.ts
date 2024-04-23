@@ -15,7 +15,7 @@ export const createUser = async (
   next: Next
 ) => {
   try {
-    let decode = (await jwtVerifier.verifyJwt(token)) as IUser;
+    const decode = (await jwtVerifier.verifyJwt(token)) as IUser;
     if (!decode)
       return next(
         new ErrorHandler(400, "token has been expired ,register again")
