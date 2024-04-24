@@ -6,6 +6,7 @@ export enum ENotification {
   "instructorRequestRejection" = "instructorRequestRejection",
   "courseApprovalRequest" = "courseApprovalRequest",
   "courseApprovalApprovance" = "courseApprovalApprovance",
+  "courseApprovalRejection" = "courseApprovalRejection",
   "broadCasting" = "broadCasting",
 }
 
@@ -15,6 +16,7 @@ export enum ENotificationMsg {
   "instructorRequestRejection" = "Request for being instructor has been rejected",
   "courseApprovalRequest" = "A Request from a instructor for new course approval has been recorded",
   "courseApprovalApprovance" = "Request for new course has been approved",
+  "courseApprovalRejection" = "Request for new course has been rejected",
   "courseApprovalApprovanceForAllUsers" = "A new course has been added",
 }
 
@@ -26,5 +28,6 @@ export interface INotification {
   instructorRequestApproval?: boolean;
   courseApprovalRequest?: boolean;
   courseApprovalApprovance?: boolean;
+  courseApprovalRejection?: boolean;
   broadCasting?: ICourse[];
 }

@@ -18,6 +18,9 @@ const notificationSchema: Schema<INotification> = new mongoose.Schema({
   courseApprovalApprovance: {
     type: String,
   },
+  courseApprovalRejection: {
+    type: String,
+  },
   broadCasting: [],
 });
 

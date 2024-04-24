@@ -94,6 +94,8 @@ export function userRoute(router: Route) {
       userController.updateNotifications(req, res, next);
     })
   );
+ 
+  
   
   return router;
 }

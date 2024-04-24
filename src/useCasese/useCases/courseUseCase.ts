@@ -52,7 +52,8 @@ import { ICourseTrackResponse } from "../interface/request_And_Response/courseTr
 import { ICourseTrackingRepository } from "../interface/repository/courseTrackingRepository";
 import { SocketClass } from "../staticClassProperty/StaticClassProperty";
 import { INotificationRepository } from "../interface/repository/notificationRepository";
-import { ENotification } from "../../entities/notification";
+import { ENotification, ENotificationMsg } from "../../entities/notification";
+import { ICourse } from "../../entities/course";
 
 export class CourseUseCase implements ICourseUseCase {
   private readonly cloudStorage: ICloudStorage;
@@ -132,6 +133,7 @@ export class CourseUseCase implements ICourseUseCase {
       return await updateCourse(
         this.courseRepository,
         this.userRepository,
+        this.notificationRepository,
         req,
         next
       );
@@ -194,24 +196,32 @@ export class CourseUseCase implements ICourseUseCase {
           req.body.instructorId as string,
           ENotification.courseApprovalApprovance
         );
+      console.log("result", result);
       if (notificationRepoUpdate) {
+        const instructorMessage =
+          (result?.data as ICourse).status === "approved"
+            ? ENotificationMsg.courseApprovalApprovance
+            : ENotificationMsg.courseApprovalRejection;
         //sending notification to the instructor
         SocketClass.SocketUsers[req.body.instructorId].emit(
           "fromServerCourseApproved",
-          `The ${req.body.courseName} has been approved `
+          instructorMessage
         );
 
-        // sendin notification to all online users except instructor
-        const usersExceptInstructor = SocketClass.SocketUsers;
-        delete usersExceptInstructor[req.body.instructorId];
+        if ((result?.data as ICourse).status === "approved") {
+          // sendin notification to all online users except instructor
+          const usersExceptInstructor = SocketClass.SocketUsers;
+          delete usersExceptInstructor[req.body.instructorId];
+          delete usersExceptInstructor[req.user?._id as string];
 
-        const activeUsers = Object.values(usersExceptInstructor);
-        activeUsers.forEach((user) =>
-          user.emit(
-            "fromServerCourseApprovedNotificationForAllUsers",
-            `a new course has been added`
-          )
-        );
+          const activeUsers = Object.values(usersExceptInstructor);
+          activeUsers.forEach((user) =>
+            user.emit(
+              "fromServerCourseApprovedNotificationForAllUsers",
+              ENotificationMsg.courseApprovalApprovanceForAllUsers
+            )
+          );
+        }
       }
 
       return result;
