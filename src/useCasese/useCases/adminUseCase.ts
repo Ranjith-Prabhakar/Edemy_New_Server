@@ -63,6 +63,7 @@ export class AdminUseCase implements IAdminUseCase {
   ): Promise<IInstructorAgreementResponse | void> {
     try {
       const { userId } = req.body;
+
       const result = (await approveOrRejectInstructor(
         this.userRepository,
         this.instrctorAgreementRepository,
@@ -121,7 +122,7 @@ export class AdminUseCase implements IAdminUseCase {
     next: Next
   ): Promise<{ permitedNext: number; data: IUser[] } | void> {
     try {
-      return await getUsers(this.userRepository,req, next);
+      return await getUsers(this.userRepository, req, next);
     } catch (error) {
       catchError(error, next);
     }

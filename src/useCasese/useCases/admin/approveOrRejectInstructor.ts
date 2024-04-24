@@ -24,7 +24,7 @@ export const approveOrRejectInstructor = async (
       }
     } else {
       const result = await instrctorAgreementRepository.updateStatus(
-        req.body.userId,
+        req.body.agreementId,
         "rejected"
       );
       return result;
