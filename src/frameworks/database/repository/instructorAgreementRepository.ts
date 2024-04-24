@@ -1,4 +1,5 @@
 import { IInstructorAgreement } from "../../../entities/instructorAgreement";
+import { ENotificationMsg } from "../../../entities/notification";
 import { IInstructorAgreementRepository } from "../../../useCasese/interface/repository/instructorAgreementRepository";
 import { IInstructorAgreementResponse } from "../../../useCasese/interface/request_And_Response/instructorAgreement";
 import { IJsonResponse } from "../../../useCasese/interface/services/jsonResponse";
@@ -55,6 +56,7 @@ export class InstrctorAgreementRepository
     action: string
   ): Promise<IInstructorAgreementResponse> {
     try {
+      
       const result = await instructorAgreementModel.findByIdAndUpdate(
         userId,
         {
@@ -66,7 +68,10 @@ export class InstrctorAgreementRepository
         return {
           status: 200,
           success: true,
-          message: "status has been updated",
+          message:
+            action === "approved"
+              ? ENotificationMsg.instructorRequestApproval
+              : ENotificationMsg.instructorRequestRejection,
           data: result,
         };
       } else {

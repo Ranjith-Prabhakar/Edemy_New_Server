@@ -9,6 +9,9 @@ const notificationSchema: Schema<INotification> = new mongoose.Schema({
   instructorRequestApproval: {
     type: String,
   },
+  instructorRequestRejection: {
+    type: String,
+  },
   courseApprovalRequest: {
     type: String,
   },

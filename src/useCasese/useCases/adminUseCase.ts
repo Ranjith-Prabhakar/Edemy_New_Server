@@ -24,7 +24,7 @@ import { IUserResponse } from "../interface/request_And_Response/user";
 import { IInstructorAgreementResponse } from "../interface/request_And_Response/instructorAgreement";
 import { SocketClass } from "../staticClassProperty/StaticClassProperty";
 import { INotificationRepository } from "../interface/repository/notificationRepository";
-import { ENotification } from "../../entities/notification";
+import { ENotification, ENotificationMsg } from "../../entities/notification";
 import { catchError } from "../middlewares/catchError";
 import { ICloudSession } from "../interface/services/cloudSession";
 import { IStatistics } from "../interface/request_And_Response/statistics";
@@ -74,10 +74,15 @@ export class AdminUseCase implements IAdminUseCase {
       const notificationRepoUpdate =
         await this.notificationRepository.addNotification(
           userId as string,
-          ENotification.instructorRequestApproval
+          result.message === ENotificationMsg.instructorRequestApproval
+            ? ENotification.instructorRequestApproval
+            : ENotification.instructorRequestRejection
         );
 
-      if (notificationRepoUpdate) {
+      if (
+        notificationRepoUpdate &&
+        result.message === ENotificationMsg.instructorRequestApproval
+      ) {
         const userSession = (await this.cloudSession.getUser(
           userId as string
         )) as string;
@@ -87,14 +92,12 @@ export class AdminUseCase implements IAdminUseCase {
           userId as string,
           parsedUserSession
         );
-        console.log(parsedUserSession, "parsedUserSession ____+++++");
-        // -------------------------------------------------------------------------------
-        SocketClass.SocketUsers[userId].emit(
-          "fromServerInstrctorRequestApproval",
-          "Your request for being instructor has been approved"
-        );
       }
-
+      // -------------------------------------------------------------------------------
+      SocketClass.SocketUsers[userId].emit(
+        "fromServerInstrctorRequestApproval",
+        result.message
+      );
       return result;
     } catch (error) {
       catchError(error, next);
