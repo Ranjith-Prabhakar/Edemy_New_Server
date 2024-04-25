@@ -19,7 +19,7 @@ export const setVideoTrack = async (
       position,
       complete,
     } = req.body;
-    return await courseTrackingRepository.setVideoTracking({
+    const result =  await courseTrackingRepository.setVideoTracking({
       userId,
       courseId,
       moduleNo,
@@ -29,6 +29,7 @@ export const setVideoTrack = async (
       position,
       complete,
     });
+    return result
   } catch (error) {
     catchError(error, next);
   }

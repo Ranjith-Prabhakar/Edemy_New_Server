@@ -21,7 +21,6 @@ export class CourseTrackRepository implements ICourseTrackingRepository {
         complete,
       } = videoData;
 
-      console.log("videoData", videoData);
       const isCourseExist = await courseTrackingModel.findOne({
         courseId,
         userId,
@@ -40,7 +39,7 @@ export class CourseTrackRepository implements ICourseTrackingRepository {
 
           if (isVideoExist) {
             // if the video also exist already in the list then update
-            await courseTrackingModel.findOneAndUpdate(
+            const update = await courseTrackingModel.findOneAndUpdate(
               {
                 courseId,
                 userId,
@@ -60,9 +59,19 @@ export class CourseTrackRepository implements ICourseTrackingRepository {
                 new: true,
               }
             );
+            if (update)
+              return {
+                success: true,
+                message: "course tracking has been updated",
+              };
+            else
+              return {
+                success: false,
+                message: "course tracking hasn`t been updated",
+              };
           } else {
             // if the video not exist in the list add it
-            await courseTrackingModel.updateOne(
+            const update = await courseTrackingModel.updateOne(
               {
                 courseId,
                 "modules.moduleNo": moduleNo,
@@ -81,10 +90,20 @@ export class CourseTrackRepository implements ICourseTrackingRepository {
                 },
               }
             );
+            if (update)
+              return {
+                success: true,
+                message: "course tracking has been updated",
+              };
+            else
+              return {
+                success: false,
+                message: "course tracking hasn`t been updated",
+              };
           }
         } else {
           // if the module not added to the video list
-          await courseTrackingModel.updateOne(
+          const update = await courseTrackingModel.updateOne(
             { courseId },
             {
               $addToSet: {
@@ -103,10 +122,20 @@ export class CourseTrackRepository implements ICourseTrackingRepository {
               },
             }
           );
+          if (update)
+            return {
+              success: true,
+              message: "course tracking has been updated",
+            };
+          else
+            return {
+              success: false,
+              message: "course tracking hasn`t been updated",
+            };
         }
       } else {
         //if course for this user not added into the tracking already
-        await courseTrackingModel.create({
+        const update = await courseTrackingModel.create({
           courseId,
           userId,
           modules: [
@@ -122,6 +151,16 @@ export class CourseTrackRepository implements ICourseTrackingRepository {
             },
           ],
         });
+        if (update)
+          return {
+            success: true,
+            message: "course tracking has been updated",
+          };
+        else
+          return {
+            success: false,
+            message: "course tracking hasn`t been updated",
+          };
       }
     } catch (error) {
       throw error;
