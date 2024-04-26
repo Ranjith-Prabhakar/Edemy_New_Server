@@ -9,7 +9,7 @@ export default tseslint.config(
   {
     rules: {
       // '@typescript-eslint/no-var-requires': 'off', // Disable the rule to allow require statement in typescript
-      // 'no-useless-catch':'off' 
+      'no-useless-catch':'off' 
     }
   }
 );

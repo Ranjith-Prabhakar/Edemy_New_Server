@@ -26,9 +26,6 @@ export const gAuth = async (
       const user = await userRepository.findUserByEmail(
         mailData.email as string
       );
-
-      console.log("user", user);
-
       if (user) {
         if (user.status === "frozen") {
           next(new ErrorHandler(400, "access has been denied by admin"));

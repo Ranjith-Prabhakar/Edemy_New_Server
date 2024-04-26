@@ -14,5 +14,3 @@ export const getSingleCourseReviewAndRating = async (
     catchError(error, next);
   }
 };
-
-// have to change interface for getReviewAndRating and so on 

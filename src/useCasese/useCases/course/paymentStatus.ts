@@ -23,7 +23,6 @@ export const paymentStatus = async (
       req.user?._id as string
     )) as IPayment;
     if (courseData) {
-      console.log("courseData", courseData);
       const [newUserData, isPurchaseUpdated, isCategoryUpdated] =
         await Promise.all([
           userRepository.addEnrolledCourse(

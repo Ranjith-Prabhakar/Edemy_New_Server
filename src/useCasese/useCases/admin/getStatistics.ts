@@ -31,16 +31,7 @@ export const getStatistics = async (
       reviewAndRatingRepository.ratingAndNoOfCourses_Statistics(),
       userRepository.topTenInstructorAndNoOfCourses_Statistics(),
     ]);
-    console.log(
-      ` monthlySaleAndRevenue,
-      topSellingCategories,
-      ratingAndNoOfCourses,
-      topTenInstructorAndNoOfCourses,`,
-      monthlySaleAndRevenue,
-      topSellingCategories,
-      ratingAndNoOfCourses,
-      topTenInstructorAndNoOfCourses
-    );
+    
     return {
       status: 200,
       message: "statistics has been found",

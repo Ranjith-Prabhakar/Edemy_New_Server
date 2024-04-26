@@ -20,7 +20,6 @@ export const updateCourse = async (
       req.user?._id as string,
       req.body
     );
-    console.log("courseResutl 22222222222255555555", courseResutl);
     if (courseResutl) {
       const admin = await userRepository.getAdmin();
       if (admin) {
@@ -28,7 +27,6 @@ export const updateCourse = async (
           admin._id as string,
           ENotification.courseApprovalRequest
         );
-        console.log("admin 2222222225555555555555555555", admin);
         const adminSocket = SocketClass.SocketUsers[admin._id as string];
         if (adminSocket) {
           adminSocket.emit(

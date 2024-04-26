@@ -12,6 +12,5 @@ export const freezUser = async (
     return await userRepository.freezUser(req.params.id as string);
   } catch (error) {
     catchError(error,next)
-    // return next(new ErrorHandler(500, error.message));
   }
 };

@@ -11,6 +11,5 @@ export const getCategories = async (
       return await categoryRepository.getCategories(true)
   } catch (error) {
     catchError(error,next)
-    // return next(new ErrorHandler(500,error.message))
   }
 };

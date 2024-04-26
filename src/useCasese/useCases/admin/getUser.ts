@@ -13,6 +13,5 @@ export const getUser = async (
     return await userRepository.getUser(id);
   } catch (error) {
     catchError(error,next)
-    // return next(new ErrorHandler(500, error.message));
   }
 };

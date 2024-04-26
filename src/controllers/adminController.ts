@@ -34,23 +34,9 @@ export class AdminController {
   }
 
   // *****************************************************************************************************************************
-  // async getUsers(req: Req, res: Res, next: Next) {
-  //   try {
-  //     const result = await this.adminUseCase.getUsers(next);
-  //     console.log("result", result);
-  //     res.status(200).json({
-  //       success: true,
-  //       message: "users have been fetched successfully ",
-  //       data: result,
-  //     });
-  //   } catch (error) {
-  //     catchError(error, next);
-  //   }
-  // }
   async getUsers(req: Req, res: Res, next: Next) {
     try {
       const result = await this.adminUseCase.getUsers(req,next);
-      console.log("result", result);
       res.status(200).json({
         success: true,
         message: "users have been fetched successfully ",
@@ -64,7 +50,6 @@ export class AdminController {
   async getUser(req: Req, res: Res, next: Next) {
     try {
       const result = await this.adminUseCase.getUser(req, next);
-      console.log("admin controller getUser", result);
       res.status(200).json({
         success: true,
         message: "user have been fetched successfully",
@@ -93,23 +78,9 @@ export class AdminController {
     }
   }
   // *****************************************************************************************************************************
-  // async getInstructors(req: Req, res: Res, next: Next) {
-  //   try {
-  //     const result = await this.adminUseCase.getInstructors(next);
-  //     console.log("admin controller getUser", result);
-  //     res.status(200).json({
-  //       success: true,
-  //       message: "instructors have been fetched successfully",
-  //       data: result,
-  //     });
-  //   } catch (error) {
-  //     catchError(error, next);
-  //   }
-  // }
   async getInstructors(req: Req, res: Res, next: Next) {
     try {
       const result = await this.adminUseCase.getInstructors(req, next);
-      console.log("admin controller getUser", result);
       res.status(200).json({
         success: true,
         message: "instructors have been fetched successfully",
@@ -124,7 +95,6 @@ export class AdminController {
     try {
       await inputValidation(req, "addCategory", next);
       const result = await this.adminUseCase.addCategory(req, next);
-      console.log("addCategory controller", result);
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
@@ -139,7 +109,6 @@ export class AdminController {
         message: "data fetched successfully",
         data: result,
       });
-      console.log("reachig here inside of controller", result);
     } catch (error) {
       catchError(error, next);
     }

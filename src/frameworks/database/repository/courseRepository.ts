@@ -113,8 +113,6 @@ export class CourseRepository implements ICourseRepository {
     videoNo: string
   ): Promise<boolean> {
     try {
-      console.log("get_video_for_users repo ");
-
       return await isPreview(courseId, moduleNo, videoNo);
     } catch (error) {
       throw error;

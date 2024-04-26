@@ -10,6 +10,5 @@ export const instructorRequests = async (
     return await instructorAgreementRepository.getAgreements();
   } catch (error) {
     catchError(error,next)
-    // return next(new ErrorHandler(500, error.message));
   }
 };

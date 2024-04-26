@@ -16,7 +16,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -27,7 +26,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -38,7 +36,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -49,7 +46,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -60,7 +56,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -70,7 +65,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -80,7 +74,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -91,7 +84,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -102,7 +94,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -113,7 +104,6 @@ export class CoursesController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -127,7 +117,6 @@ export class CoursesController {
       });
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -138,7 +127,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -149,7 +137,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -160,7 +147,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
   async paymentStatus(req: Req, res: Res, next: Next) {
@@ -170,7 +156,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -181,7 +166,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -194,7 +178,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -207,7 +190,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -218,7 +200,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -229,7 +210,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -241,7 +221,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -252,7 +231,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 
@@ -263,7 +241,6 @@ export class CoursesController {
       if (result) res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
     }
   }
 }

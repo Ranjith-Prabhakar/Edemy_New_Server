@@ -41,7 +41,6 @@ export class UserController {
       });
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(error.status, error.message));
     }
   }
   // *****************************************************************************************************************************
@@ -57,7 +56,7 @@ export class UserController {
       res.clearCookie("verificationToken").send(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
   // *****************************************************************************************************************************
@@ -76,7 +75,7 @@ export class UserController {
         .json({ user: result?.user, message: "user loggedIn successfully" });
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
   // *****************************************************************************************************************************
@@ -89,7 +88,7 @@ export class UserController {
       });
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
   // *****************************************************************************************************************************
@@ -101,7 +100,7 @@ export class UserController {
       res.status(200).json({ success: true, message: "tokens are updated" });
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
   // *****************************************************************************************************************************
@@ -115,7 +114,7 @@ export class UserController {
       res.status(result.status).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
   // *****************************************************************************************************************************
@@ -138,7 +137,7 @@ export class UserController {
       });
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
   // *****************************************************************************************************************************
@@ -154,7 +153,7 @@ export class UserController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
   // *****************************************************************************************************************************
@@ -172,7 +171,7 @@ export class UserController {
       res.status(200).send(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
   // *****************************************************************************************************************************
@@ -183,7 +182,7 @@ export class UserController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
 
@@ -195,7 +194,7 @@ export class UserController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
 
@@ -207,7 +206,7 @@ export class UserController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      // return next(new ErrorHandler(500, error.message));
+      
     }
   }
 

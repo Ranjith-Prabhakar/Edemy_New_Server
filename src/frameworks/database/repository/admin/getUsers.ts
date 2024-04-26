@@ -17,7 +17,6 @@ export const getUsers = async (
   pageNo: number
 ): Promise<{ permitedNext: number; data: IUser[] }> => {
   try {
-    console.log("4444444444");
     const start = (pageNo - 1) * 10;
     const end = start + 10;
     const [length, result] = await Promise.all([
@@ -27,8 +26,6 @@ export const getUsers = async (
         .skip(start)
         .limit(end),
     ]);
-    console.log("count`````````````````````````", length);
-    console.log("permited pageNO", Math.ceil(length / 10));
     return { permitedNext: Math.ceil(length / 10), data: result };
   } catch (error) {
     throw error;

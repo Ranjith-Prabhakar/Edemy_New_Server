@@ -41,8 +41,6 @@ export const inputValidation: TInputValidation = async (
         }
 
         if (prop === "password") {
-          console.log("prop === password", prop, typeof req.body[prop]);
-          console.log("prop === password", req.body[prop].length);
           // Validate password length and complexity
           if (req.body[prop].length < 8 || !isStrongPassword(req.body[prop])) {
             return next(

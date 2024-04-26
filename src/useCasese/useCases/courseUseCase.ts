@@ -196,7 +196,6 @@ export class CourseUseCase implements ICourseUseCase {
           req.body.instructorId as string,
           ENotification.courseApprovalApprovance
         );
-      console.log("result", result);
       if (notificationRepoUpdate) {
         const instructorMessage =
           (result?.data as ICourse).status === "approved"
