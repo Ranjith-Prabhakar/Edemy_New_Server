@@ -4,6 +4,10 @@ import { OtpRepository } from "../../../database/repository/otp.repository";
 import { CategoryRepository } from "../../../database/repository/categoryRepository";
 import { InstrctorAgreementRepository } from "../../../database/repository/instructorAgreementRepository";
 import { CourseRepository } from "../../../database/repository/courseRepository";
+import { PaymentRepository } from "../../../database/repository/paymentRepository";
+import { ReviewAndRatingRepository } from "../../../database/repository/reviewAndRatingRepository";
+import { CourseTrackRepository } from "../../../database/repository/coursTrackRepository";
+import { NotificationRepository } from "../../../database/repository/notificationRepository";
 
 import { UserUsecase } from "../../../../useCasese/useCases/userUseCase";
 import { AdminUseCase } from "../../../../useCasese/useCases/adminUseCase";
@@ -21,10 +25,7 @@ import { CloudSession } from "../../../services/cloudSession";
 import { RequestManagement } from "../../../services/requestManagement";
 import { CloudStorage } from "../../../services/cloudStorage";
 import { PaymentService } from "../../../services/paymentService";
-import { PaymentRepository } from "../../../database/repository/paymentRepository";
-import { ReviewAndRatingRepository } from "../../../database/repository/reviewAndRatingRepository";
-import { CourseTrackRepository } from "../../../database/repository/coursTrackRepository";
-import { NotificationRepository } from "../../../database/repository/notificationRepository";
+import { AuthService } from "../../../services/AuthService";
 
 const userRepository = new UserRepository(userModel);
 const bcryptService = new Encrypt();
@@ -43,7 +44,7 @@ const paymentRepository = new PaymentRepository();
 const reviewAndRatingRepository = new ReviewAndRatingRepository();
 const courseTrackRepository = new CourseTrackRepository();
 const notificationRepository = new NotificationRepository();
-
+const authService = new AuthService();
 
 const userUseCase = new UserUsecase(
   userRepository,
@@ -55,7 +56,8 @@ const userUseCase = new UserUsecase(
   cloudSession,
   requestManagement,
   instrctorAgreementRepository,
-  notificationRepository
+  notificationRepository,
+  authService
 );
 
 const adminUseCase = new AdminUseCase(

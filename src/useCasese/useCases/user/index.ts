@@ -10,6 +10,8 @@ import {userSession} from "./userSession"
 import { forgotPasswordOtpVerification } from "./forgotPasswordOtpVerification";
 import { getNotifications } from "./getNotifications";
 import { updateNotifications } from "./updateNotifications";
+import { gAuthUrl } from "./AuthUrl";
+import { gAuth } from "./gAuth";
 
 export {
   createUser,
@@ -24,4 +26,6 @@ export {
   forgotPasswordOtpVerification,
   getNotifications,
   updateNotifications,
+  gAuthUrl,
+  gAuth,
 };

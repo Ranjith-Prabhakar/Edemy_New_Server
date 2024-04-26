@@ -1,5 +1,7 @@
 import { Req, Res, Next } from "../frameworks/types/serverPackageTypes";
 import { inputValidation } from "./middleware/inputValidation";
+import dotenv from "dotenv";
+dotenv.config();
 
 import {
   accessTokenOptions,
@@ -209,5 +211,36 @@ export class UserController {
     }
   }
 
-  
+  // *****************************************************************************************************************************
+
+  async gAuthUrl(req: Req, res: Res, next: Next) {
+    try {
+      const result = await this.userUseCase.gAuthUrl(req, next);
+      // res.header("Access-Control-Allow-Origin", process.env.CLIENT);
+      // res.header("Access-Control-Allow-Credentials", "true");
+      // res.header("Referrer-Policy", "no-referrer-when-downgrade");
+
+      res.status(200).json({ url: result });
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+
+  // *****************************************************************************************************************************
+
+  async gAuth(req: Req, res: Res, next: Next) {
+    try {
+      const result = await this.userUseCase.gAuth(req, next);
+      res.redirect(
+        303,
+        `${process.env.CLIENT}/google_auth/?userData=${JSON.stringify(
+          result?.user
+        )}&accessToken=${result?.tokens.accessToken}&refreshToken=${
+          result?.tokens.refreshToken
+        }`
+      );
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
 }

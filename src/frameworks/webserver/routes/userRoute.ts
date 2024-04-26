@@ -94,8 +94,19 @@ export function userRoute(router: Route) {
       userController.updateNotifications(req, res, next);
     })
   );
- 
-  
-  
+
+  router.post(
+    "/gauth_url",
+    catchAsyncErrors((req: Req, res: Res, next: Next) => {
+      userController.gAuthUrl(req, res, next);
+    })
+  );
+   router.get(
+     "/gauth",
+     catchAsyncErrors((req: Req, res: Res, next: Next) => {
+       userController.gAuth(req, res, next);
+     })
+   );
+
   return router;
 }

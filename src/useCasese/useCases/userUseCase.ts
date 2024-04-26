@@ -23,6 +23,8 @@ import {
   forgotPasswordOtpVerification,
   getNotifications,
   updateNotifications,
+  gAuthUrl,
+  gAuth,
 } from "./user/index";
 import { IInstructorAgreementRepository } from "../interface/repository/instructorAgreementRepository";
 import { IUserUseCase } from "../interface/useCase/userUseCase";
@@ -33,6 +35,7 @@ import { catchError } from "../middlewares/catchError";
 import { INotificationRepository } from "../interface/repository/notificationRepository";
 import { NextFunction } from "express";
 import { INotificationResponse } from "../interface/request_And_Response/notification";
+import { IAuthService } from "../interface/services/AuthService";
 
 export class UserUsecase implements IUserUseCase {
   private readonly userRepository: IUserRepository;
@@ -45,6 +48,7 @@ export class UserUsecase implements IUserUseCase {
   private readonly requestManagement: IRequestManagement;
   private readonly instructorAgreementRepository: IInstructorAgreementRepository;
   private readonly notificationRepository: INotificationRepository;
+  private readonly authService: IAuthService;
 
   //
   constructor(
@@ -57,7 +61,8 @@ export class UserUsecase implements IUserUseCase {
     cloudSession: ICloudSession,
     requestManagement: IRequestManagement,
     instructorAgreementRepository: IInstructorAgreementRepository,
-    notificationRepository: INotificationRepository
+    notificationRepository: INotificationRepository,
+    authService: IAuthService
   ) {
     this.userRepository = userRepository;
     this.bcrypt = bcrypt;
@@ -69,6 +74,7 @@ export class UserUsecase implements IUserUseCase {
     this.requestManagement = requestManagement;
     this.instructorAgreementRepository = instructorAgreementRepository;
     this.notificationRepository = notificationRepository;
+    this.authService = authService;
   }
   // **************************************************************************************
   async registerUser(
@@ -264,11 +270,35 @@ export class UserUsecase implements IUserUseCase {
     next: NextFunction
   ): Promise<void | { success: boolean; message: string }> {
     try {
-      return await updateNotifications(this.notificationRepository,req,next);
+      return await updateNotifications(this.notificationRepository, req, next);
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+  // **************************************************************************************
+  async gAuthUrl(req: Req, next: NextFunction): Promise<void | string> {
+    try {
+      return await gAuthUrl(this.authService, next);
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+  // **************************************************************************************
+  async gAuth(
+    req: Req,
+    next: NextFunction
+  ): Promise<{ user: IUser; tokens: IToken } | void> {
+    try {
+      return await gAuth(
+        this.authService,
+        this.userRepository,
+        this.jwtToken,
+        this.cloudSession,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
   }
 }
-
-
