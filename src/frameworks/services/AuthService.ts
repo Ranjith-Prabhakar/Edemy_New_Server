@@ -1,10 +1,10 @@
 import { IAuthService } from "../../useCasese/interface/services/AuthService";
-// const { OAuth2Client } = require("google-auth-library");
 import { OAuth2Client } from "google-auth-library";
 import { Req } from "../types/serverPackageTypes";
-
+import dotenv from "dotenv"
+dotenv.config()
 export class AuthService implements IAuthService {
-  redirectUrl = `http://127.0.0.1:8000/api/v1/gauth`;
+  redirectUrl = process.env.NODE_ENV="production" ? process.env.REDIRECT_URI :`http://127.0.0.1:8000/api/v1/gauth`;
 
   oAuth2Client = new OAuth2Client(
     process.env.AUTH_CLIENT_ID,
