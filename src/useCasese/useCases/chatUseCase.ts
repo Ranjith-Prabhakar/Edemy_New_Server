@@ -1,0 +1,30 @@
+import { IMessage } from "../../entities/messages";
+import { Next, Req } from "../../frameworks/types/serverPackageTypes";
+import { IConversationRepository } from "../interface/repository/conversation";
+import { IMessagesRepository } from "../interface/repository/messages";
+import { IChatUseCase } from "../interface/useCase/chatUseCase";
+import { catchError } from "../middlewares/catchError";
+import * as chatRepositoryEngine from "./chat/index";
+export class ChatUseCase implements IChatUseCase {
+  private readonly conversationRepository: IConversationRepository;
+  private readonly messagesRepository: IMessagesRepository;
+  constructor(
+    conversationRepository: IConversationRepository,
+    messagesRepository: IMessagesRepository
+  ) {
+    this.conversationRepository = conversationRepository;
+    this.messagesRepository = messagesRepository;
+  }
+  async addChat(req: Req, next: Next): Promise<IMessage | void> {
+    try {
+      return await chatRepositoryEngine.addChat(
+        this.messagesRepository,
+        this.conversationRepository,
+        req,
+        next
+      );
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+}

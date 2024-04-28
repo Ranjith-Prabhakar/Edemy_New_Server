@@ -9,6 +9,7 @@ import { errorMiddleware } from "../../../useCasese/middlewares/errorMiddleware"
 import { userRoute } from "../routes/userRoute";
 import { adminRoute } from "../routes/adminRoutes";
 import { courseRoute } from "../routes/courseRoute";
+import { chatRoute } from "../routes/chatRoute";
 
 export const app = express();
 
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/", userRoute(express.Router()));
 app.use("/api/v1/admin/", adminRoute(express.Router()));
 app.use("/api/v1/course/", courseRoute(express.Router()));
+app.use("/api/v1/chat/", chatRoute(express.Router()));
 
 //unknown url
 

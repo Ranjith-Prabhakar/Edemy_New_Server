@@ -2,6 +2,6 @@ import { TDocumentId } from "../frameworks/types/dbTypes";
 
 export interface IConversation {
   courseId: TDocumentId;
-  participants:TDocumentId[]
+  participants:string[];
   messages:TDocumentId[]
 }

@@ -7,7 +7,7 @@ const conversationSchema: Schema<IConversation> = new mongoose.Schema({
     required: [true, "please enter a valid courseId"],
   },
   participants: [{
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [String],
     ref:"User",
     required: [true, "please enter a valid userId"],
   }],

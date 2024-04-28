@@ -1,4 +1,5 @@
 import { IConversation } from "../../../entities/conversation";
+import { TDocumentId } from "../../../frameworks/types/dbTypes";
 
 export interface IConversationRepository {
   addParticipants(

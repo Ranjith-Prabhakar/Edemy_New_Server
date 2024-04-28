@@ -9,14 +9,17 @@ import { ReviewAndRatingRepository } from "../../../database/repository/reviewAn
 import { CourseTrackRepository } from "../../../database/repository/coursTrackRepository";
 import { NotificationRepository } from "../../../database/repository/notificationRepository";
 import { ConversationRepository } from "../../../database/repository/conversation";
+import { MessagesRepository } from "../../../database/repository/messages";
 
 import { UserUsecase } from "../../../../useCasese/useCases/userUseCase";
 import { AdminUseCase } from "../../../../useCasese/useCases/adminUseCase";
 import { CourseUseCase } from "../../../../useCasese/useCases/courseUseCase";
+import { ChatUseCase } from "../../../../useCasese/useCases/chatUseCase";
 
 import { UserController } from "../../../../controllers/userController";
 import { AdminController } from "../../../../controllers/adminController";
 import { CoursesController } from "../../../../controllers/coursesController";
+import { ChatController } from "../../../../controllers/chatController";
 
 import { Encrypt } from "../../../services/hashPassword";
 import { GenerateOtp } from "../../../services/generateOtp";
@@ -47,6 +50,7 @@ const courseTrackRepository = new CourseTrackRepository();
 const notificationRepository = new NotificationRepository();
 const authService = new AuthService();
 const conversationRepository = new ConversationRepository();
+const messageRepository = new MessagesRepository();
 
 const userUseCase = new UserUsecase(
   userRepository,
@@ -86,8 +90,11 @@ const courseUseCase = new CourseUseCase(
   conversationRepository
 );
 
+const chatUseCase = new ChatUseCase(conversationRepository, messageRepository);
+
 const userController = new UserController(userUseCase);
 const adminController = new AdminController(adminUseCase);
 const courseController = new CoursesController(courseUseCase);
+const chatController = new ChatController(chatUseCase);
 
-export { userController, adminController, courseController };
+export { userController, adminController, courseController, chatController };

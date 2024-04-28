@@ -1,5 +1,6 @@
 import { IConversation } from "../../../entities/conversation";
 import { IConversationRepository } from "../../../useCasese/interface/repository/conversation";
+import { TDocumentId } from "../../types/dbTypes";
 import { conversationModel } from "../models/conversation";
 
 export class ConversationRepository implements IConversationRepository {
@@ -9,9 +10,14 @@ export class ConversationRepository implements IConversationRepository {
     messageId: string
   ): Promise<void | IConversation> {
     try {
+      console.log("SenderId:", senderId);
+      console.log("SenderId Type:", typeof senderId);
+
+     
+
       const result = await conversationModel.findOneAndUpdate(
         { courseId: courseId, participants: { $in: [senderId] } },
-        { messages: { $push: messageId } },
+        { $push: { messages: messageId } },
         { returnOriginal: false, timestamps: true }
       );
       if (result) return result;
@@ -19,6 +25,7 @@ export class ConversationRepository implements IConversationRepository {
       throw error;
     }
   }
+
   async addParticipants(
     courseId: string,
     participantId: string
@@ -26,7 +33,7 @@ export class ConversationRepository implements IConversationRepository {
     try {
       const result = await conversationModel.findOneAndUpdate(
         { courseId },
-        { $push: { participants: participantId } }, // Correctly use $push operator
+        { $push: { participants: participantId } },
         { upsert: true, returnOriginal: false, timestamps: true }
       );
       if (result) return result;

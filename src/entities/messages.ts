@@ -1,7 +1,8 @@
 import { TDocumentId } from "../frameworks/types/dbTypes";
 
 export interface IMessage {
-  courseId:TDocumentId
+  _id: string;
+  courseId: TDocumentId;
   senderId: TDocumentId;
   message: string;
 }
