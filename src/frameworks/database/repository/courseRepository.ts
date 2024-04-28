@@ -3,30 +3,30 @@ import { ICourseRepository } from "../../../useCasese/interface/repository/cours
 import { IModuleVideoBody } from "../../../useCasese/interface/request/course";
 import { ICourseCategoryBaseResponse, ICourseResponse } from "../../../useCasese/interface/request_And_Response/course";
 
-import {
-  getCourseInProgress,
-  addCourseData,
-  updateCourse,
-  addModuleVideos,
-  findByName,
-  getCourses,
-  getCoursesInRequest,
-  approveOrRejectVideo,
-  getCoursesForUser,
-  isPreview,
-  updatePurchas,
-  getUserEnrolledCourses,
-  getCourseByCategory,
-  getCourseForSearch,
-  getInstructorTutorials,
-  monthlySaleAndRevenue_Statistics,
-} from "./courseRepository/index";
-
+// import {
+//   getCourseInProgress,
+//   addCourseData,
+//   updateCourse,
+//   addModuleVideos,
+//   findByName,
+//   getCourses,
+//   getCoursesInRequest,
+//   approveOrRejectVideo,
+//   getCoursesForUser,
+//   isPreview,
+//   updatePurchas,
+//   getUserEnrolledCourses,
+//   getCourseByCategory,
+//   getCourseForSearch,
+//   getInstructorTutorials,
+//   monthlySaleAndRevenue_Statistics,
+// } from "./courseRepository/index";
+import * as courseRepositoryEngine from "./courseRepository/index"
 export class CourseRepository implements ICourseRepository {
   constructor() {}
   async getCourseInProgress(instructor: string): Promise<ICourseResponse> {
     try {
-      return await getCourseInProgress(instructor);
+      return await courseRepositoryEngine.getCourseInProgress(instructor);
     } catch (error) {
       throw error;
     }
@@ -34,7 +34,7 @@ export class CourseRepository implements ICourseRepository {
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async addCourseData(courseData: ICourse): Promise<ICourseResponse> {
     try {
-      return await addCourseData(courseData);
+      return await courseRepositoryEngine.addCourseData(courseData);
     } catch (error) {
       throw error;
     }
@@ -46,7 +46,7 @@ export class CourseRepository implements ICourseRepository {
     datum: { [key: string]: string }
   ): Promise<ICourseResponse> {
     try {
-      return await updateCourse(instructor, datum);
+      return await courseRepositoryEngine.updateCourse(instructor, datum);
     } catch (error) {
       throw error;
     }
@@ -57,7 +57,7 @@ export class CourseRepository implements ICourseRepository {
     instructor: string
   ): Promise<ICourseResponse> {
     try {
-      return await addModuleVideos(data, instructor);
+      return await courseRepositoryEngine.addModuleVideos(data, instructor);
     } catch (error) {
       throw error;
     }
@@ -65,7 +65,7 @@ export class CourseRepository implements ICourseRepository {
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async findByName(courseName: string): Promise<string | void> {
     try {
-      return await findByName(courseName);
+      return await courseRepositoryEngine.findByName(courseName);
     } catch (error) {
       throw error;
     }
@@ -73,7 +73,7 @@ export class CourseRepository implements ICourseRepository {
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async getCourses(): Promise<void | ICourseResponse> {
     try {
-      return await getCourses();
+      return await courseRepositoryEngine.getCourses();
     } catch (error) {
       throw error;
     }
@@ -82,7 +82,7 @@ export class CourseRepository implements ICourseRepository {
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async getCoursesInRequest(): Promise<void | ICourseResponse> {
     try {
-      return await getCoursesInRequest();
+      return await courseRepositoryEngine.getCoursesInRequest();
     } catch (error) {
       throw error;
     }
@@ -93,7 +93,10 @@ export class CourseRepository implements ICourseRepository {
     action: string
   ): Promise<void | ICourseResponse> {
     try {
-      return await approveOrRejectVideo(courseId, action);
+      return await courseRepositoryEngine.approveOrRejectVideo(
+        courseId,
+        action
+      );
     } catch (error) {
       throw error;
     }
@@ -101,7 +104,7 @@ export class CourseRepository implements ICourseRepository {
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async getCoursesForUser(): Promise<void | ICourseResponse> {
     try {
-      return await getCoursesForUser();
+      return await courseRepositoryEngine.getCoursesForUser();
     } catch (error) {
       throw error;
     }
@@ -113,7 +116,11 @@ export class CourseRepository implements ICourseRepository {
     videoNo: string
   ): Promise<boolean> {
     try {
-      return await isPreview(courseId, moduleNo, videoNo);
+      return await courseRepositoryEngine.isPreview(
+        courseId,
+        moduleNo,
+        videoNo
+      );
     } catch (error) {
       throw error;
     }
@@ -121,7 +128,7 @@ export class CourseRepository implements ICourseRepository {
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async updatePurchas(courseId: string): Promise<boolean | void> {
     try {
-      return await updatePurchas(courseId);
+      return await courseRepositoryEngine.updatePurchas(courseId);
     } catch (error) {
       throw error;
     }
@@ -131,7 +138,7 @@ export class CourseRepository implements ICourseRepository {
     courses: string[]
   ): Promise<void | ICourseResponse> {
     try {
-      return await getUserEnrolledCourses(courses);
+      return await courseRepositoryEngine.getUserEnrolledCourses(courses);
     } catch (error) {
       throw error;
     }
@@ -145,7 +152,7 @@ export class CourseRepository implements ICourseRepository {
     filter: string
   ): Promise<void | ICourseCategoryBaseResponse> {
     try {
-      return await getCourseByCategory(
+      return await courseRepositoryEngine.getCourseByCategory(
         category,
         pageNumber,
         frequency,
@@ -165,7 +172,13 @@ export class CourseRepository implements ICourseRepository {
     filter: string
   ): Promise<void | ICourseCategoryBaseResponse> {
     try {
-      return await getCourseForSearch(key, pageNumber, frequency, sort, filter);
+      return await courseRepositoryEngine.getCourseForSearch(
+        key,
+        pageNumber,
+        frequency,
+        sort,
+        filter
+      );
     } catch (error) {
       throw error;
     }
@@ -175,7 +188,7 @@ export class CourseRepository implements ICourseRepository {
     courses: string[]
   ): Promise<void | ICourseResponse> {
     try {
-      return await getInstructorTutorials(courses);
+      return await courseRepositoryEngine.getInstructorTutorials(courses);
     } catch (error) {
       throw error;
     }
@@ -183,7 +196,7 @@ export class CourseRepository implements ICourseRepository {
   // 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async monthlySaleAndRevenue_Statistics(): Promise<void | { month: string; sale: string; revenue: string; }[]> {
     try {
-      return await monthlySaleAndRevenue_Statistics();
+      return await courseRepositoryEngine.monthlySaleAndRevenue_Statistics();
     } catch (error) {
       throw error
     }
