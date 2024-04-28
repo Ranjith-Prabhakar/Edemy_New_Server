@@ -10,22 +10,23 @@ import { IJwt, IToken } from "../interface/services/jwt.types";
 //
 import { SocketClass } from "../staticClassProperty/StaticClassProperty";
 
-import {
-  createUser,
-  registerUser,
-  login,
-  logout,
-  refresh,
-  beInstructor,
-  forgotPassword,
-  resetForgotPassword,
-  userSession,
-  forgotPasswordOtpVerification,
-  getNotifications,
-  updateNotifications,
-  gAuthUrl,
-  gAuth,
-} from "./user/index";
+// import {
+//   createUser,
+//   registerUser,
+//   login,
+//   logout,
+//   refresh,
+//   beInstructor,
+//   forgotPassword,
+//   resetForgotPassword,
+//   userSession,
+//   forgotPasswordOtpVerification,
+//   getNotifications,
+//   updateNotifications,
+//   gAuthUrl,
+//   gAuth,
+// } from "./user/index";
+import * as userUseCaseEngine from './user/index'
 import { IInstructorAgreementRepository } from "../interface/repository/instructorAgreementRepository";
 import { IUserUseCase } from "../interface/useCase/userUseCase";
 import { IUser } from "../../entities/user";
@@ -90,7 +91,7 @@ export class UserUsecase implements IUserUseCase {
     next: Next
   ): Promise<string | void> {
     try {
-      const result = await registerUser(
+      const result = await userUseCaseEngine.registerUser(
         this.otpRepository,
         this.userRepository,
         this.sendMail,
@@ -114,7 +115,7 @@ export class UserUsecase implements IUserUseCase {
     next: Next
   ): Promise<IUser | void> {
     try {
-      return await createUser(
+      return await userUseCaseEngine.createUser(
         this.userRepository,
         this.otpRepository,
         this.jwtToken,
@@ -132,7 +133,7 @@ export class UserUsecase implements IUserUseCase {
     next: Next
   ): Promise<{ user: IUser; tokens: IToken } | void> {
     try {
-      return await login(
+      return await userUseCaseEngine.login(
         this.userRepository,
         this.bcrypt,
         this.jwtToken,
@@ -152,7 +153,7 @@ export class UserUsecase implements IUserUseCase {
         "serverSideLogout",
         "user logged out successfully"
       );
-      return await logout(
+      return await userUseCaseEngine.logout(
         this.cloudSession,
         this.requestManagement,
         req,
@@ -166,7 +167,7 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async refresh(req: Req, res: Res, next: Next): Promise<IToken | void> {
     try {
-      return (await refresh(
+      return (await userUseCaseEngine.refresh(
         this.cloudSession,
         this.jwtToken,
         req,
@@ -179,7 +180,7 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async beInstructor(req: Req, next: Next): Promise<IJsonResponse | void> {
     try {
-      return await beInstructor(
+      return await userUseCaseEngine.beInstructor(
         this.instructorAgreementRepository,
         this.userRepository,
         this.notificationRepository,
@@ -193,7 +194,7 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async forgotPassword(req: Req, next: Next): Promise<string | void> {
     try {
-      return await forgotPassword(
+      return await userUseCaseEngine.forgotPassword(
         this.otpRepository,
         this.userRepository,
         this.sendMail,
@@ -213,7 +214,7 @@ export class UserUsecase implements IUserUseCase {
     token: string
   ): Promise<IGeneralResponse | void> {
     try {
-      return await forgotPasswordOtpVerification(
+      return await userUseCaseEngine.forgotPasswordOtpVerification(
         this.otpRepository,
         this.jwtToken,
         req,
@@ -232,7 +233,7 @@ export class UserUsecase implements IUserUseCase {
     next: Next
   ): Promise<IGeneralResponse | void> {
     try {
-      return await resetForgotPassword(
+      return await userUseCaseEngine.resetForgotPassword(
         this.userRepository,
         this.otpRepository,
         this.jwtToken,
@@ -248,7 +249,7 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async userSession(req: Req, next: Next): Promise<IUser | void> {
     try {
-      return await userSession(req, next);
+      return await userUseCaseEngine.userSession(req, next);
     } catch (error: unknown) {
       catchError(error, next);
     }
@@ -259,7 +260,11 @@ export class UserUsecase implements IUserUseCase {
     next: NextFunction
   ): Promise<void | INotificationResponse> {
     try {
-      return await getNotifications(this.notificationRepository, req, next);
+      return await userUseCaseEngine.getNotifications(
+        this.notificationRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -270,7 +275,11 @@ export class UserUsecase implements IUserUseCase {
     next: NextFunction
   ): Promise<void | { success: boolean; message: string }> {
     try {
-      return await updateNotifications(this.notificationRepository, req, next);
+      return await userUseCaseEngine.updateNotifications(
+        this.notificationRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -278,7 +287,7 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async gAuthUrl(req: Req, next: NextFunction): Promise<void | string> {
     try {
-      return await gAuthUrl(this.authService, next);
+      return await userUseCaseEngine.gAuthUrl(this.authService, next);
     } catch (error) {
       catchError(error, next);
     }
@@ -289,7 +298,7 @@ export class UserUsecase implements IUserUseCase {
     next: NextFunction
   ): Promise<{ user: IUser; tokens: IToken } | void> {
     try {
-      return await gAuth(
+      return await userUseCaseEngine.gAuth(
         this.authService,
         this.userRepository,
         this.jwtToken,

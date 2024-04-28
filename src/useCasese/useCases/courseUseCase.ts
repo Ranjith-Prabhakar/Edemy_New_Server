@@ -6,31 +6,32 @@ import {
 import { ICloudStorage } from "../interface/services/cloudStorage";
 import { ICourseUseCase } from "../interface/useCase/courseUseCase";
 
-import {
-  getCourseInProgress,
-  addCourseData,
-  addFileToCloud,
-  updateCourse,
-  addModuleVideos,
-  getCourses,
-  getCoursesInRequest,
-  getVideoPresignedUrl,
-  approveOrRejectVideo,
-  getCoursesForUser,
-  getCategories,
-  getVideoForUser,
-  getVideoForVisitors,
-  enrollCourse,
-  paymentStatus,
-  updateReviewAndRating,
-  getSingleCourseReviewAndRating,
-  getThumbnamilImagePresignedUrl,
-  getUserEnrolledCourses,
-  getCourseByCategory,
-  getCourseForSearch,
-  getInstructorTutorials,
-  setVideoTrack,
-} from "./course/index";
+// import {
+//   getCourseInProgress,
+//   addCourseData,
+//   addFileToCloud,
+//   updateCourse,
+//   addModuleVideos,
+//   getCourses,
+//   getCoursesInRequest,
+//   getVideoPresignedUrl,
+//   approveOrRejectVideo,
+//   getCoursesForUser,
+//   getCategories,
+//   getVideoForUser,
+//   getVideoForVisitors,
+//   enrollCourse,
+//   paymentStatus,
+//   updateReviewAndRating,
+//   getSingleCourseReviewAndRating,
+//   getThumbnamilImagePresignedUrl,
+//   getUserEnrolledCourses,
+//   getCourseByCategory,
+//   getCourseForSearch,
+//   getInstructorTutorials,
+//   setVideoTrack,
+// } from "./course/index";
+import * as courseUseCaseEngine from './course/index'
 import { ICourseRepository } from "../interface/repository/courseRepository";
 import {
   ICloudStorageResponse,
@@ -95,7 +96,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: Next
   ): Promise<ICourseResponse | void> {
     try {
-      return await getCourseInProgress(this.courseRepository, req, next);
+      return await courseUseCaseEngine.getCourseInProgress(
+        this.courseRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -103,7 +108,7 @@ export class CourseUseCase implements ICourseUseCase {
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async addCourseData(req: Req, next: Next): Promise<ICourseResponse | void> {
     try {
-      return await addCourseData(
+      return await courseUseCaseEngine.addCourseData(
         this.courseRepository,
         this.userRepository,
         this.cloudSesssion,
@@ -117,7 +122,7 @@ export class CourseUseCase implements ICourseUseCase {
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async addFileToCloud(req: Req, next: Next): Promise<string | void> {
     try {
-      return await addFileToCloud(
+      return await courseUseCaseEngine.addFileToCloud(
         this.cloudStorage,
         this.courseRepository,
         req,
@@ -130,7 +135,7 @@ export class CourseUseCase implements ICourseUseCase {
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async updateCourse(req: Req, next: Next): Promise<ICourseResponse | void> {
     try {
-      return await updateCourse(
+      return await courseUseCaseEngine.updateCourse(
         this.courseRepository,
         this.userRepository,
         this.notificationRepository,
@@ -144,7 +149,11 @@ export class CourseUseCase implements ICourseUseCase {
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async addModuleVideos(req: Req, next: Next): Promise<ICourseResponse | void> {
     try {
-      return await addModuleVideos(this.courseRepository, req, next);
+      return await courseUseCaseEngine.addModuleVideos(
+        this.courseRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -153,7 +162,7 @@ export class CourseUseCase implements ICourseUseCase {
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async getCourses(req: Req, next: Next): Promise<void | ICourseResponse> {
     try {
-      return await getCourses(this.courseRepository, next);
+      return await courseUseCaseEngine.getCourses(this.courseRepository, next);
     } catch (error) {
       catchError(error, next);
     }
@@ -164,7 +173,10 @@ export class CourseUseCase implements ICourseUseCase {
     next: Next
   ): Promise<void | ICourseResponse> {
     try {
-      return await getCoursesInRequest(this.courseRepository, next);
+      return await courseUseCaseEngine.getCoursesInRequest(
+        this.courseRepository,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -175,7 +187,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: Next
   ): Promise<void | ICloudStorageResponse> {
     try {
-      return await getVideoPresignedUrl(this.cloudStorage, req, next);
+      return await courseUseCaseEngine.getVideoPresignedUrl(
+        this.cloudStorage,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -186,7 +202,7 @@ export class CourseUseCase implements ICourseUseCase {
     next: Next
   ): Promise<void | ICourseResponse> {
     try {
-      const result = await approveOrRejectVideo(
+      const result = await courseUseCaseEngine.approveOrRejectVideo(
         this.courseRepository,
         req,
         next
@@ -234,7 +250,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | ICourseResponse> {
     try {
-      return await getCoursesForUser(this.courseRepository, req, next);
+      return await courseUseCaseEngine.getCoursesForUser(
+        this.courseRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -246,7 +266,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<ICategory[] | void> {
     try {
-      return await getCategories(this.categoryRepository, req, next);
+      return await courseUseCaseEngine.getCategories(
+        this.categoryRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -258,7 +282,7 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<IExtendedCloudStorageResponse | void> {
     try {
-      return await getVideoForUser(
+      return await courseUseCaseEngine.getVideoForUser(
         this.courseRepository,
         this.cloudStorage,
         this.courseTrackingRepository,
@@ -276,7 +300,7 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | ICloudStorageResponse> {
     try {
-      return await getVideoForVisitors(
+      return await courseUseCaseEngine.getVideoForVisitors(
         this.courseRepository,
         this.cloudStorage,
         req,
@@ -292,7 +316,7 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | IPaymentRespose> {
     try {
-      return await enrollCourse(
+      return await courseUseCaseEngine.enrollCourse(
         this.paymentService,
         this.paymentRepository,
         req,
@@ -308,7 +332,7 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | IUserResponse> {
     try {
-      return await paymentStatus(
+      return await courseUseCaseEngine.paymentStatus(
         this.paymentRepository,
         this.userRepository,
         this.courseRepository,
@@ -327,7 +351,7 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | IReviewAndRatingResponse> {
     try {
-      return await updateReviewAndRating(
+      return await courseUseCaseEngine.updateReviewAndRating(
         this.reviewAndRatingRepository,
         req,
         next
@@ -342,7 +366,7 @@ export class CourseUseCase implements ICourseUseCase {
     next: Next
   ): Promise<void | IReviewAndRatingResponse> {
     try {
-      return await getSingleCourseReviewAndRating(
+      return await courseUseCaseEngine.getSingleCourseReviewAndRating(
         this.reviewAndRatingRepository,
         req,
         next
@@ -357,7 +381,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | ICloudStorageResponse> {
     try {
-      return await getThumbnamilImagePresignedUrl(this.cloudStorage, req, next);
+      return await courseUseCaseEngine.getThumbnamilImagePresignedUrl(
+        this.cloudStorage,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -368,7 +396,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: Next
   ): Promise<void | ICourseResponse> {
     try {
-      return await getUserEnrolledCourses(this.courseRepository, req, next);
+      return await courseUseCaseEngine.getUserEnrolledCourses(
+        this.courseRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -380,7 +412,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | ICourseCategoryBaseResponse> {
     try {
-      return await getCourseByCategory(this.courseRepository, req, next);
+      return await courseUseCaseEngine.getCourseByCategory(
+        this.courseRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -391,7 +427,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | ICourseCategoryBaseResponse> {
     try {
-      const result = await getCourseForSearch(this.courseRepository, req, next);
+      const result = await courseUseCaseEngine.getCourseForSearch(
+        this.courseRepository,
+        req,
+        next
+      );
       return result;
     } catch (error) {
       catchError(error, next);
@@ -403,7 +443,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | ICourseResponse> {
     try {
-      return await getInstructorTutorials(this.courseRepository, req, next);
+      return await courseUseCaseEngine.getInstructorTutorials(
+        this.courseRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -414,7 +458,11 @@ export class CourseUseCase implements ICourseUseCase {
     next: NextFunction
   ): Promise<void | ICourseTrackResponse> {
     try {
-      return await setVideoTrack(this.courseTrackingRepository, req, next);
+      return await courseUseCaseEngine.setVideoTrack(
+        this.courseTrackingRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }

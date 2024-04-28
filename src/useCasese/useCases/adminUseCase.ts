@@ -2,20 +2,21 @@ import { Next, Req } from "../../frameworks/types/serverPackageTypes";
 import { ICategoryRepository } from "../interface/repository/categoryRepository";
 import { IInstructorAgreementRepository } from "../interface/repository/instructorAgreementRepository";
 import { IUserRepository } from "../interface/repository/userRepository";
-import {
-  approveOrRejectInstructor,
-  getUsers,
-  getUser,
-  freezUser,
-  unFreezUser,
-  getInstructors,
-  addCategory,
-  getCategories,
-  freezCategory,
-  unFreezCategory,
-  instructorRequests,
-  getStatistics,
-} from "./admin/index";
+// import {
+//   approveOrRejectInstructor,
+//   getUsers,
+//   getUser,
+//   freezUser,
+//   unFreezUser,
+//   getInstructors,
+//   addCategory,
+//   getCategories,
+//   freezCategory,
+//   unFreezCategory,
+//   instructorRequests,
+//   getStatistics,
+// } from "./admin/index";
+import * as adminUseCaseEngine from "./admin/index"
 import { IUser } from "../../entities/user";
 import { IAdminUseCase } from "../interface/useCase/adminUseCase";
 import { ICategory } from "../../entities/category";
@@ -64,7 +65,7 @@ export class AdminUseCase implements IAdminUseCase {
     try {
       const { userId } = req.body;
 
-      const result = (await approveOrRejectInstructor(
+      const result = (await adminUseCaseEngine.approveOrRejectInstructor(
         this.userRepository,
         this.instrctorAgreementRepository,
         req,
@@ -106,7 +107,10 @@ export class AdminUseCase implements IAdminUseCase {
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async instructorRequests(next: Next): Promise<void | object> {
     try {
-      return await instructorRequests(this.instrctorAgreementRepository, next);
+      return await adminUseCaseEngine.instructorRequests(
+        this.instrctorAgreementRepository,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -118,7 +122,7 @@ export class AdminUseCase implements IAdminUseCase {
     next: Next
   ): Promise<{ permitedNext: number; data: IUser[] } | void> {
     try {
-      return await getUsers(this.userRepository, req, next);
+      return await adminUseCaseEngine.getUsers(this.userRepository, req, next);
     } catch (error) {
       catchError(error, next);
     }
@@ -126,7 +130,7 @@ export class AdminUseCase implements IAdminUseCase {
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async getUser(req: Req, next: Next): Promise<void | IUser> {
     try {
-      return await getUser(this.userRepository, req, next);
+      return await adminUseCaseEngine.getUser(this.userRepository, req, next);
     } catch (error) {
       catchError(error, next);
     }
@@ -134,7 +138,7 @@ export class AdminUseCase implements IAdminUseCase {
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async freezUser(req: Req, next: Next): Promise<IUserResponse | void> {
     try {
-      return freezUser(this.userRepository, req, next);
+      return adminUseCaseEngine.freezUser(this.userRepository, req, next);
     } catch (error) {
       catchError(error, next);
     }
@@ -142,7 +146,7 @@ export class AdminUseCase implements IAdminUseCase {
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async unFreezUser(req: Req, next: Next): Promise<IUserResponse | void> {
     try {
-      return unFreezUser(this.userRepository, req, next);
+      return adminUseCaseEngine.unFreezUser(this.userRepository, req, next);
     } catch (error) {
       catchError(error, next);
     }
@@ -153,7 +157,11 @@ export class AdminUseCase implements IAdminUseCase {
     next: Next
   ): Promise<{ permitedNext: number; data: IUser[] } | void> {
     try {
-      return await getInstructors(this.userRepository, req, next);
+      return await adminUseCaseEngine.getInstructors(
+        this.userRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -167,7 +175,11 @@ export class AdminUseCase implements IAdminUseCase {
     message: string;
   }> {
     try {
-      return await addCategory(this.categoryRepository, req, next);
+      return await adminUseCaseEngine.addCategory(
+        this.categoryRepository,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -175,7 +187,10 @@ export class AdminUseCase implements IAdminUseCase {
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async getCategories(next: Next): Promise<void | ICategory[]> {
     try {
-      return await getCategories(this.categoryRepository, next);
+      return await adminUseCaseEngine.getCategories(
+        this.categoryRepository,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -183,7 +198,11 @@ export class AdminUseCase implements IAdminUseCase {
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async freezCategory(req: Req, next: Next): Promise<ICategoryResponse | void> {
     try {
-      return await freezCategory(req, next, this.categoryRepository);
+      return await adminUseCaseEngine.freezCategory(
+        req,
+        next,
+        this.categoryRepository
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -194,7 +213,11 @@ export class AdminUseCase implements IAdminUseCase {
     next: Next
   ): Promise<ICategoryResponse | void> {
     try {
-      return await unFreezCategory(req, next, this.categoryRepository);
+      return await adminUseCaseEngine.unFreezCategory(
+        req,
+        next,
+        this.categoryRepository
+      );
     } catch (error) {
       catchError(error, next);
     }
@@ -202,7 +225,7 @@ export class AdminUseCase implements IAdminUseCase {
   // 888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async getStatistics(next: Next): Promise<void | IStatistics> {
     try {
-      return await getStatistics(
+      return await adminUseCaseEngine.getStatistics(
         this.courseRepository,
         this.categoryRepository,
         this.reviewAndRatingRepository,
