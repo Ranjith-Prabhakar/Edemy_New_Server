@@ -1,2 +1,2 @@
-import { Types } from "mongoose"; 
-export type TDocumentId = typeof Types.ObjectId;
+import mongoose from "mongoose"; 
+export type TDocumentId = typeof mongoose.Schema.Types.ObjectId;

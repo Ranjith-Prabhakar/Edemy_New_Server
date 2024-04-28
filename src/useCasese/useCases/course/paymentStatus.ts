@@ -38,6 +38,8 @@ export const paymentStatus = async (
           req.user?._id as string,
           newUserData
         );
+
+        // 
         return {
           success: true,
           message: "course has been added to the user collection",
