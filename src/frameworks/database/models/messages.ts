@@ -1,13 +1,14 @@
 import mongoose, { Schema, Model } from "mongoose";
-import { IMessages } from "../../../entities/messages";
+import { IMessage } from "../../../entities/messages";
 
-const messagesSchema: Schema<IMessages> = new mongoose.Schema({
+const messagesSchema: Schema<IMessage> = new mongoose.Schema({
   courseId: {
     type: mongoose.Schema.Types.ObjectId,
     required: [true, "please enter a valid courseId"],
   },
   senderId: {
     type: mongoose.Schema.Types.ObjectId,
+    ref:"User",
     required: [true, "please enter a valid senderId"],
   },
   message: {
@@ -16,4 +17,4 @@ const messagesSchema: Schema<IMessages> = new mongoose.Schema({
   },
 });
 
-export const messagesModel:Model<IMessages> = mongoose.model("messages",messagesSchema)
+export const messagesModel:Model<IMessage> = mongoose.model("message",messagesSchema)

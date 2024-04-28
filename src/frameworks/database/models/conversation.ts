@@ -6,14 +6,16 @@ const conversationSchema: Schema<IConversation> = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: [true, "please enter a valid courseId"],
   },
-  participants: {
+  participants: [{
     type: [mongoose.Schema.Types.ObjectId],
+    ref:"User",
     required: [true, "please enter a valid userId"],
-  },
-  messages: {
+  }],
+  messages: [{
     type: [mongoose.Schema.Types.ObjectId],
+    ref:"Message",
     required: [true, "please enter a valid messageId"],
-  },
+  }],
 });
 
 export const conversationModel: Model<IConversation> = mongoose.model(
