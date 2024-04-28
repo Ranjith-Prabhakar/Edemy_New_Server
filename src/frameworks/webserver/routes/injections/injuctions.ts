@@ -8,6 +8,7 @@ import { PaymentRepository } from "../../../database/repository/paymentRepositor
 import { ReviewAndRatingRepository } from "../../../database/repository/reviewAndRatingRepository";
 import { CourseTrackRepository } from "../../../database/repository/coursTrackRepository";
 import { NotificationRepository } from "../../../database/repository/notificationRepository";
+import { ConversationRepository } from "../../../database/repository/conversation";
 
 import { UserUsecase } from "../../../../useCasese/useCases/userUseCase";
 import { AdminUseCase } from "../../../../useCasese/useCases/adminUseCase";
@@ -45,6 +46,7 @@ const reviewAndRatingRepository = new ReviewAndRatingRepository();
 const courseTrackRepository = new CourseTrackRepository();
 const notificationRepository = new NotificationRepository();
 const authService = new AuthService();
+const conversationRepository = new ConversationRepository();
 
 const userUseCase = new UserUsecase(
   userRepository,
@@ -80,7 +82,8 @@ const courseUseCase = new CourseUseCase(
   cloudSession,
   reviewAndRatingRepository,
   courseTrackRepository,
-  notificationRepository
+  notificationRepository,
+  conversationRepository
 );
 
 const userController = new UserController(userUseCase);

@@ -26,8 +26,8 @@ export class ConversationRepository implements IConversationRepository {
     try {
       const result = await conversationModel.findOneAndUpdate(
         { courseId },
-        { participants: { $push: participantId } },
-        { returnOriginal: false, timestamps: true }
+        { $push: { participants: participantId } }, // Correctly use $push operator
+        { upsert: true, returnOriginal: false, timestamps: true }
       );
       if (result) return result;
     } catch (error) {

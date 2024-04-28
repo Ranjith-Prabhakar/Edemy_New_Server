@@ -1,6 +1,7 @@
 import { IPayment } from "../../../entities/payment";
 import { Next, Req } from "../../../frameworks/types/serverPackageTypes";
 import { ICategoryRepository } from "../../interface/repository/categoryRepository";
+import { IConversationRepository } from "../../interface/repository/conversation";
 import { ICourseRepository } from "../../interface/repository/courseRepository";
 import { IPaymentRepository } from "../../interface/repository/paymentRepository";
 import { IUserRepository } from "../../interface/repository/userRepository";
@@ -14,7 +15,8 @@ export const paymentStatus = async (
   userRepository: IUserRepository,
   courseRepository: ICourseRepository,
   cloudSession: ICloudSession,
-  categoryRepository:ICategoryRepository,
+  categoryRepository: ICategoryRepository,
+  conversationRepository: IConversationRepository,
   req: Req,
   next: Next
 ): Promise<void | IUserResponse> => {
@@ -23,6 +25,7 @@ export const paymentStatus = async (
       req.user?._id as string
     )) as IPayment;
     if (courseData) {
+
       const [newUserData, isPurchaseUpdated, isCategoryUpdated] =
         await Promise.all([
           userRepository.addEnrolledCourse(
@@ -32,14 +35,23 @@ export const paymentStatus = async (
           courseRepository.updatePurchas(courseData.courseId as string),
           categoryRepository.updateCategoryPurchasecount(courseData.category),
         ]);
-
       if (newUserData && isPurchaseUpdated && isCategoryUpdated) {
+        console.log("useCase engine === 7");
+
         await cloudSession.createUserSession(
           req.user?._id as string,
           newUserData
         );
 
-        // 
+        console.log(
+          "courseId,participantId useCase engine",
+          courseData.courseId,
+          req.user?._id
+        );
+        await conversationRepository.addParticipants(
+          courseData.courseId as string,
+          req.user?._id as string
+        );
         return {
           success: true,
           message: "course has been added to the user collection",

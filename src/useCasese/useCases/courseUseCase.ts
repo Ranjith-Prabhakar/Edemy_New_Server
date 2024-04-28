@@ -55,6 +55,7 @@ import { SocketClass } from "../staticClassProperty/StaticClassProperty";
 import { INotificationRepository } from "../interface/repository/notificationRepository";
 import { ENotification, ENotificationMsg } from "../../entities/notification";
 import { ICourse } from "../../entities/course";
+import { IConversationRepository } from "../interface/repository/conversation";
 
 export class CourseUseCase implements ICourseUseCase {
   private readonly cloudStorage: ICloudStorage;
@@ -67,6 +68,7 @@ export class CourseUseCase implements ICourseUseCase {
   private readonly reviewAndRatingRepository: IReviewAndRatingRepository;
   private readonly courseTrackingRepository: ICourseTrackingRepository;
   private readonly notificationRepository: INotificationRepository;
+  private readonly conversationRepository: IConversationRepository;
   constructor(
     cloudStorage: ICloudStorage,
     courseRepository: ICourseRepository,
@@ -77,7 +79,8 @@ export class CourseUseCase implements ICourseUseCase {
     cloudSesssion: ICloudSession,
     reviewAndRatingRepository: IReviewAndRatingRepository,
     courseTrackingRepository: ICourseTrackingRepository,
-    notificationRepository: INotificationRepository
+    notificationRepository: INotificationRepository,
+    conversationRepository: IConversationRepository
   ) {
     this.cloudStorage = cloudStorage;
     this.courseRepository = courseRepository;
@@ -89,6 +92,7 @@ export class CourseUseCase implements ICourseUseCase {
     this.reviewAndRatingRepository = reviewAndRatingRepository;
     this.courseTrackingRepository = courseTrackingRepository;
     this.notificationRepository = notificationRepository;
+    this.conversationRepository = conversationRepository;
   }
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
   async getCourseInProgress(
@@ -338,6 +342,7 @@ export class CourseUseCase implements ICourseUseCase {
         this.courseRepository,
         this.cloudSesssion,
         this.categoryRepository,
+        this.conversationRepository,
         req,
         next
       );
