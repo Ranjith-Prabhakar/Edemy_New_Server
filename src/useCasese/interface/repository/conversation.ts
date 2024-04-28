@@ -7,6 +7,7 @@ export interface IConversationRepository {
   ): Promise<IConversation | void>;
   addMessage(
     courseId: string,
+    senderId: string,
     messageId: string
   ): Promise<IConversation | void>;
 }
