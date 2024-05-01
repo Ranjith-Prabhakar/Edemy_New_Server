@@ -11,7 +11,6 @@ export const getChat = async (
   next: Next
 ): Promise<void | IMessageResposnse> => {
   try {
-    console.log("inside getchat engine 222222", req.body);
     const authorisedUser = await conversationRepository.authorisedUser(
       req.user?._id as string
     );

@@ -9,3 +9,15 @@ export interface IMessageResposnse {
   };
   participants?: string[];
 }
+
+export type TOnlineUsers = [
+  {
+    _id: string;
+    name: string;
+  }
+];
+export interface IOnlineUsersResponse {
+  success: boolean;
+  message: string;
+  data?: TOnlineUsers;
+}

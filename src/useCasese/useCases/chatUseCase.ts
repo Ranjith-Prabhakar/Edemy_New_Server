@@ -1,9 +1,11 @@
 import { NextFunction } from "express";
-import { IMessage } from "../../entities/messages";
 import { Next, Req } from "../../frameworks/types/serverPackageTypes";
 import { IConversationRepository } from "../interface/repository/conversation";
 import { IMessagesRepository } from "../interface/repository/messages";
-import { IMessageResposnse } from "../interface/request_And_Response/chat";
+import {
+  IMessageResposnse,
+  IOnlineUsersResponse,
+} from "../interface/request_And_Response/chat";
 import { IChatUseCase } from "../interface/useCase/chatUseCase";
 import { catchError } from "../middlewares/catchError";
 import * as chatRepositoryEngine from "./chat/index";
@@ -29,6 +31,7 @@ export class ChatUseCase implements IChatUseCase {
       catchError(error, next);
     }
   }
+  // ---------------------
   async getChat(
     req: Req,
     next: NextFunction
@@ -40,6 +43,17 @@ export class ChatUseCase implements IChatUseCase {
         req,
         next
       );
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+  // --------------------
+  async getOnlineUsers(
+    req: Req,
+    next: NextFunction
+  ): Promise<void | IOnlineUsersResponse> {
+    try {
+      return await chatRepositoryEngine.getOnlineUsers(this.conversationRepository,req,next);
     } catch (error) {
       catchError(error, next);
     }

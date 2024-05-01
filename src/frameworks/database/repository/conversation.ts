@@ -1,7 +1,12 @@
 import { IConversation } from "../../../entities/conversation";
 import { IConversationRepository } from "../../../useCasese/interface/repository/conversation";
-import { IMessageResposnse } from "../../../useCasese/interface/request_And_Response/chat";
+import {
+  IMessageResposnse,
+  IOnlineUsersResponse,
+  TOnlineUsers,
+} from "../../../useCasese/interface/request_And_Response/chat";
 import { conversationModel } from "../models/conversation";
+import userModel from "../models/userModel";
 
 export class ConversationRepository implements IConversationRepository {
   async addMessage(
@@ -10,19 +15,17 @@ export class ConversationRepository implements IConversationRepository {
     messageId: string
   ): Promise<void | IMessageResposnse> {
     try {
-      console.log("SenderId:", senderId);
-      console.log("SenderId Type:", typeof senderId);
-
       const result = await conversationModel.findOneAndUpdate(
         { courseId: courseId, participants: { $in: [senderId] } },
         { $push: { messages: messageId } },
         { returnOriginal: false, timestamps: true }
       );
       if (result) {
-        const usersList = await conversationModel
-          .find({}, { participants: true, _id: 0 })
+        const usersList = await conversationModel.find(
+          {},
+          { participants: true, _id: 0 }
+        );
         if (usersList) {
-          console.log("usersList 22222222222", [...usersList[0].participants]);
           const newUserList = usersList[0].participants;
           return {
             success: true,
@@ -35,6 +38,7 @@ export class ConversationRepository implements IConversationRepository {
       throw error;
     }
   }
+  // --------------------------------------
 
   async addParticipants(
     courseId: string,
@@ -51,7 +55,7 @@ export class ConversationRepository implements IConversationRepository {
       throw error;
     }
   }
-
+  // --------------------------------------
   async authorisedUser(userId: string): Promise<boolean | void> {
     try {
       const result = await conversationModel.findOne({
@@ -59,6 +63,29 @@ export class ConversationRepository implements IConversationRepository {
       });
       if (result) return true;
       else return false;
+    } catch (error) {
+      throw error;
+    }
+  }
+  // --------------------------------------
+  async getUsersList(courseId: string): Promise<IOnlineUsersResponse | void> {
+    try {
+      const conversations = await conversationModel.find(
+        { courseId },
+        { participants: 1, _id: 0 }
+      );
+
+      const users = await userModel.find(
+        { _id: { $in: conversations[0].participants } },
+        "_id name"
+      );
+      if (users) {
+        return {
+          success: true,
+          message: "online users have been fetched",
+          data: users as unknown as TOnlineUsers,
+        };
+      }
     } catch (error) {
       throw error;
     }

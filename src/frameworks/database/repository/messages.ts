@@ -38,7 +38,6 @@ export class MessagesRepository implements IMessagesRepository {
           select: "name",
         })
         .exec();
-      console.log("result from repo engine", result);
       return result;
     } catch (error) {
       throw error;

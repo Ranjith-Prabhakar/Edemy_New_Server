@@ -26,4 +26,14 @@ export class ChatController {
       catchError(error, next);
     }
   }
+  // ----------------------------
+  async getOnlineUsers(req: Req, res: Res, next: Next) {
+    try {
+      const result = await this.chatUseCase.getOnlineUsers(req, next);
+      res.status(200).json({ result });
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+  ;
 }

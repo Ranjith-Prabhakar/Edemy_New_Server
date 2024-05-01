@@ -18,5 +18,13 @@ export function chatRoute(router: Route) {
       chatController.getChat(req, res, next);
     })
   );
+  router.post(
+    "/get_online_users",
+    isAuthenticated,
+    catchAsyncErrors((req: Req, res: Res, next: Next) => {
+      chatController.getOnlineUsers(req, res, next);
+    })
+  );
+
   return router;
 }
