@@ -6,4 +6,6 @@ export interface IMessagesRepository {
     senderId: string,
     message: string
   ): Promise<IMessage | void>;
+
+  getMessages(courseId: string): Promise<IMessage[] | void>;
 }

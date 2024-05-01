@@ -1,6 +1,5 @@
 import { IConversation } from "../../../entities/conversation";
 import { IConversationRepository } from "../../../useCasese/interface/repository/conversation";
-import { TDocumentId } from "../../types/dbTypes";
 import { conversationModel } from "../models/conversation";
 
 export class ConversationRepository implements IConversationRepository {
@@ -12,8 +11,6 @@ export class ConversationRepository implements IConversationRepository {
     try {
       console.log("SenderId:", senderId);
       console.log("SenderId Type:", typeof senderId);
-
-     
 
       const result = await conversationModel.findOneAndUpdate(
         { courseId: courseId, participants: { $in: [senderId] } },
@@ -37,6 +34,18 @@ export class ConversationRepository implements IConversationRepository {
         { upsert: true, returnOriginal: false, timestamps: true }
       );
       if (result) return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async authorisedUser(userId: string): Promise<boolean | void> {
+    try {
+      const result = await conversationModel.findOne({
+        participants: { $in: [userId] },
+      });
+      if (result) return true;
+      else return false;
     } catch (error) {
       throw error;
     }

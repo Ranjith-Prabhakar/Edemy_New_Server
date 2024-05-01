@@ -8,9 +8,19 @@ export class ChatController {
   constructor(chatUseCase: IChatUseCase) {
     this.chatUseCase = chatUseCase;
   }
+  // ----------------------------------
   async addChat(req: Req, res: Res, next: Next) {
     try {
       const result = await this.chatUseCase.addChat(req, next);
+      res.status(200).json({ result });
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+  // ----------------------------
+  async getChat(req: Req, res: Res, next: Next) {
+    try {
+      const result = await this.chatUseCase.getChat(req, next);
       res.status(200).json({ result });
     } catch (error) {
       catchError(error, next);

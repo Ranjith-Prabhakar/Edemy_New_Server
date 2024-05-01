@@ -11,5 +11,12 @@ export function chatRoute(router: Route) {
       chatController.addChat(req, res, next);
     })
   );
+  router.post(
+    "/get_message",
+    isAuthenticated,
+    catchAsyncErrors((req: Req, res: Res, next: Next) => {
+      chatController.getChat(req, res, next);
+    })
+  );
   return router;
 }

@@ -1,7 +1,9 @@
+import { NextFunction } from "express";
 import { IMessage } from "../../entities/messages";
 import { Next, Req } from "../../frameworks/types/serverPackageTypes";
 import { IConversationRepository } from "../interface/repository/conversation";
 import { IMessagesRepository } from "../interface/repository/messages";
+import { IMessageResposnse } from "../interface/request_And_Response/chat";
 import { IChatUseCase } from "../interface/useCase/chatUseCase";
 import { catchError } from "../middlewares/catchError";
 import * as chatRepositoryEngine from "./chat/index";
@@ -25,6 +27,18 @@ export class ChatUseCase implements IChatUseCase {
       );
     } catch (error) {
       catchError(error, next);
+    }
+  }
+  async getChat(req: Req, next: NextFunction): Promise<void | IMessageResposnse> {
+    try {
+      return await chatRepositoryEngine.getChat(
+        this.messagesRepository,
+        this.conversationRepository,
+        req,
+        next
+      );
+    } catch (error) {
+      catchError(error,next)
     }
   }
 }

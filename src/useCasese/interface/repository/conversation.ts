@@ -11,4 +11,5 @@ export interface IConversationRepository {
     senderId: string,
     messageId: string
   ): Promise<IConversation | void>;
+  authorisedUser(userId: string): Promise<boolean | void>;
 }
