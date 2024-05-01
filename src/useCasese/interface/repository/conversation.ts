@@ -1,5 +1,9 @@
 import { IConversation } from "../../../entities/conversation";
-import { IMessageResposnse, IOnlineUsersResponse  } from "../request_And_Response/chat";
+import {
+  IMessageResposnse,
+  IOnlineUsersResponse,
+  TOnlinerUsersIdForLogout,
+} from "../request_And_Response/chat";
 
 export interface IConversationRepository {
   addParticipants(
@@ -13,4 +17,7 @@ export interface IConversationRepository {
   ): Promise<IMessageResposnse | void>;
   authorisedUser(userId: string): Promise<boolean | void>;
   getUsersList(courseId: string): Promise<IOnlineUsersResponse | void>;
+  getUsersFromAllConversationForLogout(
+    userId: string
+  ): Promise<TOnlinerUsersIdForLogout | void>;
 }

@@ -26,7 +26,7 @@ import { SocketClass } from "../staticClassProperty/StaticClassProperty";
 //   gAuthUrl,
 //   gAuth,
 // } from "./user/index";
-import * as userUseCaseEngine from './user/index'
+import * as userUseCaseEngine from "./user/index";
 import { IInstructorAgreementRepository } from "../interface/repository/instructorAgreementRepository";
 import { IUserUseCase } from "../interface/useCase/userUseCase";
 import { IUser } from "../../entities/user";
@@ -37,6 +37,8 @@ import { INotificationRepository } from "../interface/repository/notificationRep
 import { NextFunction } from "express";
 import { INotificationResponse } from "../interface/request_And_Response/notification";
 import { IAuthService } from "../interface/services/AuthService";
+import { IConversationRepository } from "../interface/repository/conversation";
+import { TOnlinerUsersIdForLogout } from "../interface/request_And_Response/chat";
 
 export class UserUsecase implements IUserUseCase {
   private readonly userRepository: IUserRepository;
@@ -50,6 +52,7 @@ export class UserUsecase implements IUserUseCase {
   private readonly instructorAgreementRepository: IInstructorAgreementRepository;
   private readonly notificationRepository: INotificationRepository;
   private readonly authService: IAuthService;
+  private readonly conversationRepository: IConversationRepository;
 
   //
   constructor(
@@ -63,7 +66,8 @@ export class UserUsecase implements IUserUseCase {
     requestManagement: IRequestManagement,
     instructorAgreementRepository: IInstructorAgreementRepository,
     notificationRepository: INotificationRepository,
-    authService: IAuthService
+    authService: IAuthService,
+    conversationRepository: IConversationRepository
   ) {
     this.userRepository = userRepository;
     this.bcrypt = bcrypt;
@@ -76,6 +80,7 @@ export class UserUsecase implements IUserUseCase {
     this.instructorAgreementRepository = instructorAgreementRepository;
     this.notificationRepository = notificationRepository;
     this.authService = authService;
+    this.conversationRepository = conversationRepository;
   }
   // **************************************************************************************
   async registerUser(
@@ -149,10 +154,29 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async logout(req: Req, res: Res, next: Next): Promise<void> {
     try {
-      SocketClass.SocketUsers[req.user?._id as string].emit(
-        "serverSideLogout",
-        "user logged out successfully"
-      );
+      const result =
+        await this.conversationRepository.getUsersFromAllConversationForLogout(
+          req.user?._id as string
+        );
+      console.log("result =====>", result);
+      (result as TOnlinerUsersIdForLogout).map((user) => {
+        console.log(
+          "111",
+          req.user?._id,
+          "22222",
+          user,
+          "33333",
+          req.user?._id === user
+        );
+        if (user !== req.user?._id) {
+          console.log("inside if", user);
+          SocketClass.SocketUsers[user].emit(
+            "fromServerUserLogout",
+            req.user?._id as string
+          );
+        }
+      });
+
       return await userUseCaseEngine.logout(
         this.cloudSession,
         this.requestManagement,

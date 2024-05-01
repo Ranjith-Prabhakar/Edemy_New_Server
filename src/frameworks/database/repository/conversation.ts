@@ -4,6 +4,7 @@ import {
   IMessageResposnse,
   IOnlineUsersResponse,
   TOnlineUsers,
+  TOnlinerUsersIdForLogout,
 } from "../../../useCasese/interface/request_And_Response/chat";
 import { conversationModel } from "../models/conversation";
 import userModel from "../models/userModel";
@@ -86,6 +87,23 @@ export class ConversationRepository implements IConversationRepository {
           data: users as unknown as TOnlineUsers,
         };
       }
+    } catch (error) {
+      throw error;
+    }
+  }
+  // --------------------------------------
+  async getUsersFromAllConversationForLogout(
+    userId: string
+  ): Promise<void | TOnlinerUsersIdForLogout> {
+    try {
+      const result = await conversationModel.find(
+        { participants: { $in: [userId] } },
+        { participants: 1, _id: 0 }
+      );
+      const flatArray = result.map((items) => items.participants.flat());
+      const uniqueArray = [...new Set(flatArray.flat())];
+      return uniqueArray // it will have the user it self so when sending notification 
+      // have to eliminate it 
     } catch (error) {
       throw error;
     }

@@ -63,7 +63,8 @@ const userUseCase = new UserUsecase(
   requestManagement,
   instrctorAgreementRepository,
   notificationRepository,
-  authService
+  authService,
+  conversationRepository
 );
 
 const adminUseCase = new AdminUseCase(

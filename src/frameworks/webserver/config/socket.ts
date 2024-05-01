@@ -28,6 +28,7 @@ Io.on("connect", (client) => {
     console.log("users", Object.keys(SocketClass.SocketUsers));
     delete SocketClass.SocketUsers[client.handshake.query.userId as string];
      console.log("users after", Object.keys(SocketClass.SocketUsers));
+     
   });
 });
 

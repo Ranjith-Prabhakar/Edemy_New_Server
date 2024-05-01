@@ -7,13 +7,15 @@ import { IMessage } from "../../entities/messages";
 
 export interface ServerToClientEvents {
   serverSideLogin: (message: string) => void;
-  serverSideLogout: (message: string) => void;
+  fromServerUserLogout: (userId: string) => void;
   fromServerCourseAdded: (course: ICourse, message: string) => void;
-  fromServerInstructorRequestSubmitted:(agreement:IInstructorAgreement)=>void
-  fromServerInstrctorRequestApproval:(message:string)=>void
-  fromServerCourseApproved:(message:string)=>void
-  fromServerCourseApprovedNotificationForAllUsers:(message:string)=>void
-  fromServerCommunityChatNewChatMessage:(message:IMessage)=>void
+  fromServerInstructorRequestSubmitted: (
+    agreement: IInstructorAgreement
+  ) => void;
+  fromServerInstrctorRequestApproval: (message: string) => void;
+  fromServerCourseApproved: (message: string) => void;
+  fromServerCourseApprovedNotificationForAllUsers: (message: string) => void;
+  fromServerCommunityChatNewChatMessage: (message: IMessage) => void;
 }
 export interface ClientToServerEvents {
   clientSideLogin: (message: string) => void;

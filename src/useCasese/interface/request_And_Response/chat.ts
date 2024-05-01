@@ -21,3 +21,5 @@ export interface IOnlineUsersResponse {
   message: string;
   data?: TOnlineUsers;
 }
+
+export type TOnlinerUsersIdForLogout = string[]
