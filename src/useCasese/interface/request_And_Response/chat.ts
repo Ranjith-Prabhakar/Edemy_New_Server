@@ -7,4 +7,5 @@ export interface IMessageResposnse {
     message?: IMessage;
     messages?: IMessage[];
   };
+  participants?: string[];
 }

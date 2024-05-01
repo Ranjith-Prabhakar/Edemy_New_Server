@@ -17,7 +17,7 @@ export class ChatUseCase implements IChatUseCase {
     this.conversationRepository = conversationRepository;
     this.messagesRepository = messagesRepository;
   }
-  async addChat(req: Req, next: Next): Promise<IMessage | void> {
+  async addChat(req: Req, next: Next): Promise<IMessageResposnse | void> {
     try {
       return await chatRepositoryEngine.addChat(
         this.messagesRepository,
@@ -29,7 +29,10 @@ export class ChatUseCase implements IChatUseCase {
       catchError(error, next);
     }
   }
-  async getChat(req: Req, next: NextFunction): Promise<void | IMessageResposnse> {
+  async getChat(
+    req: Req,
+    next: NextFunction
+  ): Promise<void | IMessageResposnse> {
     try {
       return await chatRepositoryEngine.getChat(
         this.messagesRepository,
@@ -38,7 +41,7 @@ export class ChatUseCase implements IChatUseCase {
         next
       );
     } catch (error) {
-      catchError(error,next)
+      catchError(error, next);
     }
   }
 }

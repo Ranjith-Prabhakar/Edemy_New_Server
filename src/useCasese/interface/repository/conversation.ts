@@ -1,5 +1,6 @@
 import { IConversation } from "../../../entities/conversation";
 import { TDocumentId } from "../../../frameworks/types/dbTypes";
+import { IMessageResposnse } from "../request_And_Response/chat";
 
 export interface IConversationRepository {
   addParticipants(
@@ -10,6 +11,6 @@ export interface IConversationRepository {
     courseId: string,
     senderId: string,
     messageId: string
-  ): Promise<IConversation | void>;
+  ): Promise<IMessageResposnse | void>;
   authorisedUser(userId: string): Promise<boolean | void>;
 }

@@ -1,5 +1,6 @@
 import { IConversation } from "../../../entities/conversation";
 import { IConversationRepository } from "../../../useCasese/interface/repository/conversation";
+import { IMessageResposnse } from "../../../useCasese/interface/request_And_Response/chat";
 import { conversationModel } from "../models/conversation";
 
 export class ConversationRepository implements IConversationRepository {
@@ -7,7 +8,7 @@ export class ConversationRepository implements IConversationRepository {
     courseId: string,
     senderId: string,
     messageId: string
-  ): Promise<void | IConversation> {
+  ): Promise<void | IMessageResposnse> {
     try {
       console.log("SenderId:", senderId);
       console.log("SenderId Type:", typeof senderId);
@@ -17,7 +18,19 @@ export class ConversationRepository implements IConversationRepository {
         { $push: { messages: messageId } },
         { returnOriginal: false, timestamps: true }
       );
-      if (result) return result;
+      if (result) {
+        const usersList = await conversationModel
+          .find({}, { participants: true, _id: 0 })
+        if (usersList) {
+          console.log("usersList 22222222222", [...usersList[0].participants]);
+          const newUserList = usersList[0].participants;
+          return {
+            success: true,
+            message: "message has been updated",
+            participants: newUserList,
+          };
+        }
+      }
     } catch (error) {
       throw error;
     }

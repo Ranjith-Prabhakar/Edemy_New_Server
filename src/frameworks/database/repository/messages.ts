@@ -14,7 +14,15 @@ export class MessagesRepository implements IMessagesRepository {
         senderId,
         message,
       });
-      return result;
+      const populatedMessage = await messagesModel
+        .findById(result._id)
+        .populate({
+          path: "senderId",
+          model: "user",
+          select: "name",
+        })
+        .exec();
+      return populatedMessage as IMessage;
     } catch (error) {
       throw error;
     }

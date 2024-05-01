@@ -3,6 +3,7 @@ import { Server, Socket } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { ICourse } from "../../entities/course";
 import { IInstructorAgreement } from "../../entities/instructorAgreement";
+import { IMessage } from "../../entities/messages";
 
 export interface ServerToClientEvents {
   serverSideLogin: (message: string) => void;
@@ -12,6 +13,7 @@ export interface ServerToClientEvents {
   fromServerInstrctorRequestApproval:(message:string)=>void
   fromServerCourseApproved:(message:string)=>void
   fromServerCourseApprovedNotificationForAllUsers:(message:string)=>void
+  fromServerCommunityChatNewChatMessage:(message:IMessage)=>void
 }
 export interface ClientToServerEvents {
   clientSideLogin: (message: string) => void;
