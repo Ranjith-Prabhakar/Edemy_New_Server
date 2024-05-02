@@ -15,19 +15,23 @@ export const login = async (
   cloudSession: ICloudSession,
   email: string,
   password: string,
-  next: Next
+  next: Next,
 ): Promise<{ user: IUser; tokens: IToken } | void> => {
   try {
     const user = await userRepository.findUserByEmail(email);
 
     if (!user) return next(new ErrorHandler(400, "invalid email id"));
     if (user.status === "frozen")
-      next(new ErrorHandler(400, "access has been denied by admin"));
+      return next(new ErrorHandler(400, "access has been denied by admin"));
     const hashPassword = user.password;
 
     const result = await bcrypt.comparePassword(password, hashPassword);
-    if (!result) next(new ErrorHandler(400, "invalid password id"));
-
+    console.log("compared password", result);
+    if (!result) {
+      console.log("inside invalid password");
+      return next(new ErrorHandler(400, "invalid password id@@@"));
+    }
+    console.log("outside below invalid password");
     user.password = "";
     const tokens = await token.createAccessAndRefreshToken(user?._id as string);
     await cloudSession.createUserSession(user?._id as string, user);
@@ -36,6 +40,7 @@ export const login = async (
       tokens,
     };
   } catch (error) {
+    console.log("error block login engine")
     catchError(error, next);
   }
 };

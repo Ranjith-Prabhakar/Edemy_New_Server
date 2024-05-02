@@ -1,7 +1,8 @@
 import { Next } from "../../frameworks/types/serverPackageTypes";
 import ErrorHandler from "./errorHandler";
 
-export const catchError = (error: unknown,next:Next) => {
+export const catchError = (error: unknown, next: Next) => {
+  console.log("inside catchError", error);
   let message: string;
 
   if (error instanceof Error) {
@@ -13,5 +14,7 @@ export const catchError = (error: unknown,next:Next) => {
   } else {
     message = "unknown error";
   }
-  return next(new ErrorHandler(500,message))
+  return next(new ErrorHandler(500, message));
 };
+
+

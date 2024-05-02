@@ -152,8 +152,8 @@ export class UserUsecase implements IUserUseCase {
         await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(
           result?.user?._id as string
         );
-      console.log("result =====>", result);
-      console.log("userList =====>", userList);
+      console.log("result from usecase =====>", result);
+      console.log("userList from usecase =====>", userList);
       (userList as TOnlinerUsersIdForLogout).map((user) => {
         console.log("user  =====>", user);
         console.log("user equal =====>", user === result?.user?._id);
@@ -184,8 +184,12 @@ export class UserUsecase implements IUserUseCase {
           // });
         }
       });
-      return result;
+      if (result !== undefined) {
+        return result;
+      }
     } catch (error: unknown) {
+    console.log("error block useCase");
+
       catchError(error, next);
     }
   }

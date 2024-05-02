@@ -64,6 +64,7 @@ export class UserController {
     try {
       await inputValidation(req, "login", next);
       const result = await this.userUseCase.login(req.body, next);
+      console.log("result from login controller",result)
       res.cookie("accessToken", result?.tokens.accessToken, accessTokenOptions);
       res.cookie(
         "refreshToken",
@@ -74,6 +75,7 @@ export class UserController {
         .status(200)
         .json({ user: result?.user, message: "user loggedIn successfully" });
     } catch (error) {
+    console.log("error block controller");
       catchError(error, next);
       
     }

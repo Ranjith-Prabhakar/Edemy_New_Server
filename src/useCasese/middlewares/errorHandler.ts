@@ -1,4 +1,4 @@
-export class ErrorHandler extends Error {
+class ErrorHandler extends Error {
   statusCode: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(statusCode: number, message: any) {

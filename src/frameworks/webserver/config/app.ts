@@ -16,6 +16,7 @@ export const app = express();
 app.use(
   cors({
     origin: process.env.CLIENT,
+    // origin: [ process.env.CLIENT as string , "http://localhost:5173" ],
     credentials: true,
     methods: ["GET", "PATCH", "PUT", "POST"],
     optionsSuccessStatus: 204,
@@ -40,4 +41,5 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(error);
 });
 
+// app.use(errorMiddleware);
 app.use(errorMiddleware);
