@@ -17,7 +17,7 @@ export interface IConversationRepository {
   ): Promise<IMessageResposnse | void>;
   authorisedUser(userId: string): Promise<boolean | void>;
   getUsersList(courseId: string): Promise<IOnlineUsersResponse | void>;
-  getUsersFromAllConversationForLogout(
+  getUsersFromAllConversationForLoginAndLogout(
     userId: string
   ): Promise<TOnlinerUsersIdForLogout | void>;
 }

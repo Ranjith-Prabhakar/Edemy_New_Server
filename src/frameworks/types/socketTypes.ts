@@ -5,8 +5,10 @@ import { ICourse } from "../../entities/course";
 import { IInstructorAgreement } from "../../entities/instructorAgreement";
 import { IMessage } from "../../entities/messages";
 
+
+
 export interface ServerToClientEvents {
-  serverSideLogin: (message: string) => void;
+  fromServerUserLogin: ({ _id, name }: { _id: string; name: string }) => void;
   fromServerUserLogout: (userId: string) => void;
   fromServerCourseAdded: (course: ICourse, message: string) => void;
   fromServerInstructorRequestSubmitted: (

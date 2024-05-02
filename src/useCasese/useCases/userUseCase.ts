@@ -138,7 +138,7 @@ export class UserUsecase implements IUserUseCase {
     next: Next
   ): Promise<{ user: IUser; tokens: IToken } | void> {
     try {
-      return await userUseCaseEngine.login(
+      const result = await userUseCaseEngine.login(
         this.userRepository,
         this.bcrypt,
         this.jwtToken,
@@ -147,6 +147,44 @@ export class UserUsecase implements IUserUseCase {
         password,
         next
       );
+
+      const userList =
+        await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(
+          result?.user?._id as string
+        );
+      console.log("result =====>", result);
+      console.log("userList =====>", userList);
+      (userList as TOnlinerUsersIdForLogout).map((user) => {
+        console.log("user  =====>", user);
+        console.log("user equal =====>", user === result?.user?._id);
+        console.log(
+          "user string =====>",
+          user === result?.user?._id?.toString()
+        );
+        if (user !== result?.user?._id?.toString()) {
+          console.log("inside if", user);
+          console.log(
+            "SocketClass.SocketUsers?.[user]",
+            SocketClass.SocketUsers[user]
+          );
+          if (SocketClass.SocketUsers[user] !== undefined) {
+            SocketClass.SocketUsers?.[user].emit("fromServerUserLogin", {
+              _id: result?.user._id as string,
+              name: result?.user.name as string,
+            });
+          }
+          // SocketClass.SocketUsers?.[user].emit("fromServerUserLogin", {
+          //   _id: result?.user._id as string,
+          //   name: result?.user.name as string,
+          // });
+
+          // SocketClass.SocketUsers[user].emit("fromServerUserLogin", {
+          //   _id: result?.user._id as string,
+          //   name: result?.user.name as string,
+          // });
+        }
+      });
+      return result;
     } catch (error: unknown) {
       catchError(error, next);
     }
@@ -155,19 +193,10 @@ export class UserUsecase implements IUserUseCase {
   async logout(req: Req, res: Res, next: Next): Promise<void> {
     try {
       const result =
-        await this.conversationRepository.getUsersFromAllConversationForLogout(
+        await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(
           req.user?._id as string
         );
-      console.log("result =====>", result);
       (result as TOnlinerUsersIdForLogout).map((user) => {
-        console.log(
-          "111",
-          req.user?._id,
-          "22222",
-          user,
-          "33333",
-          req.user?._id === user
-        );
         if (user !== req.user?._id) {
           console.log("inside if", user);
           SocketClass.SocketUsers[user].emit(

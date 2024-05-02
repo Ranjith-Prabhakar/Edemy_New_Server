@@ -92,7 +92,7 @@ export class ConversationRepository implements IConversationRepository {
     }
   }
   // --------------------------------------
-  async getUsersFromAllConversationForLogout(
+  async getUsersFromAllConversationForLoginAndLogout(
     userId: string
   ): Promise<void | TOnlinerUsersIdForLogout> {
     try {
