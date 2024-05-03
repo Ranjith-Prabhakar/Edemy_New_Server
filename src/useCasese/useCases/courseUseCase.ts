@@ -31,7 +31,7 @@ import { ICourseUseCase } from "../interface/useCase/courseUseCase";
 //   getInstructorTutorials,
 //   setVideoTrack,
 // } from "./course/index";
-import * as courseUseCaseEngine from './course/index'
+import * as courseUseCaseEngine from "./course/index";
 import { ICourseRepository } from "../interface/repository/courseRepository";
 import {
   ICloudStorageResponse,
@@ -211,6 +211,19 @@ export class CourseUseCase implements ICourseUseCase {
         req,
         next
       );
+      // adding admin and instructor into the conversation
+      const resultData = result?.data as ICourse;
+      const instructorId = resultData.instructor;
+      const adminId = req.user?._id as string;
+      const courseId = resultData._id as string;
+      Promise.all([
+        await this.conversationRepository.addParticipants(courseId, adminId),
+        await this.conversationRepository.addParticipants(
+          courseId,
+          instructorId
+        ),
+      ]);
+
       const notificationRepoUpdate =
         await this.notificationRepository.addNotification(
           req.body.instructorId as string,

@@ -188,7 +188,7 @@ export class UserUsecase implements IUserUseCase {
         return result;
       }
     } catch (error: unknown) {
-    console.log("error block useCase");
+    console.log("error block login engine")
 
       catchError(error, next);
     }

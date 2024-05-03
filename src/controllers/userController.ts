@@ -65,10 +65,10 @@ export class UserController {
       await inputValidation(req, "login", next);
       const result = await this.userUseCase.login(req.body, next);
       console.log("result from login controller",result)
-      res.cookie("accessToken", result?.tokens.accessToken, accessTokenOptions);
+      res.cookie("accessToken", result?.tokens?.accessToken, accessTokenOptions);
       res.cookie(
         "refreshToken",
-        result?.tokens.accessToken,
+        result?.tokens?.accessToken,
         refreshTokenOptions
       );
       res

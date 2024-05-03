@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ErrorHandler } from "../../../useCasese/middlewares/errorHandler";
+import ErrorHandler  from "../../../useCasese/middlewares/errorHandler";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import { redis } from "../../../index";
 import dotenv from "dotenv"

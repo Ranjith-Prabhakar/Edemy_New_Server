@@ -15,7 +15,7 @@ export const login = async (
   cloudSession: ICloudSession,
   email: string,
   password: string,
-  next: Next,
+  next: Next
 ): Promise<{ user: IUser; tokens: IToken } | void> => {
   try {
     const user = await userRepository.findUserByEmail(email);
@@ -29,7 +29,8 @@ export const login = async (
     console.log("compared password", result);
     if (!result) {
       console.log("inside invalid password");
-      return next(new ErrorHandler(400, "invalid password id@@@"));
+      return catchError(new Error("invalid password id@@@"), next);
+      // return next(new ErrorHandler(400, "invalid password id@@@"));
     }
     console.log("outside below invalid password");
     user.password = "";
@@ -40,7 +41,7 @@ export const login = async (
       tokens,
     };
   } catch (error) {
-    console.log("error block login engine")
+    console.log("error block login engine");
     catchError(error, next);
   }
 };

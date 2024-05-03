@@ -69,6 +69,28 @@ export class ConversationRepository implements IConversationRepository {
     }
   }
   // --------------------------------------
+  // async getUsersList(courseId: string): Promise<IOnlineUsersResponse | void> {
+  //   try {
+  //     const conversations = await conversationModel.find(
+  //       { courseId },
+  //       { participants: 1, _id: 0 }
+  //     );
+
+  //     const users = await userModel.find(
+  //       { _id: { $in: conversations[0].participants } },
+  //       "_id name"
+  //     );
+  //     if (users) {
+  //       return {
+  //         success: true,
+  //         message: "online users have been fetched",
+  //         data: users as unknown as TOnlineUsers,
+  //       };
+  //     }
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
   async getUsersList(courseId: string): Promise<IOnlineUsersResponse | void> {
     try {
       const conversations = await conversationModel.find(
@@ -84,7 +106,7 @@ export class ConversationRepository implements IConversationRepository {
         return {
           success: true,
           message: "online users have been fetched",
-          data: users as unknown as TOnlineUsers,
+          data: { allUsers: users as unknown as TOnlineUsers },
         };
       }
     } catch (error) {
@@ -102,8 +124,8 @@ export class ConversationRepository implements IConversationRepository {
       );
       const flatArray = result.map((items) => items.participants.flat());
       const uniqueArray = [...new Set(flatArray.flat())];
-      return uniqueArray // it will have the user it self so when sending notification 
-      // have to eliminate it 
+      return uniqueArray; // it will have the user it self so when sending notification
+      // have to eliminate it
     } catch (error) {
       throw error;
     }
