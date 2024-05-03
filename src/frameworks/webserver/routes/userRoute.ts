@@ -22,13 +22,11 @@ export function userRoute(router: Route) {
   /////////
   router.post(
     "/login",
-    catchAsyncErrors((req: Req, res: Res, next: Next) =>{
+    catchAsyncErrors((req: Req, res: Res, next: Next) => {
       // next(new Error("custome error from route"));
       // errorMiddleware(new Error("custome error from route"), req, res)
       userController.login(req, res, next);
-    }
-      
-    )
+    })
   );
   /////////
   router.post(
@@ -99,19 +97,28 @@ export function userRoute(router: Route) {
       userController.updateNotifications(req, res, next);
     })
   );
+  //
 
+  router.post(
+    "/resend_otp",
+    catchAsyncErrors((req: Req, res: Res, next: Next) => {
+      userController.resendOtp(req, res, next);
+    })
+  );
+  //
   router.post(
     "/gauth_url",
     catchAsyncErrors((req: Req, res: Res, next: Next) => {
       userController.gAuthUrl(req, res, next);
     })
   );
-   router.get(
-     "/gauth",
-     catchAsyncErrors((req: Req, res: Res, next: Next) => {
-       userController.gAuth(req, res, next);
-     })
-   );
+
+  router.get(
+    "/gauth",
+    catchAsyncErrors((req: Req, res: Res, next: Next) => {
+      userController.gAuth(req, res, next);
+    })
+  );
 
   return router;
 }

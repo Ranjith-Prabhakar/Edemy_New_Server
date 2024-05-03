@@ -53,4 +53,8 @@ export interface IUserUseCase {
   ): Promise<{ success: boolean; message: string } | void>;
   gAuthUrl(req: Req, next: Next): Promise<string | void>;
   gAuth(req: Req, next: Next): Promise<{ user: IUser; tokens: IToken } | void>;
+  resendOtp(
+    req: Req,
+    next: Next
+  ): Promise<{ success: boolean; message: string } | void>;
 }

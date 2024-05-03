@@ -9,23 +9,6 @@ import { IRequestManagement } from "../interface/services/requestManagement";
 import { IJwt, IToken } from "../interface/services/jwt.types";
 //
 import { SocketClass } from "../staticClassProperty/StaticClassProperty";
-
-// import {
-//   createUser,
-//   registerUser,
-//   login,
-//   logout,
-//   refresh,
-//   beInstructor,
-//   forgotPassword,
-//   resetForgotPassword,
-//   userSession,
-//   forgotPasswordOtpVerification,
-//   getNotifications,
-//   updateNotifications,
-//   gAuthUrl,
-//   gAuth,
-// } from "./user/index";
 import * as userUseCaseEngine from "./user/index";
 import { IInstructorAgreementRepository } from "../interface/repository/instructorAgreementRepository";
 import { IUserUseCase } from "../interface/useCase/userUseCase";
@@ -147,7 +130,8 @@ export class UserUsecase implements IUserUseCase {
         next
       );
 
-      const userList = await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(
+      const userList =
+        await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(
           result?.user?._id as string
         );
       (userList as TOnlinerUsersIdForLogout).map((user) => {
@@ -336,6 +320,17 @@ export class UserUsecase implements IUserUseCase {
         req,
         next
       );
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+  // **************************************************************************************
+  async resendOtp(
+    req: Req,
+    next: Next
+  ): Promise<{ success: boolean; message: string } | void> {
+    try {
+      return await userUseCaseEngine.resendOtp(this.jwtToken,this.otpRepository,this.sendMail,req, next);
     } catch (error) {
       catchError(error, next);
     }

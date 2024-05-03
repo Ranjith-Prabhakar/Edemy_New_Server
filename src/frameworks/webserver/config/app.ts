@@ -45,6 +45,4 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
 // app.use(errorMiddleware);
 app.use((err: Error, req: Req, res: Res, next: Next) => {
   errorMiddleware(err,req,res)
-  // console.log("err ---------------->", err);
-  // console.log("next ---------------->", next);
-});
+ });

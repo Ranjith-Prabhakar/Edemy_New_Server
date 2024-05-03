@@ -243,4 +243,16 @@ export class UserController {
       catchError(error, next);
     }
   }
-}
+  // *****************************************************************************************************************************
+
+  async resendOtp(req: Req, res: Res, next: Next) {
+    try {
+      const result = await this.userUseCase.resendOtp(req, next);
+      res.status(200).json(result);
+    } catch (error) {
+      catchError(error, next);
+    }
+  }
+  // *****************************************************************************************************************************
+} 
+ 
