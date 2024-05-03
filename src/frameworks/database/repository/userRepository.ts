@@ -13,9 +13,9 @@ import { IUser } from "../../../entities/user";
 //   getAdmin,
 //   topTenInstructorAndNoOfCourses_Statistics,
 // } from "./user/index";
-import * as userRepositoryUserEngine from './user/index'
+import * as userRepositoryUserEngine from "./user/index";
 // import { getUsers, getUser, freezUser, unFreezUser } from "./admin/index";
-import * as userRepositoryAdminEngine from "./admin/index"
+import * as userRepositoryAdminEngine from "./admin/index";
 import { IJsonResponse } from "../../../useCasese/interface/services/jsonResponse";
 import { IUserResponse } from "../../../useCasese/interface/request_And_Response/user";
 
@@ -23,11 +23,15 @@ export class UserRepository implements IUserRepository {
   constructor(private userModels: typeof userModel) {}
   // **************************************************************************************
   async findUserByEmail(email: string): Promise<IUser | null> {
-    const userExist = await userRepositoryUserEngine.fidUserByEmail(
-      email,
-      this.userModels
-    );
-    return userExist;
+    try {
+      const userExist = await userRepositoryUserEngine.fidUserByEmail(
+        email,
+        this.userModels
+      );
+      return userExist;
+    } catch (error) {
+      throw error;
+    }
   }
   // **************************************************************************************
   async createUser(newUser: IUser): Promise<IUser> {

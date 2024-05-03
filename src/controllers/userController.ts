@@ -56,7 +56,6 @@ export class UserController {
       res.clearCookie("verificationToken").send(result);
     } catch (error) {
       catchError(error, next);
-      
     }
   }
   // *****************************************************************************************************************************
@@ -64,20 +63,29 @@ export class UserController {
     try {
       await inputValidation(req, "login", next);
       const result = await this.userUseCase.login(req.body, next);
-      console.log("result from login controller",result)
-      res.cookie("accessToken", result?.tokens?.accessToken, accessTokenOptions);
-      res.cookie(
-        "refreshToken",
-        result?.tokens?.accessToken,
-        refreshTokenOptions
-      );
-      res
-        .status(200)
-        .json({ user: result?.user, message: "user loggedIn successfully" });
+      if (
+        result?.user &&
+        result?.tokens.accessToken &&
+        result?.tokens.accessToken
+      ) {
+        console.log("result from login controller", result);
+        res.cookie(
+          "accessToken",
+          result?.tokens?.accessToken,
+          accessTokenOptions
+        );
+        res.cookie(
+          "refreshToken",
+          result?.tokens?.accessToken,
+          refreshTokenOptions
+        );
+        res
+          .status(200)
+          .json({ user: result?.user, message: "user loggedIn successfully" });
+      }
     } catch (error) {
-    console.log("error block controller");
+      console.log("error block controller");
       catchError(error, next);
-      
     }
   }
   // *****************************************************************************************************************************
@@ -90,7 +98,6 @@ export class UserController {
       });
     } catch (error) {
       catchError(error, next);
-      
     }
   }
   // *****************************************************************************************************************************
@@ -102,7 +109,6 @@ export class UserController {
       res.status(200).json({ success: true, message: "tokens are updated" });
     } catch (error) {
       catchError(error, next);
-      
     }
   }
   // *****************************************************************************************************************************
@@ -116,7 +122,6 @@ export class UserController {
       res.status(result.status).json(result);
     } catch (error) {
       catchError(error, next);
-      
     }
   }
   // *****************************************************************************************************************************
@@ -139,7 +144,6 @@ export class UserController {
       });
     } catch (error) {
       catchError(error, next);
-      
     }
   }
   // *****************************************************************************************************************************
@@ -155,7 +159,6 @@ export class UserController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      
     }
   }
   // *****************************************************************************************************************************
@@ -173,7 +176,6 @@ export class UserController {
       res.status(200).send(result);
     } catch (error) {
       catchError(error, next);
-      
     }
   }
   // *****************************************************************************************************************************
@@ -184,7 +186,6 @@ export class UserController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      
     }
   }
 
@@ -196,7 +197,6 @@ export class UserController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      
     }
   }
 
@@ -208,7 +208,6 @@ export class UserController {
       res.status(200).json(result);
     } catch (error) {
       catchError(error, next);
-      
     }
   }
 

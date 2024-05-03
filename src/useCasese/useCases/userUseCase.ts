@@ -34,7 +34,6 @@ import { IJsonResponse } from "../interface/services/jsonResponse";
 import { IGeneralResponse } from "../interface/request_And_Response/generalResponse";
 import { catchError } from "../middlewares/catchError";
 import { INotificationRepository } from "../interface/repository/notificationRepository";
-import { NextFunction } from "express";
 import { INotificationResponse } from "../interface/request_And_Response/notification";
 import { IAuthService } from "../interface/services/AuthService";
 import { IConversationRepository } from "../interface/repository/conversation";
@@ -148,48 +147,23 @@ export class UserUsecase implements IUserUseCase {
         next
       );
 
-      const userList =
-        await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(
+      const userList = await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(
           result?.user?._id as string
         );
-      console.log("result from usecase =====>", result);
-      console.log("userList from usecase =====>", userList);
       (userList as TOnlinerUsersIdForLogout).map((user) => {
-        console.log("user  =====>", user);
-        console.log("user equal =====>", user === result?.user?._id);
-        console.log(
-          "user string =====>",
-          user === result?.user?._id?.toString()
-        );
         if (user !== result?.user?._id?.toString()) {
-          console.log("inside if", user);
-          console.log(
-            "SocketClass.SocketUsers?.[user]",
-            SocketClass.SocketUsers[user]
-          );
           if (SocketClass.SocketUsers[user] !== undefined) {
             SocketClass.SocketUsers?.[user].emit("fromServerUserLogin", {
               _id: result?.user._id as string,
               name: result?.user.name as string,
             });
           }
-          // SocketClass.SocketUsers?.[user].emit("fromServerUserLogin", {
-          //   _id: result?.user._id as string,
-          //   name: result?.user.name as string,
-          // });
-
-          // SocketClass.SocketUsers[user].emit("fromServerUserLogin", {
-          //   _id: result?.user._id as string,
-          //   name: result?.user.name as string,
-          // });
         }
       });
       if (result !== undefined) {
         return result;
       }
     } catch (error: unknown) {
-    console.log("error block login engine")
-
       catchError(error, next);
     }
   }
@@ -202,7 +176,6 @@ export class UserUsecase implements IUserUseCase {
         );
       (result as TOnlinerUsersIdForLogout).map((user) => {
         if (user !== req.user?._id) {
-          console.log("inside if", user);
           SocketClass.SocketUsers[user].emit(
             "fromServerUserLogout",
             req.user?._id as string
@@ -314,7 +287,7 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async getNotifications(
     req: Req,
-    next: NextFunction
+    next: Next
   ): Promise<void | INotificationResponse> {
     try {
       return await userUseCaseEngine.getNotifications(
@@ -329,7 +302,7 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async updateNotifications(
     req: Req,
-    next: NextFunction
+    next: Next
   ): Promise<void | { success: boolean; message: string }> {
     try {
       return await userUseCaseEngine.updateNotifications(
@@ -342,7 +315,7 @@ export class UserUsecase implements IUserUseCase {
     }
   }
   // **************************************************************************************
-  async gAuthUrl(req: Req, next: NextFunction): Promise<void | string> {
+  async gAuthUrl(req: Req, next: Next): Promise<void | string> {
     try {
       return await userUseCaseEngine.gAuthUrl(this.authService, next);
     } catch (error) {
@@ -352,7 +325,7 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async gAuth(
     req: Req,
-    next: NextFunction
+    next: Next
   ): Promise<{ user: IUser; tokens: IToken } | void> {
     try {
       return await userUseCaseEngine.gAuth(

@@ -26,22 +26,20 @@ export const login = async (
     const hashPassword = user.password;
 
     const result = await bcrypt.comparePassword(password, hashPassword);
-    console.log("compared password", result);
     if (!result) {
-      console.log("inside invalid password");
-      return catchError(new Error("invalid password id@@@"), next);
-      // return next(new ErrorHandler(400, "invalid password id@@@"));
+      next(new ErrorHandler(400, "invalid password "));
+    } else {
+      user.password = "";
+      const tokens = await token.createAccessAndRefreshToken(
+        user?._id as string
+      );
+      await cloudSession.createUserSession(user?._id as string, user);
+      return {
+        user,
+        tokens,
+      };
     }
-    console.log("outside below invalid password");
-    user.password = "";
-    const tokens = await token.createAccessAndRefreshToken(user?._id as string);
-    await cloudSession.createUserSession(user?._id as string, user);
-    return {
-      user,
-      tokens,
-    };
   } catch (error) {
-    console.log("error block login engine");
     catchError(error, next);
   }
 };

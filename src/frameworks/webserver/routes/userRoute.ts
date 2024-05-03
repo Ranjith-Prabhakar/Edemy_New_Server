@@ -2,6 +2,7 @@ import { Route, Req, Res, Next } from "../../types/serverPackageTypes";
 import { userController } from "./injections/injuctions";
 import { isAuthenticated } from "../middlewares/auth";
 import { catchAsyncErrors } from "../middlewares/catchAsyncErrors";
+import { errorMiddleware } from "../../../useCasese/middlewares/errorMiddleware";
 
 export function userRoute(router: Route) {
   /////////
@@ -21,8 +22,12 @@ export function userRoute(router: Route) {
   /////////
   router.post(
     "/login",
-    catchAsyncErrors((req: Req, res: Res, next: Next) =>
-      userController.login(req, res, next)
+    catchAsyncErrors((req: Req, res: Res, next: Next) =>{
+      // next(new Error("custome error from route"));
+      // errorMiddleware(new Error("custome error from route"), req, res)
+      userController.login(req, res, next);
+    }
+      
     )
   );
   /////////

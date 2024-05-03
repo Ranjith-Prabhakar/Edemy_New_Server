@@ -10,6 +10,7 @@ import { userRoute } from "../routes/userRoute";
 import { adminRoute } from "../routes/adminRoutes";
 import { courseRoute } from "../routes/courseRoute";
 import { chatRoute } from "../routes/chatRoute";
+import { Next, Req, Res } from "../../types/serverPackageTypes";
 
 export const app = express();
 
@@ -42,4 +43,8 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 // app.use(errorMiddleware);
-app.use(errorMiddleware);
+app.use((err: Error, req: Req, res: Res, next: Next) => {
+  errorMiddleware(err,req,res)
+  // console.log("err ---------------->", err);
+  // console.log("next ---------------->", next);
+});
