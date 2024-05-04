@@ -160,7 +160,7 @@ export class UserUsecase implements IUserUseCase {
         );
       (result as TOnlinerUsersIdForLogout).map((user) => {
         if (user !== req.user?._id) {
-          SocketClass.SocketUsers[user].emit(
+          SocketClass.SocketUsers[user]?.emit(
             "fromServerUserLogout",
             req.user?._id as string
           );
