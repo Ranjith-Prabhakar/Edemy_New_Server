@@ -28,7 +28,7 @@ export const accessTokenOptions: ITokenOptions = {
   httpOnly: true,
   // sameSite: "strict",
   sameSite: "none",
-  domain: ".edemy-new-server-3.onrender.com",
+  domain: '.digi-world.online',
   path: '/',
   secure: accessTokenProductionMode,
 };
@@ -38,7 +38,7 @@ export const refreshTokenOptions: ITokenOptions = {
   httpOnly: true,
   // sameSite: "strict",
   sameSite: "none",
-  domain: ".edemy-new-server-3.onrender.com",
+  domain: '.digi-world.online',
   path: '/',
   secure: accessTokenProductionMode,
 };
