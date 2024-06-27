@@ -16,8 +16,8 @@ export const app = express();
 
 app.use(
   cors({
-    origin: process.env.CLIENT,
-    // origin: [ process.env.CLIENT as string , "http://localhost:5173" ],
+    // origin: process.env.CLIENT,
+    origin: [ process.env.CLIENT as string ],
     credentials: true,
     methods: ["GET", "PATCH", "PUT", "POST"],
     optionsSuccessStatus: 204,
