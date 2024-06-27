@@ -28,12 +28,10 @@ export class UserController {
 
       res.cookie("verificationToken", token, {
         httpOnly: true,
-        // sameSite: "strict",
+        sameSite: "strict",
         // domain: '.digi-world.online',
-        sameSite: "none",
-        domain: ".edemy-new-server-3.onrender.com",
-        path: "/",
-        secure: true,
+        // path: '/',
+        // secure: true,
         expires: new Date(Date.now() + 30 * 60 * 1000),
       });
 
@@ -133,13 +131,11 @@ export class UserController {
       const result = await this.userUseCase.forgotPassword(req, next);
 
       res.cookie("verificationToken", result, {
-        // sameSite: "strict",
-        // domain: '.digi-world.online',
-        sameSite: "none",
+        sameSite: "strict",
         httpOnly: true,
-        domain: ".edemy-new-server-3.onrender.com",
-        path: "/",
-        secure: true,
+        // domain: '.digi-world.online',
+        // path: '/',
+        // secure: true,
         maxAge: 5 * 60 * 1000,
       });
       res.status(200).json({
