@@ -154,18 +154,20 @@ export class UserUsecase implements IUserUseCase {
   // **************************************************************************************
   async logout(req: Req, res: Res, next: Next): Promise<void> {
     try {
-      const result =
-        await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(
-          req?.user?._id as string
-        );
-      (result as TOnlinerUsersIdForLogout).map((user) => {
-        if (user !== req?.user?._id) {
-          SocketClass.SocketUsers[user]?.emit(
-            "fromServerUserLogout",
+      if (req.user) {
+        const result =
+          await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(
             req?.user?._id as string
           );
-        }
-      });
+        (result as TOnlinerUsersIdForLogout).map((user) => {
+          if (user !== req?.user?._id) {
+            SocketClass.SocketUsers[user]?.emit(
+              "fromServerUserLogout",
+              req?.user?._id as string
+            );
+          }
+        });
+      }
 
       return await userUseCaseEngine.logout(
         this.cloudSession,
@@ -330,7 +332,13 @@ export class UserUsecase implements IUserUseCase {
     next: Next
   ): Promise<{ success: boolean; message: string } | void> {
     try {
-      return await userUseCaseEngine.resendOtp(this.jwtToken,this.otpRepository,this.sendMail,req, next);
+      return await userUseCaseEngine.resendOtp(
+        this.jwtToken,
+        this.otpRepository,
+        this.sendMail,
+        req,
+        next
+      );
     } catch (error) {
       catchError(error, next);
     }
