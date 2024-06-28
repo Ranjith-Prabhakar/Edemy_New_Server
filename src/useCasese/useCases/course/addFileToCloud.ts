@@ -16,7 +16,7 @@ export const addFileToCloud = async (
       );
       if (isCourseExist) return isCourseExist;
     }
-
+    console.log("addFileToCloud useCase engine  req",req.body);
     return await cloudStorage.addFileToCloud(
       req.body.fileName,
       req.body.contentType,
