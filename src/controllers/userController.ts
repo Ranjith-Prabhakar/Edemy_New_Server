@@ -28,8 +28,11 @@ export class UserController {
 
       res.cookie("verificationToken", token, {
         httpOnly: true,
-        sameSite: "none",
-        domain: ".digi-world.online",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        domain:
+          process.env.NODE_ENV === "production"
+            ? ".digi-world.online"
+            : undefined,
         path: "/",
         secure: true,
         expires: new Date(Date.now() + 30 * 60 * 1000),
@@ -131,12 +134,15 @@ export class UserController {
       const result = await this.userUseCase.forgotPassword(req, next);
 
       res.cookie("verificationToken", result, {
-        sameSite: "strict",
-        httpOnly: true,
-        domain: ".digi-world.online",
+          httpOnly: true,
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        domain:
+          process.env.NODE_ENV === "production"
+            ? ".digi-world.online"
+            : undefined,
         path: "/",
         secure: true,
-        maxAge: 5 * 60 * 1000,
+        expires: new Date(Date.now() + 30 * 60 * 1000),
       });
       res.status(200).json({
         succuss: true,
@@ -258,17 +264,17 @@ export class UserController {
   async setCookies(req: Req, res: Res, next: Next) {
     try {
       const { accessToken, refreshToken } = req.body;
-      console.log("===============================")
+      console.log("===============================");
       console.log("accessToken, ", accessToken);
       console.log("refreshToken, ", refreshToken);
-      console.log("===============================")
+      console.log("===============================");
 
       res.cookie("accessToken", accessToken, accessTokenOptions);
       res.cookie("refreshToken", refreshToken, refreshTokenOptions);
 
       res.status(200).json({ success: true });
     } catch (error) {
-      console.log('from the catch *************')
+      console.log("from the catch *************");
       catchError(error, next);
     }
   }
