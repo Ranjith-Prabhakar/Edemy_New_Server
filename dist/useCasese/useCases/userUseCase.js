@@ -101,12 +101,14 @@ class UserUsecase {
     // **************************************************************************************
     async logout(req, res, next) {
         try {
-            const result = await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(req?.user?._id);
-            result.map((user) => {
-                if (user !== req?.user?._id) {
-                    StaticClassProperty_1.SocketClass.SocketUsers[user]?.emit("fromServerUserLogout", req?.user?._id);
-                }
-            });
+            if (req.user) {
+                const result = await this.conversationRepository.getUsersFromAllConversationForLoginAndLogout(req?.user?._id);
+                result.map((user) => {
+                    if (user !== req?.user?._id) {
+                        StaticClassProperty_1.SocketClass.SocketUsers[user]?.emit("fromServerUserLogout", req?.user?._id);
+                    }
+                });
+            }
             return await userUseCaseEngine.logout(this.cloudSession, this.requestManagement, req, res, next);
         }
         catch (error) {
