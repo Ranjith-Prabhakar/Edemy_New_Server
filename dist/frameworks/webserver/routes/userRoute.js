@@ -63,6 +63,9 @@ function userRoute(router) {
     router.get("/gauth", (0, catchAsyncErrors_1.catchAsyncErrors)((req, res, next) => {
         injuctions_1.userController.gAuth(req, res, next);
     }));
+    router.post("/setCookie", (0, catchAsyncErrors_1.catchAsyncErrors)((req, res, next) => {
+        injuctions_1.userController.setCookies(req, res, next);
+    }));
     return router;
 }
 exports.userRoute = userRoute;

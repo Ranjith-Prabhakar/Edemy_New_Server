@@ -120,5 +120,12 @@ export function userRoute(router: Route) {
     })
   );
 
+  router.post(
+    "/setCookie",
+    catchAsyncErrors((req: Req, res: Res, next: Next) => {
+      userController.setCookies(req, res, next);
+    })
+  );
+
   return router;
 }

@@ -18,4 +18,5 @@ export declare class UserController {
     gAuthUrl(req: Req, res: Res, next: Next): Promise<void>;
     gAuth(req: Req, res: Res, next: Next): Promise<void>;
     resendOtp(req: Req, res: Res, next: Next): Promise<void>;
+    setCookies(req: Req, res: Res, next: Next): Promise<void>;
 }

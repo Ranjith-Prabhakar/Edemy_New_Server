@@ -29,8 +29,8 @@ export class UserController {
       res.cookie("verificationToken", token, {
         httpOnly: true,
         sameSite: "none",
-        domain: '.digi-world.online',
-        path: '/',
+        domain: ".digi-world.online",
+        path: "/",
         secure: true,
         expires: new Date(Date.now() + 30 * 60 * 1000),
       });
@@ -133,8 +133,8 @@ export class UserController {
       res.cookie("verificationToken", result, {
         sameSite: "strict",
         httpOnly: true,
-        domain: '.digi-world.online',
-        path: '/',
+        domain: ".digi-world.online",
+        path: "/",
         secure: true,
         maxAge: 5 * 60 * 1000,
       });
@@ -216,6 +216,7 @@ export class UserController {
   async gAuthUrl(req: Req, res: Res, next: Next) {
     try {
       const result = await this.userUseCase.gAuthUrl(req, next);
+      console.log("result==============>>>>", result);
       // res.header("Access-Control-Allow-Origin", process.env.CLIENT);
       // res.header("Access-Control-Allow-Credentials", "true");
       // res.header("Referrer-Policy", "no-referrer-when-downgrade");
@@ -254,6 +255,23 @@ export class UserController {
     }
   }
   // *****************************************************************************************************************************
+  async setCookies(req: Req, res: Res, next: Next) {
+    try {
+      const { accessToken, refreshToken } = req.body;
+      console.log("===============================")
+      console.log("accessToken, ", accessToken);
+      console.log("refreshToken, ", refreshToken);
+      console.log("===============================")
+
+      res.cookie("accessToken", accessToken, accessTokenOptions);
+      res.cookie("refreshToken", refreshToken, refreshTokenOptions);
+
+      res.status(200).json({ success: true });
+    } catch (error) {
+      console.log('from the catch *************')
+      catchError(error, next);
+    }
+  }
 }
 
 // import { Req, Res, Next } from "../frameworks/types/serverPackageTypes";
