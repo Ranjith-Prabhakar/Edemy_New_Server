@@ -21,8 +21,8 @@ class UserController {
             const token = await this.userUseCase.registerUser(req.body, next);
             res.cookie("verificationToken", token, {
                 httpOnly: true,
-                sameSite: "none",
-                domain: ".digi-world.online",
+                sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+                domain: process.env.NODE_ENV === "production" ? ".digi-world.online" : undefined,
                 path: "/",
                 secure: true,
                 expires: new Date(Date.now() + 30 * 60 * 1000),
@@ -111,9 +111,9 @@ class UserController {
             await (0, inputValidation_1.inputValidation)(req, "forgotPassword", next);
             const result = await this.userUseCase.forgotPassword(req, next);
             res.cookie("verificationToken", result, {
-                sameSite: "strict",
                 httpOnly: true,
-                domain: ".digi-world.online",
+                sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+                domain: process.env.NODE_ENV === "production" ? ".digi-world.online" : undefined,
                 path: "/",
                 secure: true,
                 maxAge: 5 * 60 * 1000,
