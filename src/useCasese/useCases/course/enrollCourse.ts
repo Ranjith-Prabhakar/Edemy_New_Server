@@ -18,7 +18,9 @@ export const enrollCourse = async (
   try {
     const stripeGateWay = await paymentService.pay(
       req.body as TPaymentRequest,
-      req.user?.role as string
+      req.user?.role as string,
+      req.user?._id as string,
+      req.body[0].courseId
     );
     if (stripeGateWay) {
       const result = await paymentRepository.createCollection(

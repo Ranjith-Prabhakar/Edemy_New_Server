@@ -11,6 +11,7 @@ import { adminRoute } from "../routes/adminRoutes";
 import { courseRoute } from "../routes/courseRoute";
 import { chatRoute } from "../routes/chatRoute";
 import { Next, Req, Res } from "../../types/serverPackageTypes";
+import { PaymentService } from "../../services/paymentService";
 
 export const app = express();
 
@@ -24,6 +25,21 @@ app.use(
   })
 );
 
+//webhook
+app.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  async (req, res, next) => {
+    let paymentService = new PaymentService();
+    const result = await paymentService.striptWebHook(req, next);
+    if (result && result.success) {
+      res.json({ received: true });
+    } else {
+      // Handle other event types or errors
+      console.log("Webhook processed, but no action required");
+    }
+  }
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -44,5 +60,5 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
 
 // app.use(errorMiddleware);
 app.use((err: Error, req: Req, res: Res, next: Next) => {
-  errorMiddleware(err,req,res)
- });
+  errorMiddleware(err, req, res);
+});
