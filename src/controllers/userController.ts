@@ -237,6 +237,7 @@ export class UserController {
 
   async gAuth(req: Req, res: Res, next: Next) {
     try {
+      console.log('GAuth___________________________+++++++')
       const result = await this.userUseCase.gAuth(req, next);
       res.redirect(
         303,
@@ -265,8 +266,8 @@ export class UserController {
     try {
       const { accessToken, refreshToken } = req.body;
       console.log("===============================");
-      console.log("accessToken, ", accessToken);
-      console.log("refreshToken, ", refreshToken);
+      console.log("accessTokenOptions, ", accessTokenOptions);
+      
       console.log("===============================");
 
       res.cookie("accessToken", accessToken, accessTokenOptions);
