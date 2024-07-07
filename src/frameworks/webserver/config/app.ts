@@ -31,6 +31,7 @@ app.post(
   "/webhook",
   express.raw({ type: "application/json" }),
   async (req, res, next) => {
+    console.log("inside the webhook endpoint")
     let paymentService = new PaymentService();
     const result = await paymentService.striptWebHook(req, next);
     if (result && result.success) {

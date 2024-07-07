@@ -104,7 +104,6 @@ export class UserController {
   // *****************************************************************************************************************************
   async refresh(req: Req, res: Res, next: Next) {
     try {
-      console.log('inside refresh controller')
       const result = (await this.userUseCase.refresh(req, res, next)) as IToken;
       res.cookie("accessToken", result.accessToken, accessTokenOptions);
       res.cookie("refreshToken", result.refreshToken, refreshTokenOptions);

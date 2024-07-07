@@ -60,6 +60,7 @@ export class PaymentService implements IPaymentService {
     req: Req,
     next:Next
   ): Promise<{ success:boolean} | null> {
+    console.log("inside the striptWebHook function");
     const sig = req.headers["stripe-signature"] as string | undefined;
 
     if (!sig) {
