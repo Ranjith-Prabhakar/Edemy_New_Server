@@ -61,7 +61,6 @@ export class PaymentService implements IPaymentService {
     next:Next
   ): Promise<{ success:boolean} | null> {
     const sig = req.headers["stripe-signature"] as string | undefined;
-    console.log("inside webhook----------1");
 
     if (!sig) {
       throw new Error("Missing stripe-signature header");
@@ -91,8 +90,7 @@ export class PaymentService implements IPaymentService {
         }
 
         const { userId, courseId } = metadata;
-        console.log("User ID:", userId);
-        console.log("Course ID:", courseId);
+      
         
         // additional code to manipulate db
         const paymentRepository = new PaymentRepository();
@@ -118,18 +116,13 @@ export class PaymentService implements IPaymentService {
                 ),
               ]);
             if (newUserData && isPurchaseUpdated && isCategoryUpdated) {
-              console.log("useCase engine === 7");
 
               await cloudSession.createUserSession(
                 userId as string,
                 newUserData
               );
 
-              console.log(
-                "courseId,participantId useCase engine",
-                courseData.courseId,
-                req.user?._id
-              );
+            
               await conversationRepository.addParticipants(
                 courseData.courseId as string,
                 userId as string
@@ -156,7 +149,6 @@ export class PaymentService implements IPaymentService {
 
       case "payment_intent.requires_action":
         // Handle other event types as needed
-        console.log("Payment intent requires action");
         return null;
 
       // Add other event types as needed

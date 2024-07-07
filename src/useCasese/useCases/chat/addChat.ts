@@ -23,19 +23,13 @@ export const addChat = async (
         req.body.message as string
       );
       if (messageRepoResult) {
-        console.log(
-          "inside add chat usecase engine messageRepoResult",
-          messageRepoResult
-        );
+       
         const conversationRepoResult = await conversationRepository.addMessage(
           req.body.courseId as string,
           req.user?._id as string,
           messageRepoResult._id as string
         );
-        console.log(
-          "inside add chat usecase engine conversationRepoResult",
-          (conversationRepoResult as IMessageResposnse)?.participants?.[0][0]
-        );
+       
         const newConversationRepoResult =
           conversationRepoResult as IMessageResposnse;
 

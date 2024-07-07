@@ -26,6 +26,7 @@ app.use(
 );
 
 //webhook
+//webhook has to be placed before the request object going through any parsing because stripe methods need it as raw
 app.post(
   "/webhook",
   express.raw({ type: "application/json" }),

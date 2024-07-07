@@ -6,31 +6,6 @@ import {
 import { ICloudStorage } from "../interface/services/cloudStorage";
 import { ICourseUseCase } from "../interface/useCase/courseUseCase";
 
-// import {
-//   getCourseInProgress,
-//   addCourseData,
-//   addFileToCloud,
-//   updateCourse,
-//   addModuleVideos,
-//   getCourses,
-//   getCoursesInRequest,
-//   getVideoPresignedUrl,
-//   approveOrRejectVideo,
-//   getCoursesForUser,
-//   getCategories,
-//   getVideoForUser,
-//   getVideoForVisitors,
-//   enrollCourse,
-//   paymentStatus,
-//   updateReviewAndRating,
-//   getSingleCourseReviewAndRating,
-//   getThumbnamilImagePresignedUrl,
-//   getUserEnrolledCourses,
-//   getCourseByCategory,
-//   getCourseForSearch,
-//   getInstructorTutorials,
-//   setVideoTrack,
-// } from "./course/index";
 import * as courseUseCaseEngine from "./course/index";
 import { ICourseRepository } from "../interface/repository/courseRepository";
 import {

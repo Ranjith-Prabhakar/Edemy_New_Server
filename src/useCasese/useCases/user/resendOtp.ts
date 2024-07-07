@@ -24,9 +24,7 @@ export const resendOtp = async (
       otp?.email as string,
       otp?.otp as string
     );
-    console.log("decode", decode);
-    console.log("otp", otp);
-    console.log("sendMail", sendMail);
+   
     return {
       success: sendMail.success,
       message: sendMail.success

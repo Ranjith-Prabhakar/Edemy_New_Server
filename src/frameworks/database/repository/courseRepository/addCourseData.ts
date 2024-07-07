@@ -8,7 +8,6 @@ export const addCourseData = async (
   courseData: ICourse
 ): Promise<ICourseResponse> => {
   try {
-    console.log("courseData engine",courseData)
     const result = await courseModel.findOneAndUpdate(
       {
         instructor: courseData.instructor,

@@ -71,7 +71,6 @@ export class UserController {
         result?.tokens.accessToken &&
         result?.tokens.accessToken
       ) {
-        console.log("result from login controller", result);
         res.cookie(
           "accessToken",
           result?.tokens?.accessToken,
@@ -87,7 +86,6 @@ export class UserController {
           .json({ user: result?.user, message: "user loggedIn successfully" });
       }
     } catch (error) {
-      console.log("error block controller");
       catchError(error, next);
     }
   }
@@ -222,7 +220,6 @@ export class UserController {
   async gAuthUrl(req: Req, res: Res, next: Next) {
     try {
       const result = await this.userUseCase.gAuthUrl(req, next);
-      console.log("result==============>>>>", result);
       // res.header("Access-Control-Allow-Origin", process.env.CLIENT);
       // res.header("Access-Control-Allow-Credentials", "true");
       // res.header("Referrer-Policy", "no-referrer-when-downgrade");
@@ -237,7 +234,6 @@ export class UserController {
 
   async gAuth(req: Req, res: Res, next: Next) {
     try {
-      console.log('GAuth___________________________+++++++')
       const result = await this.userUseCase.gAuth(req, next);
       res.redirect(
         303,
@@ -265,17 +261,11 @@ export class UserController {
   async setCookies(req: Req, res: Res, next: Next) {
     try {
       const { accessToken, refreshToken } = req.body;
-      console.log("===============================");
-      console.log("accessTokenOptions, ", accessTokenOptions);
-      
-      console.log("===============================");
-
       res.cookie("accessToken", accessToken, accessTokenOptions);
       res.cookie("refreshToken", refreshToken, refreshTokenOptions);
 
       res.status(200).json({ success: true });
     } catch (error) {
-      console.log("from the catch *************");
       catchError(error, next);
     }
   }
