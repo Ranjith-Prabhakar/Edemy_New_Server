@@ -6,6 +6,7 @@ export const errorMiddleware = (err: any, req: Req, res: Res) => {
   err.statusCode = err.statusCode || 500;
   err.message = err.message || "internal server error";
   console.log("inside error middleware #############", err.message, err.status);
+  console.log("req.path", req.path);
   console.error(err);
 
   //wrong mongoDb id
@@ -27,6 +28,16 @@ export const errorMiddleware = (err: any, req: Req, res: Res) => {
   if (err.name === "TokenExpiredError") {
     const message = `json web token has expired`;
     err = new ErrorResponse(400, message);
+  }
+
+  //for every page load in the front end these api are called irrespective of whether user logged in or not . if he isn't logged in
+  // the tokens are to be empty if throw the erro with 400 status code then it will show in the browser console
+  if (
+    req.path === "/api/v1/refresh" ||
+    req.path === "/api/v1/get_notifications" ||
+    req.path === "/api/v1/user_session"
+  ) {
+    err = new ErrorResponse(200, err.message);
   }
   res.status(err.statusCode).json({
     status: err.statusCode,

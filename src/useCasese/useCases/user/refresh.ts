@@ -11,6 +11,7 @@ export const refresh = async (
   next: Next
 ) => {
   try {
+    console.log('inside refresh engine useCase')
     const token = await jwtToken.createAccessAndRefreshToken(
       req.user?._id as string
     );
