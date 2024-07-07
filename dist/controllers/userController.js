@@ -58,7 +58,6 @@ class UserController {
             if (result?.user &&
                 result?.tokens.accessToken &&
                 result?.tokens.accessToken) {
-                console.log("result from login controller", result);
                 res.cookie("accessToken", result?.tokens?.accessToken, tokenOptions_1.accessTokenOptions);
                 res.cookie("refreshToken", result?.tokens?.accessToken, tokenOptions_1.refreshTokenOptions);
                 res
@@ -67,7 +66,6 @@ class UserController {
             }
         }
         catch (error) {
-            console.log("error block controller");
             (0, catchError_1.catchError)(error, next);
         }
     }
@@ -87,6 +85,7 @@ class UserController {
     // *****************************************************************************************************************************
     async refresh(req, res, next) {
         try {
+            console.log('inside refresh controller');
             const result = (await this.userUseCase.refresh(req, res, next));
             res.cookie("accessToken", result.accessToken, tokenOptions_1.accessTokenOptions);
             res.cookie("refreshToken", result.refreshToken, tokenOptions_1.refreshTokenOptions);
@@ -190,7 +189,6 @@ class UserController {
     async gAuthUrl(req, res, next) {
         try {
             const result = await this.userUseCase.gAuthUrl(req, next);
-            console.log("result==============>>>>", result);
             // res.header("Access-Control-Allow-Origin", process.env.CLIENT);
             // res.header("Access-Control-Allow-Credentials", "true");
             // res.header("Referrer-Policy", "no-referrer-when-downgrade");
@@ -224,16 +222,11 @@ class UserController {
     async setCookies(req, res, next) {
         try {
             const { accessToken, refreshToken } = req.body;
-            console.log("===============================");
-            console.log("accessToken, ", accessToken);
-            console.log("refreshToken, ", refreshToken);
-            console.log("===============================");
             res.cookie("accessToken", accessToken, tokenOptions_1.accessTokenOptions);
             res.cookie("refreshToken", refreshToken, tokenOptions_1.refreshTokenOptions);
             res.status(200).json({ success: true });
         }
         catch (error) {
-            console.log("from the catch *************");
             (0, catchError_1.catchError)(error, next);
         }
     }

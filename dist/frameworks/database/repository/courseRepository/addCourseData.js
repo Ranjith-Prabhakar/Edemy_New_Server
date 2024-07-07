@@ -7,7 +7,6 @@ exports.addCourseData = void 0;
 const courseModel_1 = __importDefault(require("../../models/courseModel"));
 const addCourseData = async (courseData) => {
     try {
-        console.log("courseData engine", courseData);
         const result = await courseModel_1.default.findOneAndUpdate({
             instructor: courseData.instructor,
             submissionStatus: "work-in-progress",

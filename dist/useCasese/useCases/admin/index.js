@@ -25,30 +25,4 @@ var instructorRequests_1 = require("./instructorRequests");
 Object.defineProperty(exports, "instructorRequests", { enumerable: true, get: function () { return instructorRequests_1.instructorRequests; } });
 var getStatistics_1 = require("./getStatistics");
 Object.defineProperty(exports, "getStatistics", { enumerable: true, get: function () { return getStatistics_1.getStatistics; } });
-// import { approveOrRejectInstructor } from "./approveOrRejectInstructor";
-// import { getUsers } from "./getUsers";
-// import { getUser } from "./getUser";
-// import { freezUser } from "./freezUser";
-// import { getInstructors } from "./getInstructors";
-// import { addCategory } from "./addCategory";
-// import { getCategories } from "./getCategories";
-// import { freezCategory } from "./freezCategory";
-// import { unFreezCategory } from "./unFreezCategory";
-// import { unFreezUser } from "./unFreezUser";
-// import { instructorRequests } from "./instructorRequests";
-// import { getStatistics} from "./getStatistics";
-// export {
-//   approveOrRejectInstructor,
-//   getUsers,
-//   getUser,
-//   freezUser,
-//   getInstructors,
-//   addCategory,
-//   getCategories,
-//   freezCategory,
-//   unFreezCategory,
-//   unFreezUser,
-//   instructorRequests,
-//   getStatistics
-// };
 //# sourceMappingURL=index.js.map

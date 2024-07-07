@@ -1,12 +1,4 @@
 "use strict";
-// import { Next, Req } from "../../../frameworks/types/serverPackageTypes";
-// import { IConversationRepository } from "../../interface/repository/conversation";
-// import {
-//   IOnlineUsersResponse,
-//   TOnlineUsers,
-// } from "../../interface/request_And_Response/chat";
-// import { catchError } from "../../middlewares/catchError";
-// import { SocketClass } from "../../staticClassProperty/StaticClassProperty";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getOnlineUsers = void 0;
 const catchError_1 = require("../../middlewares/catchError");

@@ -15,6 +15,7 @@ const userRoute_1 = require("../routes/userRoute");
 const adminRoutes_1 = require("../routes/adminRoutes");
 const courseRoute_1 = require("../routes/courseRoute");
 const chatRoute_1 = require("../routes/chatRoute");
+const paymentService_1 = require("../../services/paymentService");
 exports.app = (0, express_1.default)();
 exports.app.use((0, cors_1.default)({
     origin: process.env.CLIENT,
@@ -23,6 +24,19 @@ exports.app.use((0, cors_1.default)({
     methods: ["GET", "PATCH", "PUT", "POST"],
     optionsSuccessStatus: 204,
 }));
+//webhook
+//webhook has to be placed before the request object going through any parsing because stripe methods need it as raw
+exports.app.post("/webhook", express_1.default.raw({ type: "application/json" }), async (req, res, next) => {
+    let paymentService = new paymentService_1.PaymentService();
+    const result = await paymentService.striptWebHook(req, next);
+    if (result && result.success) {
+        res.json({ received: true });
+    }
+    else {
+        // Handle other event types or errors
+        console.log("Webhook processed, but no action required");
+    }
+});
 exports.app.use((0, cookie_parser_1.default)());
 exports.app.use(express_1.default.json());
 exports.app.use(express_1.default.urlencoded({ extended: true }));

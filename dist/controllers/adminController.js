@@ -32,7 +32,6 @@ class AdminController {
     // *****************************************************************************************************************************
     async getUsers(req, res, next) {
         try {
-            console.log("inside getUsers adminController");
             const result = await this.adminUseCase.getUsers(req, next);
             res.status(200).json({
                 success: true,

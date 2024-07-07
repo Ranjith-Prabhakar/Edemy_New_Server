@@ -16,9 +16,7 @@ const paymentStatus = async (paymentRepository, userRepository, courseRepository
                 categoryRepository.updateCategoryPurchasecount(courseData.category),
             ]);
             if (newUserData && isPurchaseUpdated && isCategoryUpdated) {
-                console.log("useCase engine === 7");
                 await cloudSession.createUserSession(req.user?._id, newUserData);
-                console.log("courseId,participantId useCase engine", courseData.courseId, req.user?._id);
                 await conversationRepository.addParticipants(courseData.courseId, req.user?._id);
                 return {
                     success: true,

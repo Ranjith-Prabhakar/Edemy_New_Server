@@ -24,31 +24,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CourseUseCase = void 0;
-// import {
-//   getCourseInProgress,
-//   addCourseData,
-//   addFileToCloud,
-//   updateCourse,
-//   addModuleVideos,
-//   getCourses,
-//   getCoursesInRequest,
-//   getVideoPresignedUrl,
-//   approveOrRejectVideo,
-//   getCoursesForUser,
-//   getCategories,
-//   getVideoForUser,
-//   getVideoForVisitors,
-//   enrollCourse,
-//   paymentStatus,
-//   updateReviewAndRating,
-//   getSingleCourseReviewAndRating,
-//   getThumbnamilImagePresignedUrl,
-//   getUserEnrolledCourses,
-//   getCourseByCategory,
-//   getCourseForSearch,
-//   getInstructorTutorials,
-//   setVideoTrack,
-// } from "./course/index";
 const courseUseCaseEngine = __importStar(require("./course/index"));
 const catchError_1 = require("../middlewares/catchError");
 const StaticClassProperty_1 = require("../staticClassProperty/StaticClassProperty");

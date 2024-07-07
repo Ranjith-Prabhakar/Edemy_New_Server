@@ -18,7 +18,6 @@ const getCourseByCategory = async (category, pageNumber, frequency, sort, filter
                     .sort({ [filter]: sortValue })
                     .skip(start)
                     .limit(end);
-                // console.log("result ######", result);
                 return {
                     status: 200,
                     message: "couses have been fetched successfully",
@@ -48,7 +47,6 @@ const getCourseByCategory = async (category, pageNumber, frequency, sort, filter
                     .sort({ [filter]: sortValue })
                     .skip(start)
                     .limit(end);
-                // console.log("result ######", result);
                 return {
                     status: 200,
                     message: "couses have been fetched successfully",

@@ -8,9 +8,6 @@ const resendOtp = async (jwtToken, otpRepository, sendMailService, req, next) =>
         const otp = await otpRepository.findUser(decode.email);
         const name = decode;
         const sendMail = await sendMailService.sendEmailVerification(name?.name, otp?.email, otp?.otp);
-        console.log("decode", decode);
-        console.log("otp", otp);
-        console.log("sendMail", sendMail);
         return {
             success: sendMail.success,
             message: sendMail.success

@@ -8,7 +8,7 @@ const catchError_1 = require("../../middlewares/catchError");
 const errorHandler_1 = __importDefault(require("../../middlewares/errorHandler"));
 const enrollCourse = async (paymentService, paymentRepository, req, next) => {
     try {
-        const stripeGateWay = await paymentService.pay(req.body, req.user?.role);
+        const stripeGateWay = await paymentService.pay(req.body, req.user?.role, req.user?._id, req.body[0].courseId);
         if (stripeGateWay) {
             const result = await paymentRepository.createCollection(req.body[0], req.user?._id);
             if (result)

@@ -9,9 +9,7 @@ const addChat = async (messagesRepository, conversationRepository, req, next) =>
         if (authenticatedUser) {
             const messageRepoResult = await messagesRepository.addMessages(req.body.courseId, req.user?._id, req.body.message);
             if (messageRepoResult) {
-                console.log("inside add chat usecase engine messageRepoResult", messageRepoResult);
                 const conversationRepoResult = await conversationRepository.addMessage(req.body.courseId, req.user?._id, messageRepoResult._id);
-                console.log("inside add chat usecase engine conversationRepoResult", conversationRepoResult?.participants?.[0][0]);
                 const newConversationRepoResult = conversationRepoResult;
                 newConversationRepoResult.participants?.map((item) => {
                     StaticClassProperty_1.SocketClass.SocketUsers[item[0]]?.emit("fromServerCommunityChatNewChatMessage", messageRepoResult);

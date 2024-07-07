@@ -33,38 +33,4 @@ var getInstructorTutorials_1 = require("./getInstructorTutorials");
 Object.defineProperty(exports, "getInstructorTutorials", { enumerable: true, get: function () { return getInstructorTutorials_1.getInstructorTutorials; } });
 var monthlySaleAndRevenue_Statistics_1 = require("./monthlySaleAndRevenue_Statistics");
 Object.defineProperty(exports, "monthlySaleAndRevenue_Statistics", { enumerable: true, get: function () { return monthlySaleAndRevenue_Statistics_1.monthlySaleAndRevenue_Statistics; } });
-// import { getCourseInProgress } from "./getCourseInProgress";
-// import { addCourseData } from "./addCourseData";
-// import { updateCourse } from "./updateCourse";
-// import { addModuleVideos } from "./addModuleVideos";
-// import { findByName } from "./findByName";
-// import { getCourses } from "./getCourses";
-// import { getCoursesInRequest } from "./getCoursesInRequest";
-// import { approveOrRejectVideo } from "./approveOrRejectVideo";
-// import { getCoursesForUser } from "./getCoursesForUser";
-// import { isPreview } from "./isPreview";
-// import { updatePurchas } from "./updatePurchas";
-// import { getUserEnrolledCourses } from "./getUserEnrolledCourses";
-// import { getCourseByCategory } from "./getCourseByCategory";
-// import { getCourseForSearch } from "./getCourseForSearch";
-// import { getInstructorTutorials } from "./getInstructorTutorials";
-// import { monthlySaleAndRevenue_Statistics } from "./monthlySaleAndRevenue_Statistics";
-// export {
-//   getCourseInProgress,
-//   addCourseData,
-//   updateCourse,
-//   addModuleVideos,
-//   findByName,
-//   getCourses,
-//   getCoursesInRequest,
-//   approveOrRejectVideo,
-//   getCoursesForUser,
-//   isPreview,
-//   updatePurchas,
-//   getUserEnrolledCourses,
-//   getCourseByCategory,
-//   getCourseForSearch,
-//   getInstructorTutorials,
-//   monthlySaleAndRevenue_Statistics,
-// };
 //# sourceMappingURL=index.js.map

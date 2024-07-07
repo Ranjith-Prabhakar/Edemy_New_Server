@@ -17,22 +17,4 @@ var getAdmin_1 = require("./getAdmin");
 Object.defineProperty(exports, "getAdmin", { enumerable: true, get: function () { return getAdmin_1.getAdmin; } });
 var topTenInstructorAndNoOfCourses_Statistics_1 = require("./topTenInstructorAndNoOfCourses_Statistics");
 Object.defineProperty(exports, "topTenInstructorAndNoOfCourses_Statistics", { enumerable: true, get: function () { return topTenInstructorAndNoOfCourses_Statistics_1.topTenInstructorAndNoOfCourses_Statistics; } });
-// import { createUser } from "./createUser";
-// import { fidUserByEmail } from "./findUserbyEmail";
-// import { findAndUpdate } from "./findAndUpdate";
-// import { findByIdAndUpdate } from "./findByIdAndUpdate";
-// import { addEnrolledCourse } from "./addEnrolledCourse";
-// import { updateCourses } from "./updateCourses";
-// import { getAdmin } from "./getAdmin";
-// import { topTenInstructorAndNoOfCourses_Statistics } from "./topTenInstructorAndNoOfCourses_Statistics";
-// export {
-//   createUser,
-//   fidUserByEmail,
-//   findAndUpdate,
-//   findByIdAndUpdate,
-//   addEnrolledCourse,
-//   updateCourses,
-//   getAdmin,
-//   topTenInstructorAndNoOfCourses_Statistics,
-// };
 //# sourceMappingURL=index.js.map
