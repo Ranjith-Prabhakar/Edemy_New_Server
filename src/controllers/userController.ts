@@ -30,9 +30,7 @@ export class UserController {
         httpOnly: true,
         sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
         domain:
-          process.env.NODE_ENV === "production"
-            ? ".digi-world.online"
-            : undefined,
+          process.env.NODE_ENV === "production" ? ".edemy.shop" : undefined,
         path: "/",
         secure: true,
         expires: new Date(Date.now() + 30 * 60 * 1000),
