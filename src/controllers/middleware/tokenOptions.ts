@@ -20,7 +20,7 @@ interface ITokenOptions {
 const accessTokenProductionMode =
   process.env.NODE_ENV === "production" ? true : false;
 const domainOption =
-  process.env.NODE_ENV === "production" ? ".digi-world.online" : undefined;
+  process.env.NODE_ENV === "production" ? ".edemy.shop" : undefined;
 
 // options for cookies
 export const accessTokenOptions: ITokenOptions = {
